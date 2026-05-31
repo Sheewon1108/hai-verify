@@ -1,6 +1,6 @@
 "use client";
 
-import { APP_LOCALES, LOCALE_LABELS, type AppLocale } from "../lib/ui-locale";
+import { APP_LOCALES, LOCALE_LABELS } from "../lib/ui-locale";
 import { useLocale } from "./locale-provider";
 
 export function LangPicker({ className = "" }: { className?: string }) {

@@ -9,7 +9,7 @@ export function Hero() {
   return (
     <section className="relative overflow-hidden px-4 pb-16 pt-14 sm:px-6 sm:pb-20 sm:pt-20 lg:px-8">
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-[420px] bg-[radial-gradient(ellipse_75%_55%_at_50%_-10%,rgba(255,65,77,0.11),transparent)]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-[420px] bg-[radial-gradient(ellipse_75%_55%_at_50%_-10%,rgba(255,0,51,0.11),transparent)]"
         aria-hidden
       />
 
@@ -101,7 +101,7 @@ export function WorkflowSection() {
             <li
               key={item.step}
               className={[
-                "animate-fade-in-up group rounded-xl border border-white/[0.07] bg-surface p-5 transition-colors hover:border-white/[0.1] hover:bg-surface-elevated",
+                "animate-fade-in-up group flex min-h-[240px] flex-col rounded-xl border border-white/[0.07] bg-surface p-5 transition-colors hover:border-white/[0.1] hover:bg-surface-elevated",
                 ["stagger-1", "stagger-2", "stagger-3", "stagger-4"][i],
               ].join(" ")}
             >
@@ -128,7 +128,7 @@ export function CTASection() {
       <div className="mx-auto max-w-6xl">
         <div className="animate-fade-in-up relative overflow-hidden rounded-2xl border border-white/[0.08] bg-surface-elevated px-6 py-10 sm:px-10 sm:py-12">
           <div
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_80%_at_100%_0%,rgba(255,65,77,0.08),transparent)]"
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_80%_at_100%_0%,rgba(255,0,51,0.08),transparent)]"
             aria-hidden
           />
           <div className="relative max-w-xl">
@@ -140,15 +140,20 @@ export function CTASection() {
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-muted sm:text-base">{l.ctaDesc}</p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a
-                href="#demo"
-                className="inline-flex items-center justify-center rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground transition-opacity hover:opacity-90"
-              >
-                {l.ctaDemo}
-              </a>
+              <div className="flex flex-col">
+                <a
+                  href="#demo"
+                  className="inline-flex items-center justify-center rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground transition-all hover:scale-105 hover:opacity-90"
+                >
+                  {l.ctaDemo}
+                </a>
+                <p className="mt-3 text-center text-sm text-gray-400">
+                  Powered by HAI Verification • Monetized by XGOMA Execution
+                </p>
+              </div>
               <a
                 href="mailto:verify@hai.example"
-                className="inline-flex items-center justify-center rounded-lg border border-white/[0.1] px-5 py-2.5 text-sm text-white/85 transition-colors hover:bg-background/50"
+                className="inline-flex h-fit items-center justify-center rounded-lg border border-white/[0.1] px-5 py-2.5 text-sm text-white/85 transition-colors hover:bg-background/50"
               >
                 {l.ctaEnterprise}
               </a>

@@ -7,8 +7,11 @@
   --surface: #21213a;
   --surface-elevated: #2a2a45;
   --muted: #9898a8;
-  --accent: #ff414d;
+  --red-accent: #ff0033;
+  --accent: #ff0033;
   --accent-foreground: #ffffff;
+  --review-accent: #ff4d00;
+  --review-accent-hover: #ff6b1f;
 }
 
 @theme inline {
@@ -17,8 +20,11 @@
   --color-surface: var(--surface);
   --color-surface-elevated: var(--surface-elevated);
   --color-muted: var(--muted);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
+  --color-red-accent: #ff0033;
+  --color-accent: #ff0033;
+  --color-accent-foreground: #ffffff;
+  --color-review-accent: var(--review-accent);
+  --color-review-accent-hover: var(--review-accent-hover);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -57,11 +63,11 @@ button:not(:disabled) {
 }
 
 ::selection {
-  background: rgba(255, 65, 77, 0.28);
+  background: rgba(255, 0, 51, 0.28);
 }
 
 *:focus-visible {
-  outline: 2px solid rgba(255, 65, 77, 0.45);
+  outline: 2px solid rgba(255, 0, 51, 0.45);
   outline-offset: 2px;
 }
 

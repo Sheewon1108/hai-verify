@@ -2,7 +2,7 @@
 // Private & Confidential.
 // Unauthorized copying or distribution of this file is strictly prohibited.
 
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { parseRequestLocale, runVerification } from "@/app/lib/verification";
 import { jsonWithCors } from "@/app/lib/cors";
 

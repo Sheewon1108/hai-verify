@@ -197,13 +197,12 @@ export function StatusBanner({
 }
 
 export function DemoChrome({
-  isLive,
   scanId,
   enterpriseWorkspace,
   policy,
   liveEvaluation,
 }: {
-  isLive: boolean;
+  isLive?: boolean;
   scanId: string | null;
   enterpriseWorkspace: string;
   policy: string;
@@ -218,12 +217,10 @@ export function DemoChrome({
         <span className="hidden font-mono sm:inline">{policy}</span>
         {scanId ? <span className="font-mono">· {scanId}</span> : null}
       </div>
-      {isLive ? (
-        <span className="flex items-center gap-1.5 text-xs text-muted">
-          <span className="size-1.5 rounded-full bg-emerald-500 motion-safe:animate-pulse" />
-          {liveEvaluation}
-        </span>
-      ) : null}
+      <div className="flex items-center gap-1.5">
+        <div className="inline-block h-3 w-3 animate-pulse rounded-full bg-green-400" />
+        <span className="text-sm font-medium text-green-400">{liveEvaluation}</span>
+      </div>
     </div>
   );
 }

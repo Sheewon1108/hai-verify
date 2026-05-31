@@ -87,6 +87,7 @@ export type LandingCopy = {
   ctaTitle: string;
   ctaDesc: string;
   ctaDemo: string;
+  ctaPoweredBy: string;
   ctaEnterprise: string;
 };
 
@@ -101,7 +102,7 @@ export type UiCopy = {
 const COMMON: Record<AppLocale, CommonCopy> = {
   en: {
     createdBy: "Created by KARAM",
-    orderCta: "XGOMA Order",
+    orderCta: "Start XGOMA Session",
     nav: {
       origin: "Origin",
       workflow: "Workflow",
@@ -113,7 +114,7 @@ const COMMON: Record<AppLocale, CommonCopy> = {
   },
   ko: {
     createdBy: "Created by KARAM",
-    orderCta: "XGOMA 주문",
+    orderCta: "Start XGOMA Session",
     nav: {
       origin: "기원",
       workflow: "워크플로",
@@ -125,7 +126,7 @@ const COMMON: Record<AppLocale, CommonCopy> = {
   },
   ja: {
     createdBy: "Created by KARAM",
-    orderCta: "XGOMA注文",
+    orderCta: "Start XGOMA Session",
     nav: {
       origin: "起源",
       workflow: "ワークフロー",
@@ -137,7 +138,7 @@ const COMMON: Record<AppLocale, CommonCopy> = {
   },
   es: {
     createdBy: "Created by KARAM",
-    orderCta: "Pedido XGOMA",
+    orderCta: "Start XGOMA Session",
     nav: {
       origin: "Origen",
       workflow: "Flujo",
@@ -149,7 +150,7 @@ const COMMON: Record<AppLocale, CommonCopy> = {
   },
   fr: {
     createdBy: "Created by KARAM",
-    orderCta: "Commande XGOMA",
+    orderCta: "Start XGOMA Session",
     nav: {
       origin: "Origine",
       workflow: "Flux",
@@ -546,6 +547,7 @@ const LANDING: Record<AppLocale, LandingCopy> = {
     ctaTitle: "Bring Human Verified AI to your organization",
     ctaDesc: "Start with the interactive demo, then connect HAI Verify to your review queues, policy engine, and audit systems.",
     ctaDemo: "Try the live demo",
+    ctaPoweredBy: "Powered by HAI Verification • Monetized by XGOMA Execution",
     ctaEnterprise: "Request enterprise access",
   },
   ko: {
@@ -581,6 +583,7 @@ const LANDING: Record<AppLocale, LandingCopy> = {
     ctaTitle: "조직에 사람 검증 AI를 도입하세요",
     ctaDesc: "인터랙티브 데모로 시작한 뒤, 검토 대기열·정책 엔진·감사 시스템과 연결하세요.",
     ctaDemo: "라이브 데모 체험",
+    ctaPoweredBy: "Powered by HAI Verification • Monetized by XGOMA Execution",
     ctaEnterprise: "엔터프라이즈 문의",
   },
   ja: {
@@ -616,6 +619,7 @@ const LANDING: Record<AppLocale, LandingCopy> = {
     ctaTitle: "組織にHuman Verified AIを",
     ctaDesc: "インタラクティブデモから始め、レビューキュー・ポリシーエンジン・監査システムと接続。",
     ctaDemo: "ライブデモを試す",
+    ctaPoweredBy: "Powered by HAI Verification • Monetized by XGOMA Execution",
     ctaEnterprise: "エンタープライズお問い合わせ",
   },
   es: {
@@ -651,6 +655,7 @@ const LANDING: Record<AppLocale, LandingCopy> = {
     ctaTitle: "Lleve IA Human Verified a su organización",
     ctaDesc: "Empiece con la demo interactiva y conecte colas de revisión, motor de políticas y sistemas de auditoría.",
     ctaDemo: "Probar la demo en vivo",
+    ctaPoweredBy: "Powered by HAI Verification • Monetized by XGOMA Execution",
     ctaEnterprise: "Solicitar acceso empresarial",
   },
   fr: {
@@ -686,6 +691,7 @@ const LANDING: Record<AppLocale, LandingCopy> = {
     ctaTitle: "Apportez l'IA Human Verified à votre organisation",
     ctaDesc: "Commencez par la démo interactive, puis connectez files de revue, moteur de politiques et systèmes d'audit.",
     ctaDemo: "Essayer la démo live",
+    ctaPoweredBy: "Powered by HAI Verification • Monetized by XGOMA Execution",
     ctaEnterprise: "Demander un accès entreprise",
   },
 };

@@ -25,7 +25,12 @@ type VerificationDemoProps = {
   onScanIdChange?: (scanId: string | null) => void;
 };
 
-export function VerificationDemo({ onScanIdChange }: VerificationDemoProps) {
+export function VerificationDemo(props: VerificationDemoProps) {
+  const { locale } = useLocale();
+  return <VerificationDemoInner key={locale} {...props} />;
+}
+
+function VerificationDemoInner({ onScanIdChange }: VerificationDemoProps) {
   const { locale, t } = useLocale();
   const d = t.demo;
   const apiLocale = toVerifyApiLocale(locale);
@@ -33,12 +38,7 @@ export function VerificationDemo({ onScanIdChange }: VerificationDemoProps) {
   const { scanId, regenerate } = useScanId();
   const [lastEvaluated, setLastEvaluated] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
-  const [aiOutput, setAiOutput] = useState("");
-
-  useEffect(() => {
-    setAiOutput(d.defaultSample);
-    setLastEvaluated(null);
-  }, [d.defaultSample]);
+  const [aiOutput, setAiOutput] = useState(d.defaultSample);
 
   const analysis = useMemo(() => analyzeOutput(aiOutput, apiLocale), [aiOutput, apiLocale]);
   const tone = levelTone(analysis.level);
@@ -146,7 +146,7 @@ export function VerificationDemo({ onScanIdChange }: VerificationDemoProps) {
             <p className="mb-3 text-[11px] font-medium tracking-wider text-muted uppercase">
               {d.keyMetrics}
             </p>
-            <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
+            <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
               <MetricTile
                 label={d.hallucinationRisk}
                 value={analysis.hallucinationRisk}
@@ -333,7 +333,11 @@ export function VerificationDemo({ onScanIdChange }: VerificationDemoProps) {
                         </div>
                       </div>
                       <span
-                        className={`shrink-0 rounded-md px-2 py-0.5 font-mono text-[10px] uppercase ring-1 ${signalChip(s.state)}`}
+                        className={
+                          s.state === "review"
+                            ? "shrink-0 rounded-lg bg-[#FF4D00] px-4 py-1 text-xs font-medium text-white transition-colors hover:bg-[#FF6B1F]"
+                            : `shrink-0 rounded-md px-2 py-0.5 font-mono text-[10px] uppercase ring-1 ${signalChip(s.state)}`
+                        }
                       >
                         {d.signalStates[s.state]}
                       </span>

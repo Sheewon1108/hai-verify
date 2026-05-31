@@ -21,7 +21,8 @@ Open [http://localhost:3000](http://localhost:3000).
 | `npm run tunnel` | Public URL for Grok (localtunnel) |
 | `npm run build`| Production build         |
 | `npm run start`| Run production server    |
-| `npm run deploy`| Deploy to Cloudflare Workers (requires `wrangler login`) |
+| `npm run deploy`| Deploy to Cloudflare Workers (API token — see below) |
+| `npm run deploy:cf` | Same, loads `CLOUDFLARE_*` from `.env.local` (Windows) |
 | `npm run lint` | Run ESLint               |
 
 ## Public deploy (Grok / external access)
@@ -31,12 +32,26 @@ After deploy: `/order`, `/api/health`, `POST /api/verify`
 
 ### Option A — Cloudflare (repo default)
 
-```bash
-npx wrangler login
-npm run deploy
-```
+**Recommended: API token (no `wrangler login`, no OAuth timeout)**
 
-Or push to `main` with GitHub Actions secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`.
+1. [Create API token](https://dash.cloudflare.com/profile/api-tokens) → template **Edit Cloudflare Workers**
+2. Copy **Account ID** from [Cloudflare dashboard](https://dash.cloudflare.com/) (home → right sidebar)
+3. Add to `.env.local`:
+   ```
+   CLOUDFLARE_API_TOKEN=your_token
+   CLOUDFLARE_ACCOUNT_ID=your_account_id
+   ```
+4. Deploy:
+   ```bash
+   npm run deploy:cf
+   ```
+   Or set env vars and run `npm run deploy`.
+
+**Or: Git push (no local Cloudflare setup)**
+
+Push to `main` with GitHub repo secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID` → Actions deploys automatically.
+
+~~`npx wrangler login`~~ — OAuth popup often times out in IDE; use API token instead.
 
 ### Option B — Vercel
 

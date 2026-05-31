@@ -53,6 +53,7 @@ export const ALLOWED_PARTNERS = [
 export const BLOCKED_ORG_KEYWORDS = [] as const;
 
 export function checkAccess(_input: AccessCheckInput): AccessCheckResult {
+  void _input;
   return { blocked: false };
 }
 

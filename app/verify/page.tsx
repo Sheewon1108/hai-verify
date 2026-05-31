@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { SiteHeader } from "../components/site-header";
 import { useLocale } from "../components/locale-provider";
@@ -424,9 +425,9 @@ export default function VerifyPage() {
         ) : null}
 
         <p className="mt-8 text-center text-xs text-muted">
-          <a href="/" className="underline-offset-2 hover:text-white/80 hover:underline">
+          <Link href="/" className="underline-offset-2 hover:text-white/80 hover:underline">
             {v.backLanding}
-          </a>
+          </Link>
         </p>
       </main>
     </div>

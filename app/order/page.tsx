@@ -4,7 +4,9 @@
 
 "use client";
 
-import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useCallback, useState, useSyncExternalStore } from "react";
 import { SiteHeader } from "../components/site-header";
 import { useLocale } from "../components/locale-provider";
 import {
@@ -32,6 +34,17 @@ type VerifyError = { ok: false; error: string };
 
 type FlowPhase = "form" | "processing" | "checkout" | "report";
 
+type OrderReportSnapshot = {
+  verifyResult: VerifySuccess;
+  checkoutResult: MockCheckoutSuccess;
+  email: string;
+  planId: CheckoutPlanId;
+  orderId: string;
+};
+
+const REPORT_STORAGE_PREFIX = "hai-order-report:";
+const REPORT_STORE_EVENT = "hai-order-report";
+
 const PRICES: Record<CheckoutPlanId, string> = {
   starter: "$300",
   trust_pilot: "$1,500",
@@ -56,6 +69,43 @@ function RequiredMark() {
 function createOrderId(): string {
   const suffix = Date.now().toString(36).slice(-5).toUpperCase();
   return `XGOMA-${suffix}`;
+}
+
+function saveOrderReport(sessionId: string, snapshot: OrderReportSnapshot): void {
+  try {
+    sessionStorage.setItem(
+      `${REPORT_STORAGE_PREFIX}${sessionId}`,
+      JSON.stringify(snapshot),
+    );
+    window.dispatchEvent(new Event(REPORT_STORE_EVENT));
+  } catch {
+    // sessionStorage unavailable — in-page report still works
+  }
+}
+
+function loadOrderReport(sessionId: string): OrderReportSnapshot | null {
+  try {
+    const raw = sessionStorage.getItem(`${REPORT_STORAGE_PREFIX}${sessionId}`);
+    if (!raw) return null;
+    return JSON.parse(raw) as OrderReportSnapshot;
+  } catch {
+    return null;
+  }
+}
+
+function subscribeOrderReport(onStoreChange: () => void) {
+  window.addEventListener(REPORT_STORE_EVENT, onStoreChange);
+  window.addEventListener("popstate", onStoreChange);
+  return () => {
+    window.removeEventListener(REPORT_STORE_EVENT, onStoreChange);
+    window.removeEventListener("popstate", onStoreChange);
+  };
+}
+
+function getOrderReportSnapshot(): OrderReportSnapshot | null {
+  const receipt = new URLSearchParams(window.location.search).get("receipt");
+  if (!receipt) return null;
+  return loadOrderReport(receipt);
 }
 
 function trustBarTone(trustIndex: number): string {
@@ -203,12 +253,12 @@ function StarterFoundingCard({
       onClick={onSelect}
       className={`group relative overflow-hidden rounded-2xl border px-6 py-6 text-left transition-all duration-300 ${
         selected
-          ? "border-accent/50 bg-accent/[0.08] ring-1 ring-accent/30 shadow-[0_0_48px_rgba(255,65,77,0.1)]"
+          ? "border-accent/50 bg-accent/[0.08] ring-1 ring-accent/30 shadow-[0_0_48px_rgba(255,0,51,0.1)]"
           : "border-white/[0.08] bg-surface hover:border-white/[0.16] hover:bg-surface-elevated/80"
       }`}
     >
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-[radial-gradient(ellipse_at_top,rgba(255,65,77,0.14),transparent_70%)]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-[radial-gradient(ellipse_at_top,rgba(255,0,51,0.14),transparent_70%)]"
         aria-hidden
       />
       <div className="relative">
@@ -327,16 +377,45 @@ function TrustPilotCard({
 }
 
 export default function OrderPage() {
+  const router = useRouter();
   const { locale, order: t } = useLocale();
+  const restoredReport = useSyncExternalStore(
+    subscribeOrderReport,
+    getOrderReportSnapshot,
+    () => null,
+  );
   const [content, setContent] = useState("");
-  const [email, setEmail] = useState("");
-  const [planId, setPlanId] = useState<CheckoutPlanId>("starter");
-  const [phase, setPhase] = useState<FlowPhase>("form");
+  const [email, setEmail] = useState(restoredReport?.email ?? "");
+  const [planId, setPlanId] = useState<CheckoutPlanId>(restoredReport?.planId ?? "starter");
+  const [phase, setPhase] = useState<FlowPhase>(restoredReport ? "report" : "form");
   const [error, setError] = useState<string | null>(null);
-  const [verifyResult, setVerifyResult] = useState<VerifySuccess | null>(null);
-  const [checkoutResult, setCheckoutResult] = useState<MockCheckoutSuccess | null>(null);
-  const [orderId, setOrderId] = useState("");
+  const [verifyResult, setVerifyResult] = useState<VerifySuccess | null>(
+    restoredReport?.verifyResult ?? null,
+  );
+  const [checkoutResult, setCheckoutResult] = useState<MockCheckoutSuccess | null>(
+    restoredReport?.checkoutResult ?? null,
+  );
+  const [orderId, setOrderId] = useState(restoredReport?.orderId ?? "");
   const [checkoutConfirming, setCheckoutConfirming] = useState(false);
+
+  const activeVerifyResult = verifyResult ?? restoredReport?.verifyResult ?? null;
+  const activeCheckoutResult = checkoutResult ?? restoredReport?.checkoutResult ?? null;
+  const activeEmail = email || restoredReport?.email || "";
+  const activePlanId = planId;
+  const activeOrderId = orderId || restoredReport?.orderId || "";
+  const showReport =
+    (phase === "report" || Boolean(restoredReport)) &&
+    activeVerifyResult &&
+    activeCheckoutResult;
+
+  const syncRestoredReport = useCallback((snapshot: OrderReportSnapshot) => {
+    setVerifyResult(snapshot.verifyResult);
+    setCheckoutResult(snapshot.checkoutResult);
+    setEmail(snapshot.email);
+    setPlanId(snapshot.planId);
+    setOrderId(snapshot.orderId);
+    setPhase("report");
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -394,8 +473,21 @@ export default function OrderPage() {
         setCheckoutConfirming(false);
         return;
       }
-      setCheckoutResult(data);
-      setPhase("report");
+      if (!verifyResult) {
+        setError(t.errCheckoutFailed);
+        setCheckoutConfirming(false);
+        return;
+      }
+      const snapshot: OrderReportSnapshot = {
+        verifyResult,
+        checkoutResult: data,
+        email: email.trim(),
+        planId,
+        orderId,
+      };
+      saveOrderReport(data.checkoutSessionId, snapshot);
+      syncRestoredReport(snapshot);
+      router.replace(data.receiptUrl, { scroll: false });
     } catch {
       setError(t.errCheckout);
     } finally {
@@ -412,6 +504,7 @@ export default function OrderPage() {
     setVerifyResult(null);
     setCheckoutResult(null);
     setOrderId("");
+    router.replace("/order", { scroll: false });
   }
 
   function handleSelectStarter() {
@@ -425,7 +518,7 @@ export default function OrderPage() {
   return (
     <div className="relative min-h-full flex-1 bg-background">
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-[radial-gradient(ellipse_at_top,rgba(255,65,77,0.07),transparent_70%)]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-[radial-gradient(ellipse_at_top,rgba(255,0,51,0.07),transparent_70%)]"
         aria-hidden
       />
       <SiteHeader />
@@ -457,19 +550,19 @@ export default function OrderPage() {
           </p>
         </header>
 
-        {phase === "report" && verifyResult && checkoutResult ? (
+        {showReport ? (
           <section className="space-y-6" aria-live="polite">
             <div className="rounded-2xl border border-emerald-500/20 bg-surface-elevated px-6 py-5">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
                   <p className="text-sm font-medium text-emerald-300">{t.paymentConfirmed}</p>
                   <p className="mt-1 text-xs text-muted">
-                    {PRICES[planId]} · {t.offers[planId].title} · {t.checkoutStripe}
+                    {PRICES[activePlanId]} · {t.offers[activePlanId].title} · {t.checkoutStripe}
                   </p>
                 </div>
                 <div className="text-right font-mono text-[10px] text-muted">
-                  <p>{checkoutResult.checkoutSessionId}</p>
-                  <p className="mt-0.5">{orderId}</p>
+                  <p>{activeCheckoutResult.checkoutSessionId}</p>
+                  <p className="mt-0.5">{activeOrderId}</p>
                 </div>
               </div>
             </div>
@@ -479,12 +572,12 @@ export default function OrderPage() {
                 <div>
                   <h2 className="text-sm font-medium text-white/92">{t.reportTitle}</h2>
                   <p className="mt-1 text-[11px] text-muted">
-                    {t.reportMeta.replace("{email}", email.trim())}
+                    {t.reportMeta.replace("{email}", activeEmail.trim())}
                   </p>
                 </div>
                 <span className="rounded-md border border-accent/25 bg-accent/10 px-2.5 py-1 text-[11px] text-accent">
-                  {t.paid} · {PRICES[planId]}
-                  {planId === "starter" ? ` · ${t.certificateSeal}` : ""}
+                  {t.paid} · {PRICES[activePlanId]}
+                  {activePlanId === "starter" ? ` · ${t.certificateSeal}` : ""}
                 </span>
               </div>
 
@@ -494,21 +587,21 @@ export default function OrderPage() {
                     {t.trustIndex}
                   </p>
                   <p className="text-2xl font-normal tabular-nums tracking-tight text-white/95">
-                    {verifyResult.trustIndex}
+                    {activeVerifyResult.trustIndex}
                     <span className="ml-1 text-sm text-muted">/ 100</span>
                   </p>
                 </div>
                 <div
                   className="mt-3 h-2 w-full overflow-hidden rounded-full bg-white/[0.06]"
                   role="progressbar"
-                  aria-valuenow={verifyResult.trustIndex}
+                  aria-valuenow={activeVerifyResult.trustIndex}
                   aria-valuemin={0}
                   aria-valuemax={100}
                   aria-label={t.trustIndex}
                 >
                   <div
-                    className={`h-full rounded-full transition-[width] duration-500 ease-out ${trustBarTone(verifyResult.trustIndex)}`}
-                    style={{ width: `${verifyResult.trustIndex}%` }}
+                    className={`h-full rounded-full transition-[width] duration-500 ease-out ${trustBarTone(activeVerifyResult.trustIndex)}`}
+                    style={{ width: `${activeVerifyResult.trustIndex}%` }}
                   />
                 </div>
               </div>
@@ -519,21 +612,21 @@ export default function OrderPage() {
                     {t.hallucinationRisk}
                   </p>
                   <p className="text-lg tabular-nums text-white/95">
-                    {verifyResult.hallucinationRisk}
+                    {activeVerifyResult.hallucinationRisk}
                     <span className="ml-1 text-sm text-muted">/ 100</span>
                   </p>
                 </div>
                 <div
                   className="mt-2.5 h-1.5 w-full overflow-hidden rounded-full bg-white/[0.06]"
                   role="progressbar"
-                  aria-valuenow={verifyResult.hallucinationRisk}
+                  aria-valuenow={activeVerifyResult.hallucinationRisk}
                   aria-valuemin={0}
                   aria-valuemax={100}
                   aria-label={t.hallucinationRisk}
                 >
                   <div
                     className="h-full rounded-full bg-orange-500/90 transition-[width] duration-500 ease-out"
-                    style={{ width: `${verifyResult.hallucinationRisk}%` }}
+                    style={{ width: `${activeVerifyResult.hallucinationRisk}%` }}
                   />
                 </div>
               </div>
@@ -542,9 +635,9 @@ export default function OrderPage() {
                 <p className="text-[10px] font-medium uppercase tracking-wider text-muted">
                   {t.riskFlags}
                 </p>
-                {verifyResult.riskFlags.length > 0 ? (
+                {activeVerifyResult.riskFlags.length > 0 ? (
                   <ul className="mt-2 flex flex-wrap gap-2">
-                    {formatRiskFlagsForAppLocale(verifyResult.riskFlags, locale).map(
+                    {formatRiskFlagsForAppLocale(activeVerifyResult.riskFlags, locale).map(
                       ({ code, label }) => (
                         <li
                           key={code}
@@ -568,7 +661,7 @@ export default function OrderPage() {
                     {t.summary}
                   </p>
                   <p className="mt-2 text-[15px] leading-relaxed text-white/90">
-                    {verifyResult.summary}
+                    {activeVerifyResult.summary}
                   </p>
                 </div>
                 <div className="rounded-xl border border-accent/15 bg-accent/[0.04] px-4 py-3.5">
@@ -576,7 +669,7 @@ export default function OrderPage() {
                     {t.nextStep}
                   </p>
                   <p className="mt-2 leading-relaxed text-white/90">
-                    {verifyResult.recommendedNextStep}
+                    {activeVerifyResult.recommendedNextStep}
                   </p>
                 </div>
               </div>
@@ -594,7 +687,7 @@ export default function OrderPage() {
               {t.submitAnother}
             </button>
           </section>
-        ) : phase !== "report" ? (
+        ) : !showReport ? (
           <div className="grid gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:gap-12 lg:items-start">
             <fieldset className="animate-fade-in-up stagger-1 space-y-4">
               <legend className="text-sm font-medium text-white/90">{t.selectProduct}</legend>
@@ -668,7 +761,7 @@ export default function OrderPage() {
                   <button
                     type="submit"
                     disabled={phase === "processing" || phase === "checkout"}
-                    className="w-full rounded-lg bg-accent px-6 py-3.5 text-sm font-medium text-accent-foreground shadow-[0_4px_24px_rgba(255,65,77,0.22)] transition-opacity hover:opacity-90 disabled:opacity-50"
+                    className="w-full rounded-lg bg-accent px-6 py-3.5 text-sm font-medium text-accent-foreground shadow-[0_4px_24px_rgba(255,0,51,0.22)] transition-all hover:scale-[1.02] hover:opacity-90 disabled:opacity-50"
                   >
                     {planId === "starter" ? `${t.foundingStarter.cta} →` : t.submit} ·{" "}
                     {PRICES[planId]}
@@ -696,9 +789,9 @@ export default function OrderPage() {
         </aside>
 
         <p className="mt-8 text-center text-xs text-muted">
-          <a href="/" className="underline-offset-2 hover:text-white/80 hover:underline">
+          <Link href="/" className="underline-offset-2 hover:text-white/80 hover:underline">
             {t.backLanding}
-          </a>
+          </Link>
         </p>
       </main>
     </div>
