@@ -1,10 +1,15 @@
 "use client";
 
+import { LangPicker } from "./lang-picker";
+import { useLocale } from "./locale-provider";
+
 export function SiteHeader() {
+  const { t } = useLocale();
+
   return (
     <header className="sticky top-0 z-30 border-b border-white/[0.06] bg-background/80 backdrop-blur-xl">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-        <a href="#" className="flex items-center gap-2.5">
+        <a href="/" className="flex items-center gap-2.5">
           <span className="flex size-8 items-center justify-center rounded-lg bg-accent/12 ring-1 ring-accent/20">
             <span className="text-[10px] font-semibold tracking-tight text-accent">HAI</span>
           </span>
@@ -12,23 +17,38 @@ export function SiteHeader() {
         </a>
 
         <nav className="hidden items-center gap-6 text-sm text-muted md:flex" aria-label="Main">
-          <a href="#workflow" className="transition-colors hover:text-white/90">
-            Workflow
+          <a href="/#origin" className="transition-colors hover:text-white/90">
+            {t.common.nav.origin}
           </a>
-          <a href="#demo" className="transition-colors hover:text-white/90">
-            Demo
+          <a href="/#workflow" className="transition-colors hover:text-white/90">
+            {t.common.nav.workflow}
           </a>
-          <a href="#contact" className="transition-colors hover:text-white/90">
-            Contact
+          <a href="/verify" className="transition-colors hover:text-white/90">
+            {t.common.nav.verify}
+          </a>
+          <a href="/order" className="transition-colors hover:text-white/90">
+            {t.common.nav.order}
+          </a>
+          <a href="/#demo" className="transition-colors hover:text-white/90">
+            {t.common.nav.demo}
+          </a>
+          <a href="/#contact" className="transition-colors hover:text-white/90">
+            {t.common.nav.contact}
           </a>
         </nav>
 
-        <a
-          href="#demo"
-          className="rounded-lg bg-accent px-3.5 py-2 text-xs font-medium text-[#0b0c0e] transition-opacity hover:opacity-90"
-        >
-          Try demo
-        </a>
+        <div className="flex flex-col items-end gap-1">
+          <div className="flex items-center gap-2.5 sm:gap-4">
+            <LangPicker />
+            <a
+              href="/order"
+              className="rounded-lg bg-accent px-3.5 py-2 text-xs font-medium text-accent-foreground transition-opacity hover:opacity-90"
+            >
+              {t.common.orderCta}
+            </a>
+          </div>
+          <p className="text-[10px] tracking-wide text-white/35">{t.common.createdBy}</p>
+        </div>
       </div>
     </header>
   );

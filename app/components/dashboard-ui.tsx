@@ -108,41 +108,60 @@ export function MetricTile({
   );
 }
 
+export type StatusBannerCopy = {
+  idleLabel: string;
+  idleDesc: string;
+  clearedLabel: string;
+  reviewLabel: string;
+  blockedLabel: string;
+  trustBadge: string;
+  riskBadge: string;
+};
+
 export function StatusBanner({
   status,
-  level,
+  levelLabel,
   signalSummary,
   trustIndex,
+  copy,
 }: {
   status: OverallStatus;
-  level: RiskLevel;
+  levelLabel: string;
   signalSummary: string;
   trustIndex: number;
+  copy: StatusBannerCopy;
 }) {
+  const labels = {
+    idle: copy.idleLabel,
+    cleared: copy.clearedLabel,
+    review: copy.reviewLabel,
+    blocked: copy.blockedLabel,
+  };
+
   const config = {
     idle: {
-      label: "Awaiting input",
-      desc: "Paste AI output to begin verification.",
+      label: labels.idle,
+      desc: copy.idleDesc,
       dot: "bg-muted",
       accent: "border-l-white/20",
       ring: "ring-white/10",
     },
     cleared: {
-      label: "Verification passed",
+      label: labels.cleared,
       desc: signalSummary,
       dot: "bg-emerald-500",
       accent: "border-l-emerald-500/60",
       ring: "ring-emerald-500/20",
     },
     review: {
-      label: "Human review required",
+      label: labels.review,
       desc: signalSummary,
       dot: "bg-amber-500",
       accent: "border-l-amber-500/60",
       ring: "ring-amber-500/20",
     },
     blocked: {
-      label: "High-risk output",
+      label: labels.blocked,
       desc: signalSummary,
       dot: "bg-red-500",
       accent: "border-l-red-500/60",
@@ -165,10 +184,10 @@ export function StatusBanner({
         {status !== "idle" ? (
           <>
             <span className="rounded-md bg-background/80 px-2.5 py-1 font-mono text-[11px] text-muted">
-              Trust · {trustIndex}
+              {copy.trustBadge} · {trustIndex}
             </span>
             <span className="rounded-md bg-background/80 px-2.5 py-1 font-mono text-[11px] text-muted">
-              Risk · {level}
+              {copy.riskBadge} · {levelLabel}
             </span>
           </>
         ) : null}
@@ -180,21 +199,29 @@ export function StatusBanner({
 export function DemoChrome({
   isLive,
   scanId,
+  enterpriseWorkspace,
+  policy,
+  liveEvaluation,
 }: {
   isLive: boolean;
   scanId: string | null;
+  enterpriseWorkspace: string;
+  policy: string;
+  liveEvaluation: string;
 }) {
   return (
     <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.06] pb-4">
       <div className="flex flex-wrap items-center gap-2 text-[11px] text-muted">
-        <span className="rounded-md border border-white/[0.07] bg-surface px-2 py-1">Enterprise workspace</span>
-        <span className="hidden font-mono sm:inline">Policy HAI-VERIFY-01</span>
+        <span className="rounded-md border border-white/[0.07] bg-surface px-2 py-1">
+          {enterpriseWorkspace}
+        </span>
+        <span className="hidden font-mono sm:inline">{policy}</span>
         {scanId ? <span className="font-mono">· {scanId}</span> : null}
       </div>
       {isLive ? (
         <span className="flex items-center gap-1.5 text-xs text-muted">
           <span className="size-1.5 rounded-full bg-emerald-500 motion-safe:animate-pulse" />
-          Live evaluation
+          {liveEvaluation}
         </span>
       ) : null}
     </div>

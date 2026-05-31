@@ -28,3 +28,14 @@ Open [http://localhost:3000](http://localhost:3000).
 - React 19
 - Tailwind CSS 4
 - TypeScript
+
+## Planning (mock phase)
+
+Product and API specs — **no live integrations yet**:
+
+| Folder | Contents |
+|--------|----------|
+| [`api-plan/`](./api-plan/) | `POST /api/verify`, `/api/audit-report`, `/api/intake` |
+| [`cli-plan/`](./cli-plan/) | `hai-verify` CLI commands and workflows |
+| [`karam-api/`](./karam-api/) | KARAM API brand, Idea API, versioning |
+| [`revenue-system/`](./revenue-system/) | $300 / $1,500 / $5,000/mo sales flows (mock) |

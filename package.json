@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "dev": "next dev --hostname 0.0.0.0",
+    "dev:local": "next dev",
+    "tunnel": "npx --yes localtunnel --port 3000",
     "build": "next build",
-    "dev": "next dev",
     "start": "next start",
     "lint": "eslint",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
@@ -15,6 +17,7 @@
   "dependencies": {
     "@opennextjs/cloudflare": "^1.19.11",
     "next": "16.2.6",
+    "openai": "^6.39.1",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },

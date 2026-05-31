@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HAI Verify — API Access Control Policy</title>
+<style>
+  @page { size: A4; margin: 18mm 18mm 16mm 18mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "Segoe UI", sans-serif;
+    font-size: 11px;
+    color: #111;
+    background: #fff;
+    line-height: 1.5;
+  }
+
+  /* ── Header ── */
+  .page-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 2px solid #111;
+    padding-bottom: 8px;
+    margin-bottom: 14px;
+  }
+  .page-header h1 { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
+  .page-header .meta { font-size: 10px; color: #555; text-align: right; line-height: 1.6; }
+  .badge {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 99px;
+    font-size: 10px;
+    font-weight: 600;
+    background: #d1fae5;
+    color: #065f46;
+    border: 1px solid #6ee7b7;
+    vertical-align: middle;
+    margin-left: 8px;
+  }
+
+  /* ── Summary bar ── */
+  .summary-bar {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-left: 4px solid #2563eb;
+    border-radius: 5px;
+    padding: 8px 12px;
+    margin-bottom: 14px;
+    font-size: 10.5px;
+    color: #1e3a5f;
+  }
+  .summary-bar strong { color: #1d4ed8; }
+
+  /* ── Stats strip ── */
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+  .stat-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 10px 14px;
+  }
+  .stat-card .val { font-size: 22px; font-weight: 700; color: #111; line-height: 1.2; }
+  .stat-card .lbl { font-size: 9.5px; color: #6b7280; margin-top: 2px; }
+  .stat-card .sub { font-size: 9px; color: #9ca3af; margin-top: 1px; }
+
+  /* ── Two-column layout ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px; }
+
+  /* ── Section heading ── */
+  h2 { font-size: 12px; font-weight: 700; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; color: #374151; }
+
+  /* ── Callout ── */
+  .callout {
+    border-radius: 5px;
+    padding: 7px 10px;
+    font-size: 10px;
+    margin-bottom: 8px;
+  }
+  .callout strong { display: block; margin-bottom: 2px; }
+  .callout.red  { background:#fef2f2; border:1px solid #fca5a5; border-left:3px solid #dc2626; color:#7f1d1d; }
+  .callout.red strong { color:#dc2626; }
+  .callout.yellow { background:#fffbeb; border:1px solid #fcd34d; border-left:3px solid #d97706; color:#78350f; }
+  .callout.yellow strong { color:#b45309; }
+  .callout.green { background:#f0fdf4; border:1px solid #86efac; border-left:3px solid #16a34a; color:#14532d; }
+  .callout.green strong { color:#15803d; }
+
+  /* ── Tables ── */
+  table { width: 100%; border-collapse: collapse; font-size: 10px; margin-bottom: 8px; }
+  th {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    padding: 5px 8px;
+    text-align: left;
+    font-weight: 600;
+    color: #374151;
+    font-size: 9.5px;
+  }
+  td { border: 1px solid #e5e7eb; padding: 5px 8px; color: #111; vertical-align: top; }
+  tr.danger td { background: #fef9f9; }
+  tr.success td { background: #f9fef9; }
+  tr:nth-child(even).danger td { background: #fef2f2; }
+  tr:nth-child(even).success td { background: #f0fdf4; }
+  code { font-family: "SF Mono", Consolas, monospace; font-size: 9.5px; background:#f3f4f6; padding: 1px 4px; border-radius: 3px; }
+
+  /* ── Flow table ── */
+  .step-num {
+    display: inline-block;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: #111;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 18px;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    border-top: 1px solid #e5e7eb;
+    padding-top: 7px;
+    font-size: 9px;
+    color: #9ca3af;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ PAGE HEADER ══ -->
+<div class="page-header">
+  <div>
+    <h1>HAI Verify — API Access Control Policy <span class="badge">Live</span></h1>
+  </div>
+  <div class="meta">
+    Effective: May 30, 2026<br>
+    File: <code>app/lib/access-control.ts</code>
+  </div>
+</div>
+
+<!-- ══ SUMMARY ══ -->
+<div class="summary-bar">
+  <strong>한 줄 요약</strong>
+  MVP에서는 <strong>모든 트래픽 허용</strong> — API·랜딩 차단 없음. 검증은 <strong>auto</strong> 모드(결과만).
+  Org/geo 차단은 추후 Cloudflare WAF에서 적용 예정.
+</div>
+
+<!-- ══ STATS ══ -->
+<div class="stats">
+  <div class="stat-card">
+    <div class="val">Deferred</div>
+    <div class="lbl">KR · TW geo-block</div>
+    <div class="sub">Cloudflare WAF — not active in MVP</div>
+  </div>
+  <div class="stat-card">
+    <div class="val">8</div>
+    <div class="lbl">NC 차단 패턴 수</div>
+    <div class="sub">User-Agent + Referer 기반</div>
+  </div>
+  <div class="stat-card">
+    <div class="val">7</div>
+    <div class="lbl">허용 AI 파트너 (reserved)</div>
+    <div class="sub">Cloudflare WAF — deferred</div>
+  </div>
+</div>
+
+<!-- ══ TWO-COLUMN ══ -->
+<div class="two-col">
+
+  <!-- LEFT: BLOCK -->
+  <div>
+    <h2>차단 목록</h2>
+    <div class="callout red">
+      <strong>NC / NCSoft org-block — deferred (MVP open)</strong>
+      User-Agent 또는 Referer 헤더 매칭 시 HTTP 403 반환.
+    </div>
+    <table>
+      <thead><tr><th>패턴</th><th>헤더 타입</th></tr></thead>
+      <tbody>
+        <tr class="danger"><td><code>ncsoft</code>, <code>nc-security</code>, <code>ncsec</code></td><td>User-Agent</td></tr>
+        <tr class="danger"><td><code>nc_crawler</code>, <code>ncspider</code>, <code>nc bot</code></td><td>User-Agent</td></tr>
+        <tr class="danger"><td><code>shinseunghoon</code>, <code>ssh-crawler</code></td><td>User-Agent</td></tr>
+        <tr class="danger"><td><code>ncsoft.com</code></td><td>Referer 도메인</td></tr>
+        <tr class="danger"><td><code>nc.com.tw</code> (대만)</td><td>Referer 도메인</td></tr>
+        <tr class="danger"><td><code>ncsecurity.co.kr</code></td><td>Referer 도메인</td></tr>
+        <tr class="danger"><td><code>plaync.com</code></td><td>Referer 도메인</td></tr>
+      </tbody>
+    </table>
+    <div class="callout yellow">
+      <strong>KR / TW geo-block — deferred / not active</strong>
+      MVP에서는 KR·TW 트래픽을 차단하지 않습니다. 실 사용자 유입 후 Cloudflare WAF에서 geo 규칙 적용 예정.
+    </div>
+  </div>
+
+  <!-- RIGHT: ALLOW -->
+  <div>
+    <h2>허용 목록</h2>
+    <div class="callout green">
+      <strong>신뢰 AI 파트너 — reserved for Cloudflare WAF</strong>
+      MVP API에서는 enforce하지 않음. 추후 WAF allowlist로 적용 예정.
+    </div>
+    <table>
+      <thead><tr><th>파트너</th><th>매칭 조건</th></tr></thead>
+      <tbody>
+        <tr class="success"><td>OpenAI / ChatGPT</td><td><code>openai</code>, <code>chatgpt</code>, <code>gpt-*</code> · <code>openai.com</code></td></tr>
+        <tr class="success"><td>xAI / Grok</td><td><code>xai</code>, <code>grok</code> · <code>x.ai</code>, <code>grok.x.ai</code></td></tr>
+        <tr class="success"><td>Meta / LLaMA</td><td><code>meta.*bot</code>, <code>llama</code> · <code>meta.com</code></td></tr>
+        <tr class="success"><td>Google / Gemini / DeepMind</td><td><code>googlebot</code>, <code>gemini</code>, <code>deepmind</code> · <code>google.com</code></td></tr>
+        <tr class="success"><td>Discord</td><td><code>discordbot</code> · <code>discord.com</code></td></tr>
+      </tbody>
+    </table>
+    <div class="callout green">
+      <strong>일반 트래픽 (MVP)</strong>
+      NC 차단 패턴 미해당 → 기본 허용. KR/TW 포함 모든 지역 허용.
+    </div>
+  </div>
+</div>
+
+<!-- ══ HOW IT RUNS ══ -->
+<h2>차단 로직 실행 순서</h2>
+<table>
+  <thead>
+    <tr>
+      <th style="width:36px">단계</th>
+      <th>체크 내용</th>
+      <th>매칭 시 동작</th>
+      <th>오류 코드</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="danger">
+      <td><span class="step-num">1</span></td>
+      <td>NC org-block (deferred)</td>
+      <td>Not enforced in MVP — all traffic allowed</td>
+      <td><code>BLOCKED_NC_SCRAPER</code> (future)</td>
+    </tr>
+    <tr class="success">
+      <td><span class="step-num" style="background:#15803d">2</span></td>
+      <td>그 외 모든 트래픽 (KR/TW 포함)</td>
+      <td>허용 — MVP 기본 통과</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td><span class="step-num" style="background:#a16207">3</span></td>
+      <td>KR / TW geo-block (deferred)</td>
+      <td>Cloudflare WAF — not active in MVP</td>
+      <td><code>BLOCKED_COUNTRY</code> (future)</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ══ FOOTER ══ -->
+<div class="footer">
+  <span>HAI Verify &nbsp;·&nbsp; Internal use only</span>
+  <span>Geo headers (WAF future): <code>x-vercel-ip-country</code> · <code>cf-ipcountry</code> · <code>x-country-code</code> · <code>x-geo-country</code></span>
+</div>
+
+</body>
+</html>
