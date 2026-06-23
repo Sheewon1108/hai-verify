@@ -4,22 +4,41 @@ from datetime import datetime
 class XGOMAOrchestrator:
     def __init__(self):
         self.accumulated_payout = 0.0
+        self.sales = []
 
-    def create_payment_link(self, amount_usd: int, user_id: str, service_name: str):
-        mock_session_id = f"cs_test_{int(datetime.now().timestamp())}"
-        self.accumulated_payout += amount_usd * 0.95
+    def sell_pdf_guide(self, user_id: str):
+        amount = 9.9
+        self.accumulated_payout += amount * 0.95
+        self.sales.append({"type": "PDF", "amount": amount, "user": user_id})
         
         return {
             "status": "success",
-            "checkout_url": f"https://hai.xgoma.com/pay/{mock_session_id}",
-            "session_id": mock_session_id,
-            "amount": amount_usd,
-            "net_to_karam": round(amount_usd * 0.95, 2),
-            "service": service_name,
-            "message": "테스트 모드입니다. 실제 결제는 나중에 Stripe 연결"
+            "product": "Karam NC Purple Removal Guide",
+            "price": amount,
+            "net": round(amount * 0.95, 2),
+            "download_link": "https://hai.xgoma.com/download/nc-guide.pdf",
+            "message": "PDF 구매 완료. 바로 다운로드 가능"
+        }
+
+    def create_service_payment(self, amount: int, user_id: str, service: str):
+        self.accumulated_payout += amount * 0.95
+        self.sales.append({"type": "Service", "amount": amount, "user": user_id})
+        
+        return {
+            "status": "success",
+            "service": service,
+            "price": amount,
+            "net": round(amount * 0.95, 2),
+            "message": "1:1 서비스 결제 완료. Calendly 링크로 이동"
         }
 
 if __name__ == "__main__":
     orch = XGOMAOrchestrator()
-    result = orch.create_payment_link(97, "karam", "NC Purple Removal Service")
-    print(result)
+    
+    print("=== PDF 판매 테스트 ===")
+    print(orch.sell_pdf_guide("karam_test"))
+    
+    print("\n=== 1:1 서비스 테스트 ===")
+    print(orch.create_service_payment(97, "karam_test", "NC Remote Clean"))
+    
+    print(f"\n총 누적 수익: ${round(orch.accumulated_payout, 2)}")
