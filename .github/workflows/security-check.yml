@@ -94,7 +94,7 @@ jobs:
           echo "=== NPM VULNERABILITY SCAN ==="
           npm audit --audit-level=high || echo "⚠️ High severity vulnerabilities found — review required"
 
-      # 6. 최종 보고
+      # 6. 최종 보고 (콘솔)
       - name: Security report summary
         run: |
           echo ""
@@ -107,3 +107,58 @@ jobs:
           echo "✅ .env.local git check: passed"
           echo "✅ Build: passed"
           echo "================================"
+
+      # 7. 이메일 보고 (성공)
+      - name: Email report — SUCCESS
+        if: success()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          secure: false
+          username: ${{ secrets.GMAIL_USER }}
+          password: ${{ secrets.GMAIL_APP_PASSWORD }}
+          subject: "✅ [XGOMA Security] Hourly Check PASSED — ${{ github.run_number }}"
+          to: sheewon1111@gmail.com
+          from: "XGOMA Security Bot <${{ secrets.GMAIL_USER }}>"
+          body: |
+            ✅ XGOMA / HAI Verify — Hourly Security Report
+
+            Time: ${{ github.run_id }} / ${{ github.event.repository.updated_at }}
+            Status: ALL CLEAR
+
+            Checks Passed:
+            ✅ No Stripe/Cloudflare/OpenAI keys exposed in code
+            ✅ .env.local not tracked by git
+            ✅ TypeScript build passed
+            ✅ npm audit passed
+
+            Repo: https://github.com/${{ github.repository }}
+            Actions: https://github.com/${{ github.repository }}/actions
+
+            — XGOMA Security Bot
+
+      # 8. 이메일 보고 (실패)
+      - name: Email report — FAILURE
+        if: failure()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          secure: false
+          username: ${{ secrets.GMAIL_USER }}
+          password: ${{ secrets.GMAIL_APP_PASSWORD }}
+          subject: "🚨 [XGOMA Security] ALERT — Action Required #${{ github.run_number }}"
+          to: sheewon1111@gmail.com
+          from: "XGOMA Security Bot <${{ secrets.GMAIL_USER }}>"
+          body: |
+            🚨 XGOMA / HAI Verify — SECURITY ALERT
+
+            One or more security checks FAILED. Your approval is required before any fix is applied.
+
+            Repo: https://github.com/${{ github.repository }}
+            View details: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+            DO NOT approve any code changes until you have reviewed the above link.
+
+            — XGOMA Security Bot
