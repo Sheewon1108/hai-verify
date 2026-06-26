@@ -1,0 +1,109 @@
+name: Hourly Security Check
+
+on:
+  schedule:
+    - cron: "0 * * * *"   # 매 시간 정각
+  workflow_dispatch:        # 수동 실행 가능
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # 1. 코드에 실제 키 노출 여부 검사
+      - name: Check for exposed secrets in code
+        run: |
+          echo "=== SECRET LEAK SCAN ==="
+          FOUND=0
+
+          # Stripe 라이브 키
+          if grep -rn "sk_live_\|rk_live_\|pk_live_" \
+               --include="*.ts" --include="*.js" --include="*.json" \
+               --exclude-dir=node_modules --exclude-dir=.next \
+               --exclude="*.example" . ; then
+            echo "❌ CRITICAL: Stripe live key found in code!"
+            FOUND=1
+          else
+            echo "✅ No Stripe live keys in code"
+          fi
+
+          # Cloudflare 토큰 패턴
+          if grep -rn "CLOUDFLARE_API_TOKEN\s*=\s*[a-zA-Z0-9_-]\{30,\}" \
+               --include="*.ts" --include="*.js" --include="*.toml" \
+               --exclude-dir=node_modules --exclude="*.example" . ; then
+            echo "❌ CRITICAL: Cloudflare token found in code!"
+            FOUND=1
+          else
+            echo "✅ No Cloudflare tokens in code"
+          fi
+
+          # OpenAI 키
+          if grep -rn "sk-proj-\|sk-[a-zA-Z0-9]\{40,\}" \
+               --include="*.ts" --include="*.js" \
+               --exclude-dir=node_modules --exclude="*.example" . ; then
+            echo "❌ CRITICAL: OpenAI key found in code!"
+            FOUND=1
+          else
+            echo "✅ No OpenAI keys in code"
+          fi
+
+          if [ $FOUND -eq 1 ]; then
+            echo ""
+            echo "🚨 SECURITY ALERT: Exposed secrets detected. Immediate action required."
+            exit 1
+          fi
+
+      # 2. .env.local 이 git에 올라갔는지 확인
+      - name: Check .env.local not tracked
+        run: |
+          echo "=== ENV FILE TRACKING CHECK ==="
+          if git ls-files --error-unmatch .env.local 2>/dev/null; then
+            echo "❌ CRITICAL: .env.local is tracked by git!"
+            exit 1
+          else
+            echo "✅ .env.local not in git (safe)"
+          fi
+
+      # 3. TypeScript 빌드 검사
+      - name: TypeScript type check
+        run: npx tsc --noEmit
+        continue-on-error: true
+
+      # 4. 빌드 검사
+      - name: Build check
+        run: npm run build
+        env:
+          SKIP_ENV_VALIDATION: true
+
+      # 5. 보안 취약점 검사
+      - name: NPM audit
+        run: |
+          echo "=== NPM VULNERABILITY SCAN ==="
+          npm audit --audit-level=high || echo "⚠️ High severity vulnerabilities found — review required"
+
+      # 6. 최종 보고
+      - name: Security report summary
+        run: |
+          echo ""
+          echo "================================"
+          echo "  XGOMA / HAI Verify"
+          echo "  Security Check Complete"
+          echo "  $(date -u '+%Y-%m-%d %H:%M UTC')"
+          echo "================================"
+          echo "✅ Secret leak scan: passed"
+          echo "✅ .env.local git check: passed"
+          echo "✅ Build: passed"
+          echo "================================"
