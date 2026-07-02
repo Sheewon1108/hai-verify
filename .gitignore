@@ -51,3 +51,12 @@ next-env.d.ts
 !.dev.vars.example
 
 !.env.example
+
+# secrets — never commit real keys
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+.secrets/
+service-account*.json

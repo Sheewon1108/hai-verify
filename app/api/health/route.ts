@@ -27,6 +27,17 @@ export async function GET(request: NextRequest) {
           path: "/api/checkout",
           body: { planId: "starter | trust_pilot", email: "string", orderId: "string" },
         },
+        stripeCheckout: {
+          method: "POST",
+          path: "/api/stripe/checkout",
+          body: { plan: "starter | pro", email: "string" },
+          note: "Real Stripe — returns checkoutUrl",
+        },
+        xgomaSearch: {
+          method: "POST",
+          path: "/api/xgoma/search",
+          body: { query: "string", results: "SearchResult[]", locale: "ko | en (optional)" },
+        },
         health: { method: "GET", path: "/api/health" },
       },
       pages: {
