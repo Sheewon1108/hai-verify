@@ -20,10 +20,22 @@ Open [http://localhost:3000](http://localhost:3000).
 | `npm run dev`  | Start development server (LAN: `0.0.0.0`) |
 | `npm run tunnel` | Public URL for Grok (localtunnel) |
 | `npm run build`| Production build         |
+| `npm run check:secrets` | Scan tracked files for committed Stripe API keys |
 | `npm run start`| Run production server    |
 | `npm run deploy`| Deploy to Cloudflare Workers (API token — see below) |
 | `npm run deploy:cf` | Same, loads `CLOUDFLARE_*` from `.env.local` (Windows) |
 | `npm run lint` | Run ESLint               |
+
+## Stripe key handling
+
+`/order` and `POST /api/checkout` are intentionally mock-only in this repo. Do not add hardcoded Stripe keys or real charge code until the live checkout integration is designed and reviewed.
+
+When live checkout is added:
+
+- Store Stripe credentials in server-side secrets such as `STRIPE_API_KEY`; never commit key values.
+- Prefer a restricted API key with only the permissions the checkout server needs.
+- Rotate any Stripe key that was pasted into source, chat, logs, or a review thread.
+- Run `npm run check:secrets` before pushing payment-related changes.
 
 ## Public deploy (Grok / external access)
 
