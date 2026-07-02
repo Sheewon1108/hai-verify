@@ -6,7 +6,8 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 ---
 
-## XGOMA / HAI Verify — Project Context (Read before working)
+## XGOMA / HAI Verify — Project Context
+<!-- Full context is in KARAM-CONTEXT.md — share that file with new agents -->
 
 **Founder:** KARAM SHIN
 **Patents:** USPTO #19/546,296 · #19/544,919 · #63/985,005
