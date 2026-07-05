@@ -1,4 +1,4 @@
-import { HAI_IC_CONFIDENCE_THRESHOLD } from "./hai-ic-system-prompt";
+import { HAI_IC_AMBIGUITY_CAP, HAI_IC_CONFIDENCE_THRESHOLD } from "./hai-ic-system-prompt";
 
 export const HAI_IC_PRODUCT = "hai-ic";
 export const HAI_IC_VERSION = "1.0.0-mvp";
@@ -104,8 +104,6 @@ export function analyzeIntent(input: string): HaiIcResult {
   if (!/[?.!？]/.test(text)) confidence -= 4;
   if (/(왜|언제|무엇|누구|where|when|why|who)/i.test(text)) confidence -= 5;
 
-  confidence = Math.max(18, Math.min(96, Math.round(confidence)));
-
   const wantsStrategy = /어떻게|접근|전략|방법|좋을까|how/i.test(text);
   const wantsBusiness = /거래|협력|파트너|물류|business|deal/i.test(text);
   const wantsRestart = /다시|재개|복구|again/i.test(text);
@@ -131,6 +129,11 @@ export function analyzeIntent(input: string): HaiIcResult {
   if (wantsRestart) missing.push("과거 관계·중단 사유·이전 거래 내용 미기재");
   if (vagueHits >= 2) missing.push("요청이 넓어 우선순위·성공 기준이 모호함");
   if (missing.length === 0) missing.push("세부 조건 일부는 추가 확인 필요");
+
+  const ambiguous = vagueHits >= 2 || missing.length >= 2 || (text.length < 50 && vagueHits >= 1);
+  if (ambiguous && confidence > HAI_IC_AMBIGUITY_CAP) confidence = HAI_IC_AMBIGUITY_CAP;
+
+  confidence = Math.max(18, Math.min(96, Math.round(confidence)));
 
   const risk: string[] = [];
   const sincere = confidence >= HAI_IC_CONFIDENCE_THRESHOLD;
