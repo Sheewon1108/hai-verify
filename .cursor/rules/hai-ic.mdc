@@ -1,0 +1,41 @@
+---
+description: Hai-ic first product rules inside hai-verify
+globs:
+  - hai-ic/**
+  - app/lib/hai-ic-*.ts
+  - app/api/hai-ic/**
+  - app/page.tsx
+alwaysApply: false
+---
+
+# Hai-ic (Intent Confidence Analyzer)
+
+Hai-ic is the **first product** of the hai-verify monorepo.
+
+## Source of truth
+
+| Item | Path |
+|------|------|
+| System prompt (reference) | `hai-ic/Hai-ic_System_Prompt_v1.txt` |
+| System prompt (runtime) | `app/lib/hai-ic-system-prompt.ts` |
+| Analyzer engine | `app/lib/hai-ic-analyze.ts` |
+| API | `app/api/hai-ic/analyze/route.ts` |
+| Demo UI | `app/page.tsx` |
+
+## Behavior rules
+
+1. Output **Intent Confidence %** (0–100), honest score.
+2. **Breakdown** in Korean: core intent, understood, ambiguous/missing, risks.
+3. **≥85%** → sincere mode (detailed practical answer).
+4. **<85%** → ask 2–3 clarifying questions.
+5. Be accurate and honest. Do not exaggerate.
+
+## Deprecated
+
+- Do **not** use XGK naming or `XGK_System_Prompt` files.
+- Brand is **Hai-ic**, not XGK.
+
+## Dev workflow
+
+- Workspace root: `hai-verify` (not `C:\Users\jaytr` home).
+- Dev server runs via PM2 on **http://localhost:3000** — start/check before UI work; do not ask the user to run `npm run dev`.
