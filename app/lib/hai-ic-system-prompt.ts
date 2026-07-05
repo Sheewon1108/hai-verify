@@ -18,3 +18,5 @@ export const HAI_IC_SYSTEM_PROMPT = `너는 Hai-Ic라는 Intent Confidence Analy
 항상 정확하고 솔직하게 분석해라. 과장하지 마.`;
 
 export const HAI_IC_CONFIDENCE_THRESHOLD = 75;
+export const HAI_IC_DD_MAX_PENALTY = 15;
+export const HAI_IC_DD_FLOOR = 65;
