@@ -1,5 +1,5 @@
-import { HaiIcLanding } from '@/app/components/hai-ic-landing';
+import { redirect } from 'next/navigation';
 
 export default function HomePage() {
-  return <HaiIcLanding />;
+  redirect('/hai-ic');
 }

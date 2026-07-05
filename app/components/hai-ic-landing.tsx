@@ -96,11 +96,11 @@ export function HaiIcLanding() {
             ))}
           </div>
           <div className="mt-10 rounded-2xl border border-red-accent/30 bg-red-accent/5 p-6">
-            <p className="text-sm font-semibold text-red-accent mb-2">Commercial · Owner: KARAM SHIN</p>
-            <p className="text-sm text-muted leading-relaxed">
-              Hai-ic MVP — licensing, OEM, and enterprise integration proposals welcome.
-              Contact via HAI Verify order flow or direct partnership channel.
+            <p className="text-sm font-semibold text-red-accent mb-2">Production Ready · KARAM SHIN</p>
+            <p className="text-sm text-muted leading-relaxed mb-3">
+              Intent Confidence Gate for Grok, Gemini, Claude — reduces business risk from hallucination-driven actions.
             </p>
+            <p className="text-xs text-muted">Licensing $8.5k–$25k/yr · OEM · Enterprise · Status: Ready to Sell</p>
           </div>
         </section>
       </main>
