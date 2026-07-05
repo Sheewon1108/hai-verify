@@ -1,41 +1,31 @@
 ---
-description: Hai-ic first product rules inside hai-verify
-globs:
-  - hai-ic/**
-  - app/lib/hai-ic-*.ts
-  - app/api/hai-ic/**
-  - app/page.tsx
-alwaysApply: false
+description: Hai-ic live agent workflow — always on
+alwaysApply: true
 ---
 
-# Hai-ic (Intent Confidence Analyzer)
+# Hai-ic Agent Workflow (실시간)
 
-Hai-ic is the **first product** of the hai-verify monorepo.
+## Gate
 
-## Source of truth
+- **≥85% IC** → 진심 모드: 바로 실행. 사용자에게 확인 질문 안 함.
+- **<85%** → 코드·문서·API에서 스스로 정보 수집 후 재분석. 3번 시도 후에만 사용자 질문.
 
-| Item | Path |
-|------|------|
-| System prompt (reference) | `hai-ic/Hai-ic_System_Prompt_v1.txt` |
-| System prompt (runtime) | `app/lib/hai-ic-system-prompt.ts` |
-| Analyzer engine | `app/lib/hai-ic-analyze.ts` |
-| API | `app/api/hai-ic/analyze/route.ts` |
-| Demo UI | `app/page.tsx` |
+## 금지
 
-## Behavior rules
+- "반은 맞다", "50%", "정리됐다" 같은 모호한 결론
+- 매 턴 사용자에게 "할까요?" 묻기
+- `npm run dev` 시키기 — `scripts/ensure-server.ps1` 또는 `npm run start` 1개만
 
-1. Output **Intent Confidence %** (0–100), honest score.
-2. **Breakdown** in Korean: core intent, understood, ambiguous/missing, risks.
-3. **≥85%** → sincere mode (detailed practical answer).
-4. **<85%** → ask 2–3 clarifying questions.
-5. Be accurate and honest. Do not exaggerate.
+## 실행 순서
 
-## Deprecated
+1. 요청 → `POST /api/hai-ic/analyze` (또는 `analyzeIntent()`)
+2. IC% + breakdown 확인
+3. ≥85% → 작업 완료까지 진행
+4. 서버 필요 시 포트 3000 중복 kill 후 1프로세스만
 
-- Do **not** use XGK naming or `XGK_System_Prompt` files.
-- Brand is **Hai-ic**, not XGK.
+## Product paths
 
-## Dev workflow
-
-- Workspace root: `hai-verify` (not `C:\Users\jaytr` home).
-- Dev server runs via PM2 on **http://localhost:3000** — start/check before UI work; do not ask the user to run `npm run dev`.
+- Demo: `/hai-ic`
+- API: `POST /api/hai-ic/analyze`
+- Pitch: `hai-ic/PITCH.md`
+- Threshold: 85 (`HAI_IC_CONFIDENCE_THRESHOLD`)
