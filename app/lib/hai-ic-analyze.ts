@@ -1,5 +1,8 @@
 import { HAI_IC_CONFIDENCE_THRESHOLD } from "./hai-ic-system-prompt";
 
+export const HAI_IC_PRODUCT = "hai-ic";
+export const HAI_IC_VERSION = "1.0.0-mvp";
+
 export interface HaiIcBreakdown {
   core: string;
   understood: string;
@@ -8,10 +11,15 @@ export interface HaiIcBreakdown {
 }
 
 export interface HaiIcResult {
+  product: typeof HAI_IC_PRODUCT;
+  version: typeof HAI_IC_VERSION;
   confidence: number;
+  sincereMode: boolean;
   mode: string;
   breakdown: HaiIcBreakdown;
+  questions: string[];
   response: string;
+  analyzedAt: string;
 }
 
 const VAGUE_PATTERNS = [
@@ -36,9 +44,50 @@ function clip(text: string, max = 120): string {
   return t.length <= max ? t : `${t.slice(0, max)}…`;
 }
 
+function buildQuestions(text: string, wantsBusiness: boolean, wantsRestart: boolean): string[] {
+  const questions: string[] = [];
+
+  if (wantsBusiness) {
+    questions.push("귀하와 상대·중간 채널(예: 물류사)의 역할 관계는 무엇인가요?");
+  }
+  if (wantsRestart) {
+    questions.push("이전에 무엇을 거래했고, 왜·언제 관계가 끊겼나요?");
+  }
+  if (!/\d/.test(text)) {
+    questions.push("희망 기한·규모·예산(또는 물동량)은 어느 정도인가요?");
+  }
+  if (questions.length < 2) {
+    questions.push("이번 요청의 성공 기준을 한 문장으로 정의해 주실 수 있나요?");
+  }
+  if (questions.length < 3) {
+    questions.push("지금 가장 먼저 해결해야 할 제약(법적·예산·승인)이 있나요?");
+  }
+
+  return questions.slice(0, 3);
+}
+
+function buildSincereResponse(text: string, entities: string[]): string {
+  const target = entities[0] ?? "상대";
+  return [
+    "맥락이 충분히 잡혔습니다. 진심 모드로 진행합니다.",
+    "",
+    `**목표 고정** — "${clip(text, 60)}" 를 한 줄 목표로 문서화하세요.`,
+    "",
+    `**접촉 순서 (${target})**`,
+    "1. 과거 담당자·부서 확인",
+    "2. 재연락 사유 + 제공 가치 3문장",
+    "3. 구체 일정·규모·다음 액션 제안",
+    "",
+    "**리스크 체크**",
+    "- 과거 미수·품질·계약 이슈 선정리",
+    "- 내부 승인권자·예산 확보 여부 확인",
+    "",
+    "원하시면 첫 연락 메일/메시지 초안을 바로 작성해 드립니다.",
+  ].join("\n");
+}
+
 export function analyzeIntent(input: string): HaiIcResult {
   const text = input.trim();
-  const lower = text.toLowerCase();
   let confidence = 72;
 
   if (text.length < 15) confidence -= 25;
@@ -68,9 +117,7 @@ export function analyzeIntent(input: string): HaiIcResult {
   if (wantsStrategy) coreParts.push("실행 전략·접근 방법 문의");
   if (wantsRestart) coreParts.push("관계·거래 재개 의도");
   const core =
-    coreParts.length > 0
-      ? coreParts.join(", ")
-      : "일상어 요청의 목적 파악 및 다음 행동 안내";
+    coreParts.length > 0 ? coreParts.join(", ") : "일상어 요청의 목적 파악 및 다음 행동 안내";
 
   const understood: string[] = [];
   if (entities.length > 0) understood.push(`언급된 대상: ${entities.slice(0, 3).join(", ")}`);
@@ -86,35 +133,27 @@ export function analyzeIntent(input: string): HaiIcResult {
   if (missing.length === 0) missing.push("세부 조건 일부는 추가 확인 필요");
 
   const risk: string[] = [];
-  if (confidence < HAI_IC_CONFIDENCE_THRESHOLD)
-    risk.push("정보 부족 상태에서 실행하면 잘못된 담당자·전략으로 접근할 수 있음");
+  const sincere = confidence >= HAI_IC_CONFIDENCE_THRESHOLD;
+  if (!sincere) risk.push("정보 부족 상태에서 실행하면 잘못된 담당자·전략으로 접근할 수 있음");
   if (wantsRestart) risk.push("과거 이슈 미정리 시 재거절·신뢰 손상 가능");
   if (wantsBusiness && !/\d/.test(text)) risk.push("규모·조건 불명확 시 제안 설득력 약화");
   if (risk.length === 0) risk.push("맥락은 비교적 분명하나 실행 전 최종 확인 권장");
 
-  const sincere = confidence >= HAI_IC_CONFIDENCE_THRESHOLD;
+  const questions = sincere ? [] : buildQuestions(text, wantsBusiness, wantsRestart);
 
   const response = sincere
-    ? [
-        "맥락이 충분히 잡혔습니다. 진심 모드로 진행합니다.",
-        "",
-        "1. **현황 정리** — 목표, 상대, 채널, 과거 이력을 한 줄로 고정하세요.",
-        "2. **접촉 순서** — 과거 담당자 → 해당 부서 → 소개·레퍼런스 순으로 좁혀 가세요.",
-        "3. **첫 메시지** — 재연락 이유, 제공 가치, 구체 일정·규모를 3문장 안에 담으세요.",
-        "4. **리스크 체크** — 미수·품질·계약 이슈가 있었다면 먼저 정리한 뒤 접근하세요.",
-        "",
-        "원하시면 첫 연락 메일/메시지 초안까지 바로 작성해 드리겠습니다.",
-      ].join("\n")
+    ? buildSincereResponse(text, entities)
     : [
-        "아직 Intent Confidence가 충분하지 않아, 먼저 아래를 알려주시면 더 정확한 접근안을 드릴 수 있습니다.",
+        "Intent Confidence가 아직 충분하지 않습니다. 아래 질문에 답해 주시면 정확도가 올라갑니다.",
         "",
-        "1. **역할·채널** — 귀하와 중간 채널(예: 물류사)의 관계는 무엇인가요?",
-        "2. **과거 이력** — 이전에 무엇을 거래했고, 왜·언제 끊겼나요?",
-        "3. **이번 목표** — 재개하려는 품목·규모·희망 시기는 무엇인가요?",
+        ...questions.map((q, i) => `${i + 1}. ${q}`),
       ].join("\n");
 
   return {
+    product: HAI_IC_PRODUCT,
+    version: HAI_IC_VERSION,
     confidence,
+    sincereMode: sincere,
     mode: sincere ? "진심 모드 ON" : "진심 모드 OFF",
     breakdown: {
       core,
@@ -122,6 +161,8 @@ export function analyzeIntent(input: string): HaiIcResult {
       missing: missing.join(" · "),
       risk: risk.join(" · "),
     },
+    questions,
     response,
+    analyzedAt: new Date().toISOString(),
   };
 }

@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'/>
+  <meta http-equiv='refresh' content='3600'/>
+  <title>XGOMA Security Report</title>
+  <style>
+    body{background:#0a0f1e;color:#e2e8f0;font-family:Inter,sans-serif;margin:0;padding:32px}
+    h1{font-size:1.5rem;font-weight:700;color:#fff;margin-bottom:4px}
+    .badge{display:inline-block;padding:4px 14px;border-radius:999px;font-size:.75rem;font-weight:700;background:#ef4444;color:#fff;margin-bottom:24px}
+    table{width:100%;border-collapse:collapse;background:#0d1526;border-radius:12px;overflow:hidden}
+    th{padding:12px 16px;text-align:left;font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:#64748b;background:#111d35}
+    tr:hover td{background:#111d35}
+    .time{font-size:.8rem;color:#475569;margin-top:20px}
+    .reload{margin-top:16px;font-size:.8rem;color:#475569}
+  </style>
+</head>
+<body>
+  <h1>&#128680; XGOMA Security Report</h1>
+  <div class='badge'>ACTION REQUIRED</div>
+  <table>
+    <thead><tr><th>Check</th><th>Result</th></tr></thead>
+    <tbody><tr><td style='padding:10px 16px;color:#94a3b8'>Stripe live key in code</td><td style='padding:10px 16px;color:#ef4444;font-weight:600'>&#10060; KEY EXPOSED!</td></tr><tr><td style='padding:10px 16px;color:#94a3b8'>.env.local not in git</td><td style='padding:10px 16px;color:#10b981;font-weight:600'>&#9989; Safe</td></tr><tr><td style='padding:10px 16px;color:#94a3b8'>.env.local exists locally</td><td style='padding:10px 16px;color:#10b981;font-weight:600'>&#9989; Found</td></tr><tr><td style='padding:10px 16px;color:#94a3b8'>node_modules installed</td><td style='padding:10px 16px;color:#10b981;font-weight:600'>&#9989; OK</td></tr><tr><td style='padding:10px 16px;color:#94a3b8'>No keys in wrangler config</td><td style='padding:10px 16px;color:#10b981;font-weight:600'>&#9989; Clean</td></tr></tbody>
+  </table>
+  <div class='time'>Last checked: 2026-06-26 02:18 UTC</div>
+  <div class='reload'>Auto-refreshes every hour. Or <a href='' style='color:#10b981'>refresh manually</a>.</div>
+</body>
+</html>
