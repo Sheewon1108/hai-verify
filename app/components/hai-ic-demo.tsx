@@ -15,7 +15,7 @@ export function HaiIcDemo({ compact = false }: { compact?: boolean }) {
 
   const confidenceColor = useMemo(() => {
     if (!result) return 'text-foreground';
-    if (result.confidence >= 85) return 'text-emerald-400';
+    if (result.confidence >= 75) return 'text-emerald-400';
     if (result.confidence >= 60) return 'text-amber-400';
     return 'text-red-accent';
   }, [result]);

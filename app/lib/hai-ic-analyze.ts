@@ -1,4 +1,4 @@
-import { HAI_IC_AMBIGUITY_CAP, HAI_IC_CONFIDENCE_THRESHOLD } from "./hai-ic-system-prompt";
+import { HAI_IC_CONFIDENCE_THRESHOLD } from "./hai-ic-system-prompt";
 
 export const HAI_IC_PRODUCT = "hai-ic";
 export const HAI_IC_VERSION = "1.0.0-mvp";
@@ -88,16 +88,16 @@ function buildSincereResponse(text: string, entities: string[]): string {
 
 export function analyzeIntent(input: string): HaiIcResult {
   const text = input.trim();
-  let confidence = 72;
+  let confidence = 78;
 
-  if (text.length < 15) confidence -= 25;
-  else if (text.length < 40) confidence -= 12;
+  if (text.length < 15) confidence -= 18;
+  else if (text.length < 40) confidence -= 6;
   else if (text.length > 120) confidence += 6;
 
   const vagueHits = VAGUE_PATTERNS.filter((p) => p.test(text)).length;
   const specificHits = SPECIFIC_PATTERNS.filter((p) => p.test(text)).length;
 
-  confidence -= vagueHits * 8;
+  confidence -= vagueHits * 5;
   confidence += specificHits * 7;
 
   if (hasProperNoun(text)) confidence += 8;
@@ -130,10 +130,7 @@ export function analyzeIntent(input: string): HaiIcResult {
   if (vagueHits >= 2) missing.push("요청이 넓어 우선순위·성공 기준이 모호함");
   if (missing.length === 0) missing.push("세부 조건 일부는 추가 확인 필요");
 
-  const ambiguous = vagueHits >= 2 || missing.length >= 2 || (text.length < 50 && vagueHits >= 1);
-  if (ambiguous && confidence > HAI_IC_AMBIGUITY_CAP) confidence = HAI_IC_AMBIGUITY_CAP;
-
-  confidence = Math.max(18, Math.min(96, Math.round(confidence)));
+  confidence = Math.max(35, Math.min(96, Math.round(confidence)));
 
   const risk: string[] = [];
   const sincere = confidence >= HAI_IC_CONFIDENCE_THRESHOLD;

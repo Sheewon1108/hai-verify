@@ -39,7 +39,7 @@ export function HaiIcLanding() {
               검증 레이어입니다.
             </p>
             <div className="mt-8 flex flex-wrap gap-3 text-sm">
-              {['Instant local scoring', '85% sincere-mode gate', 'REST API', 'Human-led verification'].map((tag) => (
+              {['Instant local scoring', '75% sincere-mode gate', 'REST API', 'Human-led verification'].map((tag) => (
                 <span key={tag} className="rounded-full border border-white/10 px-4 py-2 text-muted">
                   {tag}
                 </span>
@@ -63,7 +63,7 @@ export function HaiIcLanding() {
             <ul className="space-y-2 text-sm text-muted">
               <li>• <code className="text-foreground">POST /api/hai-ic/analyze</code></li>
               <li>• <code className="text-foreground">GET /api/hai-ic/health</code></li>
-              <li>• Threshold: 85% (configurable in product roadmap)</li>
+              <li>• Threshold: 75%</li>
             </ul>
           </div>
           <pre className="rounded-2xl border border-white/10 bg-surface p-5 text-xs md:text-sm overflow-x-auto leading-relaxed">
