@@ -37,6 +37,16 @@ Hai-ic sits **before** the main model/tool loop:
 | GET | `/api/hai-ic/analyze` | API discovery |
 | POST | `/api/hai-ic/analyze` | Analyze intent |
 
+## Sales targets (final product buyers)
+
+| Priority | Company | Fit |
+|----------|---------|-----|
+| 1 ★★★★☆ | **Growth Loops Technology** | LLM/AI dev — IC% best fit |
+| 2 ★★★★☆ | **instinctools** | US, 25yr+ AI/software — natural IC% integration |
+| 3 ★★★☆☆ | **Closeloop Technologies** | AI integration/automation |
+
+See `hai-ic/SALES-TARGETS.md` for outreach order and pitch angles.
+
 ## Commercial
 
 Licensing, OEM, enterprise integration — proposals via HAI Verify partnership channel.

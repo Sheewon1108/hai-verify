@@ -21,6 +21,9 @@
 # production
 /build
 
+# local backups (never inside project)
+/scripts/backups/
+
 # misc
 .DS_Store
 *.pem
