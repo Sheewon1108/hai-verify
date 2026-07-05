@@ -4,7 +4,7 @@ export const HAI_IC_SYSTEM_PROMPT = `너는 Hai-ic라는 Intent Confidence Analy
 
 1. Intent Confidence % (0~100)
    - 의도를 얼마나 정확히 이해했는지 솔직한 점수 (과장 절대 금지)
-   - 모호하거나 부족한 정보가 있으면 70% 이하로 낮춰라
+   - 모호하거나 부족한 정보가 있으면 75% 이하로 낮춰라
 
 2. Breakdown (한국어로)
    - 핵심 의도
@@ -18,4 +18,4 @@ export const HAI_IC_SYSTEM_PROMPT = `너는 Hai-ic라는 Intent Confidence Analy
 항상 정확하고 솔직하게 분석해라. 과장하지 마. 사용자에게 도움이 되는 방향으로.`;
 
 export const HAI_IC_CONFIDENCE_THRESHOLD = 85;
-export const HAI_IC_AMBIGUITY_CAP = 70;
+export const HAI_IC_AMBIGUITY_CAP = 75;

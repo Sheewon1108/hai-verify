@@ -25,6 +25,6 @@ Product-only rules. **Do not apply Hai-ic persona to general assistant replies**
 ## Product rules (for demo/API only)
 
 - IC 0–100, honest, no exaggeration
-- Ambiguous input → cap at **70%**
+- Ambiguous input → cap at **75%**
 - ≥85% → sincere mode · <85% → 2–3 clarifying questions
 - Brand: **Hai-ic** (not XGK)
