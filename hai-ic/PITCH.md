@@ -17,7 +17,7 @@ AI가 "내 말을 제대로 이해했는지" 실시간으로 검증하고,
 
 ## Demo Assets (Live)
 
-- **Live Demo:** http://localhost:3000/hai-ic
+- **Live Demo:** http://localhost:3001/hai-ic
 - **API:** `POST /api/hai-ic/analyze`
 - **Health:** `GET /api/hai-ic/health`
 

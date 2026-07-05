@@ -1,5 +1,5 @@
 # Single server on :3000 — kill duplicates, start production if down
-$port = 3000
+$port = 3001
 $project = Split-Path -Parent $PSScriptRoot
 
 $listeners = Get-NetTCPConnection -LocalPort $port -State Listen -ErrorAction SilentlyContinue
