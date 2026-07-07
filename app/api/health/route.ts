@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
       service: "HAI Verify",
       mode: process.env.HAI_ACCESS_MODE === "open" ? "open" : "protected",
       access: {
-        auth: "Bearer hv_... or X-HAI-API-Key (external); same-origin browser + localhost bypass",
+        auth: "Bearer hv_... or X-HAI-API-Key (external); same-origin browser + loopback Host bypass only",
         trustedAiTools: TRUSTED_PUBLIC_AI_TOOLS,
       },
       userContext: {

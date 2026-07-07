@@ -118,22 +118,36 @@ export function getRequestCountryCode(headers: Headers): string | null {
   );
 }
 
-function getClientIp(request: Request): string {
-  const forwarded = request.headers.get("x-forwarded-for");
-  if (forwarded) return forwarded.split(",")[0]?.trim() ?? "";
-  return request.headers.get("x-real-ip") ?? "";
-}
-
 function isLoopbackHost(hostname: string): boolean {
-  return hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1";
+  const host = hostname.toLowerCase();
+  return host === "localhost" || host === "127.0.0.1" || host === "::1";
 }
 
-function isLoopbackClient(request: Request): boolean {
-  const url = new URL(request.url);
-  if (isLoopbackHost(url.hostname)) return true;
+function requestHost(request: Request): string {
+  const forwarded = request.headers.get("x-forwarded-host");
+  if (forwarded) {
+    return forwarded.split(",")[0]?.trim().split(":")[0]?.toLowerCase() ?? "";
+  }
 
-  const clientIp = getClientIp(request);
-  return clientIp === "127.0.0.1" || clientIp === "::1";
+  const host = request.headers.get("host");
+  if (host) {
+    return host.split(":")[0]?.trim().toLowerCase() ?? "";
+  }
+
+  return new URL(request.url).hostname.toLowerCase();
+}
+
+/**
+ * Local dev bypass: direct loopback Host only.
+ * - Non-loopback Host (tunnel URL, production domain) → auth required.
+ * - localtunnel sets x-localtunnel-agent-ips even when upstream is 127.0.0.1.
+ * Do not trust X-Forwarded-For — proxies forward 127.0.0.1 to the app process.
+ */
+function isLoopbackClient(request: Request): boolean {
+  const host = requestHost(request);
+  if (!isLoopbackHost(host)) return false;
+  if (request.headers.get("x-localtunnel-agent-ips")) return false;
+  return true;
 }
 
 function isSameOriginBrowserRequest(request: Request): boolean {

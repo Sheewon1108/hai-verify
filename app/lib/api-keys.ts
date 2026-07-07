@@ -130,9 +130,9 @@ export async function validateApiKey(token: string): Promise<ApiKeyValidationRes
   }
 }
 
-/** Extract API key from Authorization header: "Bearer hv_..." */
+/** Extract API key from Authorization header: "Bearer <token>" (hv_* or internal key). */
 export function extractBearerToken(authHeader: string | null): string | null {
   if (!authHeader) return null;
-  const match = authHeader.match(/^Bearer\s+(hv_\S+)$/i);
+  const match = authHeader.match(/^Bearer\s+(\S+)$/i);
   return match ? match[1] : null;
 }
