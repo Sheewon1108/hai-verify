@@ -58,7 +58,10 @@ export function formatRiskFlagsForDisplay(
   return flags.map((code) => ({ code, label: formatRiskFlagLabel(code, locale) }));
 }
 
-/** Resolve locale from JSON body or Accept-Language (defaults to ko). */
+/**
+ * Resolve display locale for user-facing messages only.
+ * Accept-Language is NOT used for location, timezone, auth, or security decisions.
+ */
 export function parseRequestLocale(
   bodyLocale: unknown,
   acceptLanguage?: string | null,

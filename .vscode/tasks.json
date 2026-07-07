@@ -1,0 +1,33 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "HAI: Start Dev Server (PM2)",
+      "type": "shell",
+      "command": "pm2 start ecosystem.config.cjs",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "HAI: Dev Server Status",
+      "type": "shell",
+      "command": "pm2 status; try { (Invoke-WebRequest -Uri http://localhost:3000 -UseBasicParsing -TimeoutSec 5).StatusCode } catch { 'Server down' }",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "HAI: Open Hai-ic in Browser",
+      "type": "shell",
+      "command": "Start-Process http://localhost:3000",
+      "problemMatcher": []
+    }
+  ]
+}

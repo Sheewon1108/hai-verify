@@ -1,4 +1,14 @@
-import "dotenv/config";
+import path from "node:path";
+import { createRequire } from "node:module";
+import { fileURLToPath } from "node:url";
+import dotenv from "dotenv";
+
+const require = createRequire(import.meta.url);
+require("../scripts/lib/load-vault-env.cjs").loadVaultIntoEnv();
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+dotenv.config({ path: path.join(process.env.USERPROFILE ?? "", "secrets", "discord-bot.env") });
+dotenv.config({ path: path.join(__dirname, ".env") });
 import { REST, Routes, SlashCommandBuilder } from "discord.js";
 
 const token = process.env.DISCORD_TOKEN;

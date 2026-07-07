@@ -1,4 +1,14 @@
-import "dotenv/config";
+import path from "node:path";
+import { createRequire } from "node:module";
+import { fileURLToPath } from "node:url";
+import dotenv from "dotenv";
+
+const require = createRequire(import.meta.url);
+require("../scripts/lib/load-vault-env.cjs").loadVaultIntoEnv();
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+dotenv.config({ path: path.join(process.env.USERPROFILE ?? "", "secrets", "discord-bot.env") });
+dotenv.config({ path: path.join(__dirname, ".env") });
 import {
   Client,
   EmbedBuilder,
@@ -8,7 +18,8 @@ import {
 import { formatFlagsKo } from "./risk-labels.mjs";
 
 const token = process.env.DISCORD_TOKEN;
-const apiUrl = (process.env.HAI_VERIFY_API_URL ?? "http://localhost:3000").replace(/\/$/, "");
+const apiUrl = (process.env.HAI_VERIFY_API_URL ?? "http://localhost:3001").replace(/\/$/, "");
+const apiKey = process.env.HAI_INTERNAL_API_KEY ?? process.env.HAI_VERIFY_API_KEY ?? "";
 
 if (!token) {
   console.error("Set DISCORD_TOKEN in discord-bot/.env");
@@ -16,9 +27,12 @@ if (!token) {
 }
 
 async function runVerification(text) {
+  const headers = { "Content-Type": "application/json" };
+  if (apiKey) headers.Authorization = `Bearer ${apiKey}`;
+
   const res = await fetch(`${apiUrl}/api/verify`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers,
     body: JSON.stringify({ content: text }),
   });
 

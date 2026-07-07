@@ -1,0 +1,18 @@
+{
+  "files.exclude": {
+    "**/.next": true,
+    "**/.wrangler": true
+  },
+  "search.exclude": {
+    "**/.next": true,
+    "**/.wrangler": true,
+    "**/node_modules": true
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "editor.formatOnSave": true,
+  "terminal.integrated.cwd": "${workspaceFolder}",
+  "files.associations": {
+    "Hai-ic_System_Prompt_v1.txt": "plaintext"
+  }
+}

@@ -21,6 +21,9 @@
 # production
 /build
 
+# local backups (never inside project)
+/scripts/backups/
+
 # misc
 .DS_Store
 *.pem
@@ -51,3 +54,12 @@ next-env.d.ts
 !.dev.vars.example
 
 !.env.example
+
+# secrets — never commit real keys
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+.secrets/
+service-account*.json

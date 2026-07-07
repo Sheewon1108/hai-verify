@@ -1,0 +1,21 @@
+Dear {TEAM} Team,
+
+I'm KARAM SHIN, founder of Hai-Ic.
+
+Hai-Ic is an Intent Confidence Gate in front of any LLM. We score how well the user's intent is understood (0-100%).
+
+- At 75% or higher: sincere mode ON (full answer)
+- Below 75%: we do not pretend. Clarifying questions or evidence first.
+
+We built this because teams do not trust AI that answers when it is not sure.
+
+Attached: One-Pager + Trust Ledger (real test log — questions we refused to answer sincerely; scores not manually raised).
+
+I would like 30 minutes to walk through this on your multi-agent / integration use case — live on a call, not a link in an email.
+
+When are you available?
+
+Best regards,
+KARAM SHIN
+Founder, Hai-Ic / HAI Verify
+jay.transtar.inc@gmail.com

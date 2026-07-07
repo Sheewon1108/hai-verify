@@ -1,0 +1,78 @@
+{
+  "step": 17,
+  "at": "2026-07-07T09:21:39.876Z",
+  "questions": [
+    "instinctools가 요구하는 SLA·GDPR·SOC2 컴플라이언스를 Hai-Ic가 충족하나요?",
+    "xAI 로드맵과 Hai-Ic 업데이트 주기 align이 가능한가요?",
+    "Hai-Ic enterprise SaaS 워크플로우 연동 시 false positive / hallucination rate 검증 데이터가 있나요?",
+    "Closeloop가 Hai-Ic를 modify·white-label할 수 있는 범위는 어디까지인가요?",
+    "Google Gemini 기준 Hai-Ic licensing·ROI·IP ownership 조건은 어떻게 되나요?",
+    "training data contamination·bias audit 리포트를 instinctools에 제공할 수 있나요?",
+    "multi-agent 파이프라인 통합 난이도와 호환성 검증은 이미 끝났나요?",
+    "instinctools 팀이 Hai-Ic를 Colossus orchestration layer에 붙이려면 첫 2주 플랜은?",
+    "Hai-Ic 진심 모드가 Growth Loops use case에 맞는지 어떻게 확인하나요?",
+    "Google Gemini 담당자에게 보낼 follow-up 메일 초안이 필요해요."
+  ],
+  "results": [
+    {
+      "question": "instinctools가 요구하는 SLA·GDPR·SOC2 컴플라이언스를 Hai-Ic가 충족하나요?",
+      "ic": 93,
+      "dd": false,
+      "mode": "ON"
+    },
+    {
+      "question": "xAI 로드맵과 Hai-Ic 업데이트 주기 align이 가능한가요?",
+      "ic": 65,
+      "dd": true,
+      "mode": "OFF"
+    },
+    {
+      "question": "Hai-Ic enterprise SaaS 워크플로우 연동 시 false positive / hallucination rate 검증 데이터가 있나요?",
+      "ic": 71,
+      "dd": true,
+      "mode": "OFF"
+    },
+    {
+      "question": "Closeloop가 Hai-Ic를 modify·white-label할 수 있는 범위는 어디까지인가요?",
+      "ic": 71,
+      "dd": true,
+      "mode": "OFF"
+    },
+    {
+      "question": "Google Gemini 기준 Hai-Ic licensing·ROI·IP ownership 조건은 어떻게 되나요?",
+      "ic": 66,
+      "dd": true,
+      "mode": "OFF"
+    },
+    {
+      "question": "training data contamination·bias audit 리포트를 instinctools에 제공할 수 있나요?",
+      "ic": 70,
+      "dd": true,
+      "mode": "OFF"
+    },
+    {
+      "question": "multi-agent 파이프라인 통합 난이도와 호환성 검증은 이미 끝났나요?",
+      "ic": 65,
+      "dd": true,
+      "mode": "OFF"
+    },
+    {
+      "question": "instinctools 팀이 Hai-Ic를 Colossus orchestration layer에 붙이려면 첫 2주 플랜은?",
+      "ic": 93,
+      "dd": false,
+      "mode": "ON"
+    },
+    {
+      "question": "Hai-Ic 진심 모드가 Growth Loops use case에 맞는지 어떻게 확인하나요?",
+      "ic": 81,
+      "dd": false,
+      "mode": "ON"
+    },
+    {
+      "question": "Google Gemini 담당자에게 보낼 follow-up 메일 초안이 필요해요.",
+      "ic": 86,
+      "dd": false,
+      "mode": "ON"
+    }
+  ]
+}

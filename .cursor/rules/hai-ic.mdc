@@ -1,0 +1,29 @@
+---
+description: Hai-ic product reference (not agent persona)
+globs:
+  - hai-ic/**
+  - app/lib/hai-ic-*.ts
+  - app/api/hai-ic/**
+  - app/hai-ic/**
+alwaysApply: false
+---
+
+# Hai-ic (Intent Confidence Analyzer)
+
+Product-only rules. **Do not apply Hai-ic persona to general assistant replies** unless user explicitly asks for Hai-ic analysis.
+
+## Source of truth
+
+| Item | Path |
+|------|------|
+| System prompt | `hai-ic/Hai-ic_System_Prompt_v1.txt` |
+| Runtime prompt | `app/lib/hai-ic-system-prompt.ts` |
+| Analyzer | `app/lib/hai-ic-analyze.ts` |
+| Demo | `/hai-ic` (dev port **3001**) |
+| API | `POST /api/hai-ic/analyze` |
+
+## Product rules (for demo/API only)
+
+- IC 0–100, honest, fair scoring (do not cut too low)
+- ≥75% → sincere mode · <75% → 2–3 clarifying questions
+- Brand: **Hai-ic** (not XGK)

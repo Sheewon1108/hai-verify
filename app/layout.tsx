@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "HAI Verify",
-  description: "Human + Heart + AI + Law = Verification",
+  title: "Hai-ic | Intent Confidence Analyzer",
+  description: "Hai-ic — measure intent confidence before AI executes. First product of HAI Verify by KARAM SHIN.",
 };
 
 export default function RootLayout({

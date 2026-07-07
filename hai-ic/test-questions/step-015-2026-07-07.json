@@ -1,0 +1,78 @@
+{
+  "step": 15,
+  "at": "2026-07-07T07:21:38.619Z",
+  "questions": [
+    "training data contamination·bias audit 리포트를 xAI에 제공할 수 있나요?",
+    "Hai-Ic enterprise SaaS 워크플로우 연동 시 false positive / hallucination rate 검증 데이터가 있나요?",
+    "Closeloop 로드맵과 Hai-Ic 업데이트 주기 align이 가능한가요?",
+    "Google Gemini 전체 제품군에 Hai-Ic 적용 시 예상 ROI는 얼마인가요?",
+    "instinctools POC 3개월 pilot 비용과 exit 조건은 무엇인가요?",
+    "multi-agent 파이프라인 통합 난이도와 호환성 검증은 이미 끝났나요?",
+    "Growth Loops가 요구하는 SLA·GDPR·SOC2 컴플라이언스를 Hai-Ic가 충족하나요?",
+    "xAI 팀이 Hai-Ic를 multi-agent 파이프라인에 붙이려면 첫 2주 플랜은?",
+    "Hai-Ic 진심 모드가 Closeloop use case에 맞는지 어떻게 확인하나요?",
+    "instinctools 담당자에게 보낼 follow-up 메일 초안이 필요해요."
+  ],
+  "results": [
+    {
+      "question": "training data contamination·bias audit 리포트를 xAI에 제공할 수 있나요?",
+      "ic": 65,
+      "dd": true,
+      "mode": "OFF"
+    },
+    {
+      "question": "Hai-Ic enterprise SaaS 워크플로우 연동 시 false positive / hallucination rate 검증 데이터가 있나요?",
+      "ic": 71,
+      "dd": true,
+      "mode": "OFF"
+    },
+    {
+      "question": "Closeloop 로드맵과 Hai-Ic 업데이트 주기 align이 가능한가요?",
+      "ic": 71,
+      "dd": true,
+      "mode": "OFF"
+    },
+    {
+      "question": "Google Gemini 전체 제품군에 Hai-Ic 적용 시 예상 ROI는 얼마인가요?",
+      "ic": 71,
+      "dd": true,
+      "mode": "OFF"
+    },
+    {
+      "question": "instinctools POC 3개월 pilot 비용과 exit 조건은 무엇인가요?",
+      "ic": 72,
+      "dd": true,
+      "mode": "OFF"
+    },
+    {
+      "question": "multi-agent 파이프라인 통합 난이도와 호환성 검증은 이미 끝났나요?",
+      "ic": 65,
+      "dd": true,
+      "mode": "OFF"
+    },
+    {
+      "question": "Growth Loops가 요구하는 SLA·GDPR·SOC2 컴플라이언스를 Hai-Ic가 충족하나요?",
+      "ic": 86,
+      "dd": false,
+      "mode": "ON"
+    },
+    {
+      "question": "xAI 팀이 Hai-Ic를 multi-agent 파이프라인에 붙이려면 첫 2주 플랜은?",
+      "ic": 86,
+      "dd": false,
+      "mode": "ON"
+    },
+    {
+      "question": "Hai-Ic 진심 모드가 Closeloop use case에 맞는지 어떻게 확인하나요?",
+      "ic": 81,
+      "dd": false,
+      "mode": "ON"
+    },
+    {
+      "question": "instinctools 담당자에게 보낼 follow-up 메일 초안이 필요해요.",
+      "ic": 85,
+      "dd": false,
+      "mode": "ON"
+    }
+  ]
+}

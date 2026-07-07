@@ -1,0 +1,191 @@
+{
+  "boostPercent": 0,
+  "ddPenaltyReduction": 0,
+  "appliedCount": 22,
+  "maxBoosts": 20,
+  "intervalHours": 1,
+  "startedAt": "2026-07-05T04:14:39.3051681-07:00",
+  "lastAppliedAt": "2026-07-07T14:16:43.533Z",
+  "lastDailyReport": "2026-07-07",
+  "log": [
+    {
+      "step": 1,
+      "at": "2026-07-05T11:16:12.653Z",
+      "boostPercent": 1,
+      "ddPenaltyLive": 14,
+      "avgIC": 71.4,
+      "tests": 10
+    },
+    {
+      "at": "2026-07-05T05:15:01.7982940-07:00",
+      "step": 2,
+      "boostPercent": 2,
+      "avgIC": 77.2,
+      "tests": 10,
+      "ddPenaltyLive": 13
+    },
+    {
+      "at": "2026-07-05T06:15:06.5883775-07:00",
+      "step": 3,
+      "boostPercent": 3,
+      "avgIC": 79,
+      "tests": 10,
+      "ddPenaltyLive": 12
+    },
+    {
+      "at": "2026-07-05T07:15:13.3281955-07:00",
+      "step": 4,
+      "boostPercent": 4,
+      "avgIC": 80.7,
+      "tests": 10,
+      "ddPenaltyLive": 11
+    },
+    {
+      "at": "2026-07-05T08:15:18.0189730-07:00",
+      "step": 5,
+      "boostPercent": 5,
+      "avgIC": 82.3,
+      "tests": 10,
+      "ddPenaltyLive": 10
+    },
+    {
+      "step": 6,
+      "at": "2026-07-05T17:17:48.611Z",
+      "boostPercent": 6,
+      "ddPenaltyLive": 10,
+      "avgIC": 84.4,
+      "tests": 10,
+      "newQuestions": true,
+      "backup": "C:\\Users\\jaytr\\Desktop\\Codex\\hai-verify\\hai-ic\\test-questions\\step-006-2026-07-05.json",
+      "boostPhase": true
+    },
+    {
+      "step": 7,
+      "at": "2026-07-05T17:23:37.174Z",
+      "avgIC": 74.9,
+      "tests": 10,
+      "newQuestions": true,
+      "backup": "C:\\Users\\jaytr\\Desktop\\Codex\\hai-verify\\hai-ic\\test-questions\\step-007-2026-07-05.json"
+    },
+    {
+      "step": 8,
+      "at": "2026-07-05T18:23:37.826Z",
+      "avgIC": 74.3,
+      "tests": 10,
+      "newQuestions": true,
+      "backup": "C:\\Users\\jaytr\\Desktop\\Codex\\hai-verify\\hai-ic\\test-questions\\step-008-2026-07-05.json"
+    },
+    {
+      "step": 9,
+      "at": "2026-07-05T19:23:38.435Z",
+      "avgIC": 74.7,
+      "tests": 10,
+      "newQuestions": true,
+      "backup": "C:\\Users\\jaytr\\Desktop\\Codex\\hai-verify\\hai-ic\\test-questions\\step-009-2026-07-05.json"
+    },
+    {
+      "step": 10,
+      "at": "2026-07-05T20:23:40.131Z",
+      "avgIC": 76.9,
+      "tests": 10,
+      "newQuestions": true,
+      "backup": "C:\\Users\\jaytr\\Desktop\\Codex\\hai-verify\\hai-ic\\test-questions\\step-010-2026-07-05.json"
+    },
+    {
+      "step": 11,
+      "at": "2026-07-07T03:21:35.828Z",
+      "avgIC": 74.7,
+      "tests": 10,
+      "newQuestions": true,
+      "backup": "C:\\Users\\jaytr\\Desktop\\Codex\\hai-verify\\hai-ic\\test-questions\\step-011-2026-07-07.json"
+    },
+    {
+      "step": 12,
+      "at": "2026-07-07T04:21:36.548Z",
+      "avgIC": 76.2,
+      "tests": 10,
+      "newQuestions": true,
+      "backup": "C:\\Users\\jaytr\\Desktop\\Codex\\hai-verify\\hai-ic\\test-questions\\step-012-2026-07-07.json"
+    },
+    {
+      "step": 13,
+      "at": "2026-07-07T05:21:37.250Z",
+      "avgIC": 76.8,
+      "tests": 10,
+      "newQuestions": true,
+      "backup": "C:\\Users\\jaytr\\Desktop\\Codex\\hai-verify\\hai-ic\\test-questions\\step-013-2026-07-07.json"
+    },
+    {
+      "step": 14,
+      "at": "2026-07-07T06:21:37.914Z",
+      "avgIC": 74.5,
+      "tests": 10,
+      "newQuestions": true,
+      "backup": "C:\\Users\\jaytr\\Desktop\\Codex\\hai-verify\\hai-ic\\test-questions\\step-014-2026-07-07.json"
+    },
+    {
+      "step": 15,
+      "at": "2026-07-07T07:21:38.619Z",
+      "avgIC": 75.3,
+      "tests": 10,
+      "newQuestions": true,
+      "backup": "C:\\Users\\jaytr\\Desktop\\Codex\\hai-verify\\hai-ic\\test-questions\\step-015-2026-07-07.json"
+    },
+    {
+      "step": 16,
+      "at": "2026-07-07T08:21:39.226Z",
+      "avgIC": 76.2,
+      "tests": 10,
+      "newQuestions": true,
+      "backup": "C:\\Users\\jaytr\\Desktop\\Codex\\hai-verify\\hai-ic\\test-questions\\step-016-2026-07-07.json"
+    },
+    {
+      "step": 17,
+      "at": "2026-07-07T09:21:39.876Z",
+      "avgIC": 76.1,
+      "tests": 10,
+      "newQuestions": true,
+      "backup": "C:\\Users\\jaytr\\Desktop\\Codex\\hai-verify\\hai-ic\\test-questions\\step-017-2026-07-07.json"
+    },
+    {
+      "step": 18,
+      "at": "2026-07-07T10:16:40.394Z",
+      "avgIC": 74.8,
+      "tests": 10,
+      "newQuestions": true,
+      "backup": "C:\\Users\\jaytr\\Desktop\\Codex\\hai-verify\\hai-ic\\test-questions\\step-018-2026-07-07.json"
+    },
+    {
+      "step": 19,
+      "at": "2026-07-07T11:16:41.279Z",
+      "avgIC": 74.1,
+      "tests": 10,
+      "newQuestions": true,
+      "backup": "C:\\Users\\jaytr\\Desktop\\Codex\\hai-verify\\hai-ic\\test-questions\\step-019-2026-07-07.json"
+    },
+    {
+      "step": 20,
+      "at": "2026-07-07T12:16:41.976Z",
+      "avgIC": 75.9,
+      "tests": 10,
+      "newQuestions": true,
+      "backup": "C:\\Users\\jaytr\\Desktop\\Codex\\hai-verify\\hai-ic\\test-questions\\step-020-2026-07-07.json"
+    },
+    {
+      "step": 21,
+      "at": "2026-07-07T13:16:42.664Z",
+      "avgIC": 75.4,
+      "tests": 10,
+      "newQuestions": true,
+      "backup": "C:\\Users\\jaytr\\Desktop\\Codex\\hai-verify\\hai-ic\\test-questions\\step-021-2026-07-07.json"
+    },
+    {
+      "step": 22,
+      "at": "2026-07-07T14:16:43.533Z",
+      "avgIC": 75.4,
+      "tests": 10,
+      "newQuestions": true,
+      "backup": "C:\\Users\\jaytr\\Desktop\\Codex\\hai-verify\\hai-ic\\test-questions\\step-022-2026-07-07.json"
+    }
+  ]
+}
