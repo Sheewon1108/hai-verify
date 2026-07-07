@@ -1,0 +1,21 @@
+{
+  "product": "hai-ic",
+  "owner": "KARAM SHIN",
+  "type": "Sincerity Certificate (sample)",
+  "generatedAt": "2026-07-07T14:16:43.731Z",
+  "description": "API 응답마다 Intent Confidence % + 진심모드 ON/OFF 스탬프 — SSL for AI sincerity",
+  "sample": {
+    "question": "instinctools 기준 Hai-Ic licensing·ROI·IP ownership 조건은 어떻게 되나요?",
+    "intentConfidence": 84,
+    "sincereMode": "ON",
+    "passed": true,
+    "stamp": "HAI-IC-SINCERE-84"
+  },
+  "ofSample": {
+    "question": "Google Gemini 로드맵과 Hai-Ic 업데이트 주기 align이 가능한가요?",
+    "intentConfidence": 71,
+    "sincereMode": "OFF",
+    "action": "clarifying_questions_required",
+    "stamp": "HAI-IC-HOLD-71"
+  }
+}

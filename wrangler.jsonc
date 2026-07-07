@@ -21,5 +21,10 @@
   },
   "observability": {
     "enabled": true
+  },
+  // Non-secret runtime config (secrets → wrangler secret bulk via npm run workers:sync-env)
+  "vars": {
+    "HAI_ACCESS_MODE": "protected",
+    "HAI_ACCESS_LOCAL_BYPASS": "false"
   }
 }

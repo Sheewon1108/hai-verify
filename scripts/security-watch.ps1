@@ -66,11 +66,11 @@ function Run-SecurityCheck {
   $checks = @()
   $allOk  = $true
 
-  # 1. Stripe 라이브 키 코드 노출 검사
+  # 1. Stripe live key exposure in source
   $leakFiles = Get-ChildItem -Path $projectRoot -Recurse -Include "*.ts","*.js","*.json" |
     Where-Object { $_.FullName -notmatch "node_modules|\.next|\.example" } |
-    Select-String -Pattern "sk_live_|rk_live_|pk_live_" -Quiet
-  $ok1 = -not $leakFiles
+    Where-Object { Select-String -Path $_.FullName -Pattern "sk_live_|rk_live_|pk_live_" -Quiet }
+  $ok1 = $leakFiles.Count -eq 0
   if (-not $ok1) { $allOk = $false }
   $checks += @{ name = "Stripe live key in code"; ok = $ok1; result = if ($ok1) { "Clean" } else { "KEY EXPOSED!" } }
 
@@ -84,7 +84,77 @@ function Run-SecurityCheck {
 
   # 3. .env.local 존재 여부 (키 설정 확인)
   $envExists = Test-Path (Join-Path $projectRoot ".env.local")
-  $checks += @{ name = ".env.local exists locally"; ok = $envExists; result = if ($envExists) { "Found" } else { "Missing — keys not set" } }
+  $checks += @{ name = ".env.local exists locally"; ok = $envExists; result = if ($envExists) { "Found" } else { "Missing - keys not set" } }
+
+  # 3d. User context: timezone/region from config only (never infer from language)
+  . (Join-Path $projectRoot "scripts\lib\user-context.ps1")
+  $cfg = Get-UserContextFromConfig
+  $actualTz = (Get-TimeZone).Id
+  $ok3tz = $actualTz -eq $cfg.Timezone
+  if (-not $ok3tz) { $allOk = $false }
+  $checks += @{
+    name   = "User context (timezone/region)"
+    ok     = $ok3tz
+    result = if ($ok3tz) { "OK ($actualTz, $($cfg.Region))" } else { "MISMATCH: expected $($cfg.Timezone), got $actualTz" }
+  }
+
+  # 3e. DPAPI vault - API keys should not be plaintext in env files
+  $vaultPath = Join-Path $env:USERPROFILE "secrets\vault.dat"
+  $vaultOk = Test-Path $vaultPath
+  $plaintextLeaks = @()
+  $envPaths = @(
+    (Join-Path $env:USERPROFILE "secrets\hai-verify.env"),
+    (Join-Path $env:USERPROFILE "secrets\desktop.env"),
+    (Join-Path $env:USERPROFILE "secrets\core-crypto.env")
+  )
+  foreach ($ep in $envPaths) {
+    if (Test-Path $ep) {
+      $hits = Select-String -Path $ep -Pattern "^OPENAI_API_KEY=|^HAI_API_KEY_SECRET=|^HAI_INTERNAL_API_KEY=|^CORE_CRYPTO_KEY=|^DISCORD_TOKEN=|^CLOUDFLARE_API_TOKEN=" -Quiet
+      if ($hits) { $plaintextLeaks += (Split-Path $ep -Leaf) }
+    }
+  }
+  $ok3d = $vaultOk -and ($plaintextLeaks.Count -eq 0)
+  if (-not $ok3d) { $allOk = $false }
+  $checks += @{
+    name   = "DPAPI vault (no plaintext API keys)"
+    ok     = $ok3d
+    result = if ($ok3d) { "Vault OK" } elseif (-not $vaultOk) { "Missing vault - run: npm run vault:migrate" } else { "Plaintext in: $($plaintextLeaks -join ', ')" }
+  }
+
+  # 3a. dev server가 127.0.0.1에만 바인딩되는지
+  $port3001 = Get-NetTCPConnection -LocalPort 3001 -State Listen -ErrorAction SilentlyContinue | Select-Object -First 1
+  $ok3a = (-not $port3001) -or ($port3001.LocalAddress -eq "127.0.0.1")
+  if (-not $ok3a) { $allOk = $false }
+  $bindAddr = if ($port3001) { $port3001.LocalAddress } else { "not listening" }
+  $checks += @{
+    name   = "Port 3001 localhost-only"
+    ok     = $ok3a
+    result = if ($ok3a) { "OK ($bindAddr)" } else { "EXPOSED on $bindAddr - fix start-hai-ic-dev.cjs" }
+  }
+
+  # 3b. 바탕화면/프로젝트에 흩어진 키 파일 검사
+  $scattered = @()
+  $desktopKeyGlob = Join-Path $env:USERPROFILE "Desktop\sk-proj-*.txt"
+  if (Test-Path $desktopKeyGlob) { $scattered += Get-Item $desktopKeyGlob }
+  $openAiTxt = Join-Path $projectRoot ".env. OPEN AI API KEY.txt"
+  if (Test-Path $openAiTxt) { $scattered += $openAiTxt }
+  $ok3b = $scattered.Count -eq 0
+  if (-not $ok3b) { $allOk = $false }
+  $checks += @{
+    name   = "No scattered key files"
+    ok     = $ok3b
+    result = if ($ok3b) { "Clean" } else { "Found $($scattered.Count) file(s) - move to ~/secrets/" }
+  }
+
+  # 3c. Windows 네트워크가 Public이면 경고 (집 Wi-Fi는 Private 권장)
+  $netProfile = Get-NetConnectionProfile -ErrorAction SilentlyContinue | Select-Object -First 1
+  $ok3c = ($null -eq $netProfile) -or ($netProfile.NetworkCategory -ne "Public")
+  if (-not $ok3c) { $allOk = $false }
+  $checks += @{
+    name   = "Network not Public profile"
+    ok     = $ok3c
+    result = if ($ok3c) { "OK" } else { "Public - set home Wi-Fi to Private in Settings" }
+  }
 
   # 4. node_modules 존재 (의존성 설치 여부)
   $nmExists = Test-Path (Join-Path $projectRoot "node_modules")

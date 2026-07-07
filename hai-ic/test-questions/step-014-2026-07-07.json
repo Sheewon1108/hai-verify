@@ -1,0 +1,78 @@
+{
+  "step": 14,
+  "at": "2026-07-07T06:21:37.914Z",
+  "questions": [
+    "training data contamination·bias audit 리포트를 Google Gemini에 제공할 수 있나요?",
+    "Colossus orchestration layer 통합 난이도와 호환성 검증은 이미 끝났나요?",
+    "xAI POC 3개월 pilot 비용과 exit 조건은 무엇인가요?",
+    "Growth Loops가 Hai-Ic를 modify·white-label할 수 있는 범위는 어디까지인가요?",
+    "Closeloop가 요구하는 SLA·GDPR·SOC2 컴플라이언스를 Hai-Ic가 충족하나요?",
+    "Google Gemini 전체 제품군에 Hai-Ic 적용 시 예상 ROI는 얼마인가요?",
+    "Hai-Ic Colossus orchestration layer 연동 시 false positive / hallucination rate 검증 데이터가 있나요?",
+    "Hai-Ic 진심 모드가 Google Gemini use case에 맞는지 어떻게 확인하나요?",
+    "xAI 담당자에게 보낼 follow-up 메일 초안이 필요해요.",
+    "Closeloop 팀이 Hai-Ic를 customer support bot stack에 붙이려면 첫 2주 플랜은?"
+  ],
+  "results": [
+    {
+      "question": "training data contamination·bias audit 리포트를 Google Gemini에 제공할 수 있나요?",
+      "ic": 71,
+      "dd": true,
+      "mode": "OFF"
+    },
+    {
+      "question": "Colossus orchestration layer 통합 난이도와 호환성 검증은 이미 끝났나요?",
+      "ic": 71,
+      "dd": true,
+      "mode": "OFF"
+    },
+    {
+      "question": "xAI POC 3개월 pilot 비용과 exit 조건은 무엇인가요?",
+      "ic": 65,
+      "dd": true,
+      "mode": "OFF"
+    },
+    {
+      "question": "Growth Loops가 Hai-Ic를 modify·white-label할 수 있는 범위는 어디까지인가요?",
+      "ic": 71,
+      "dd": true,
+      "mode": "OFF"
+    },
+    {
+      "question": "Closeloop가 요구하는 SLA·GDPR·SOC2 컴플라이언스를 Hai-Ic가 충족하나요?",
+      "ic": 86,
+      "dd": false,
+      "mode": "ON"
+    },
+    {
+      "question": "Google Gemini 전체 제품군에 Hai-Ic 적용 시 예상 ROI는 얼마인가요?",
+      "ic": 71,
+      "dd": true,
+      "mode": "OFF"
+    },
+    {
+      "question": "Hai-Ic Colossus orchestration layer 연동 시 false positive / hallucination rate 검증 데이터가 있나요?",
+      "ic": 71,
+      "dd": true,
+      "mode": "OFF"
+    },
+    {
+      "question": "Hai-Ic 진심 모드가 Google Gemini use case에 맞는지 어떻게 확인하나요?",
+      "ic": 81,
+      "dd": false,
+      "mode": "ON"
+    },
+    {
+      "question": "xAI 담당자에게 보낼 follow-up 메일 초안이 필요해요.",
+      "ic": 72,
+      "dd": false,
+      "mode": "OFF"
+    },
+    {
+      "question": "Closeloop 팀이 Hai-Ic를 customer support bot stack에 붙이려면 첫 2주 플랜은?",
+      "ic": 86,
+      "dd": false,
+      "mode": "ON"
+    }
+  ]
+}

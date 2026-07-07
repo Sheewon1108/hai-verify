@@ -1,8 +1,6 @@
-import {
-  HAI_IC_CONFIDENCE_THRESHOLD,
-  HAI_IC_DD_FLOOR,
-  HAI_IC_DD_MAX_PENALTY,
-} from "./hai-ic-system-prompt";
+import { HAI_IC_CONFIDENCE_THRESHOLD, HAI_IC_DD_FLOOR } from "./hai-ic-system-prompt";
+import { HAI_IC_HOURLY_BOOST } from "./hai-ic-boost-value";
+import { HAI_IC_DD_MAX_PENALTY_LIVE } from "./hai-ic-dd-penalty-value";
 
 export const HAI_IC_PRODUCT = "hai-ic";
 export const HAI_IC_VERSION = "1.0.0-mvp";
@@ -181,8 +179,10 @@ export function analyzeIntent(input: string): HaiIcResult {
   confidence = Math.max(35, Math.min(96, Math.round(confidence)));
 
   if (isDD) {
-    confidence = Math.max(confidence - HAI_IC_DD_MAX_PENALTY, HAI_IC_DD_FLOOR);
+    confidence = Math.max(confidence - HAI_IC_DD_MAX_PENALTY_LIVE, HAI_IC_DD_FLOOR);
   }
+
+  confidence = Math.min(96, confidence + HAI_IC_HOURLY_BOOST);
 
   const wantsStrategy = /어떻게|접근|전략|방법|좋을까|how/i.test(text);
   const wantsBusiness = /거래|협력|파트너|물류|business|deal/i.test(text);

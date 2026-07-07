@@ -1,14 +1,7 @@
 // Copyright 2026 KARAM. All Rights Reserved.
 // Private & Confidential. Unauthorized copying or distribution of this file is strictly prohibited.
 
-/**
- * Access control — FULLY OPEN (MVP)
- *
- * No blocking for any region, org, or tool — including:
- * Grok (x.ai), ChatGPT (OpenAI), Google / Gemini, Cursor, or any other client.
- *
- * checkAccess() always returns allowed. Future WAF rules are deferred.
- */
+import { extractBearerToken, validateApiKey } from "@/app/lib/api-keys";
 
 export interface AccessCheckInput {
   countryCode: string | null;
@@ -22,9 +15,9 @@ export interface AccessCheckInput {
 export interface AccessCheckResult {
   blocked: boolean;
   reason?: string;
+  status?: number;
 }
 
-/** Trusted AI tools — documentation only; not used to block others in MVP. */
 export const TRUSTED_PUBLIC_AI_TOOLS = [
   "grok",
   "x.ai",
@@ -37,7 +30,6 @@ export const TRUSTED_PUBLIC_AI_TOOLS = [
   "cursor.sh",
 ] as const;
 
-/** @deprecated Reserved label — not enforced. */
 export const ALLOWED_PARTNERS = [
   "openai.com",
   "chatgpt.com",
@@ -49,12 +41,71 @@ export const ALLOWED_PARTNERS = [
   "cursor.com",
 ] as const;
 
-/** @deprecated Not enforced — kept for future WAF docs only. */
-export const BLOCKED_ORG_KEYWORDS = [] as const;
+const BLOCKED_UA_PATTERNS = [
+  "ncsoft",
+  "nc-security",
+  "ncsec",
+  "nc_crawler",
+  "ncspider",
+  "nc bot",
+  "shinseunghoon",
+  "ssh-crawler",
+] as const;
 
-export function checkAccess(_input: AccessCheckInput): AccessCheckResult {
-  void _input;
-  return { blocked: false };
+const BLOCKED_REFERER_PATTERNS = [
+  "ncsoft.com",
+  "nc.com.tw",
+  "ncsecurity.co.kr",
+  "plaync.com",
+] as const;
+
+const PUBLIC_API_ROUTES: ReadonlyArray<{ method: string; path: string }> = [
+  { method: "GET", path: "/api/health" },
+  { method: "GET", path: "/api/hai-ic/health" },
+  { method: "POST", path: "/api/stripe/webhook" },
+];
+
+function isAccessOpen(): boolean {
+  return process.env.HAI_ACCESS_MODE === "open";
+}
+
+function isLocalBypassEnabled(): boolean {
+  return process.env.HAI_ACCESS_LOCAL_BYPASS !== "false";
+}
+
+function isPublicApiRoute(method: string, pathname: string): boolean {
+  const normalized = method.toUpperCase();
+  return PUBLIC_API_ROUTES.some(
+    (route) => route.method === normalized && route.path === pathname,
+  );
+}
+
+function matchesPattern(value: string, patterns: readonly string[]): boolean {
+  const lower = value.toLowerCase();
+  return patterns.some((pattern) => lower.includes(pattern));
+}
+
+function checkNcBlock(input: AccessCheckInput): AccessCheckResult | null {
+  const ua = input.userAgent ?? "";
+  const referer = input.referer ?? "";
+
+  if (ua && matchesPattern(ua, BLOCKED_UA_PATTERNS)) {
+    return {
+      blocked: true,
+      reason: "BLOCKED_NC_SCRAPER",
+      status: 403,
+    };
+  }
+
+  if (referer && matchesPattern(referer, BLOCKED_REFERER_PATTERNS)) {
+    return {
+      blocked: true,
+      reason: "BLOCKED_NC_SCRAPER",
+      status: 403,
+    };
+  }
+
+  return null;
 }
 
 export function getRequestCountryCode(headers: Headers): string | null {
@@ -67,11 +118,92 @@ export function getRequestCountryCode(headers: Headers): string | null {
   );
 }
 
-export function checkRequestHeaders(request: Request): AccessCheckResult {
-  return checkAccess({
+function getClientIp(request: Request): string {
+  const forwarded = request.headers.get("x-forwarded-for");
+  if (forwarded) return forwarded.split(",")[0]?.trim() ?? "";
+  return request.headers.get("x-real-ip") ?? "";
+}
+
+function isLoopbackHost(hostname: string): boolean {
+  return hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1";
+}
+
+function isLoopbackClient(request: Request): boolean {
+  const url = new URL(request.url);
+  if (isLoopbackHost(url.hostname)) return true;
+
+  const clientIp = getClientIp(request);
+  return clientIp === "127.0.0.1" || clientIp === "::1";
+}
+
+function isSameOriginBrowserRequest(request: Request): boolean {
+  return request.headers.get("sec-fetch-site") === "same-origin";
+}
+
+function extractApiKey(request: Request): string | null {
+  const bearer = extractBearerToken(request.headers.get("authorization"));
+  if (bearer) return bearer;
+
+  const headerKey = request.headers.get("x-hai-api-key")?.trim();
+  return headerKey || null;
+}
+
+async function hasValidApiKey(request: Request): Promise<boolean> {
+  const token = extractApiKey(request);
+  if (!token) return false;
+
+  if (token.startsWith("hv_")) {
+    const result = await validateApiKey(token);
+    return result.valid;
+  }
+
+  const internalKey = process.env.HAI_INTERNAL_API_KEY?.trim();
+  return Boolean(internalKey && token === internalKey);
+}
+
+export function checkAccess(input: AccessCheckInput): AccessCheckResult {
+  if (isAccessOpen()) return { blocked: false };
+
+  const ncBlock = checkNcBlock(input);
+  if (ncBlock) return ncBlock;
+
+  return { blocked: false };
+}
+
+export async function checkRequestHeaders(request: Request): Promise<AccessCheckResult> {
+  const url = new URL(request.url);
+  const method = request.method.toUpperCase();
+  const pathname = url.pathname;
+
+  if (method === "OPTIONS") return { blocked: false };
+
+  const base = checkAccess({
     countryCode: getRequestCountryCode(request.headers),
     userAgent: request.headers.get("user-agent"),
     referer: request.headers.get("referer"),
     content: "",
   });
+  if (base.blocked) return base;
+
+  if (!pathname.startsWith("/api/")) return { blocked: false };
+  if (isPublicApiRoute(method, pathname)) return { blocked: false };
+  if (isAccessOpen()) return { blocked: false };
+
+  if (isLocalBypassEnabled() && isLoopbackClient(request)) {
+    return { blocked: false };
+  }
+
+  if (isSameOriginBrowserRequest(request)) {
+    return { blocked: false };
+  }
+
+  if (await hasValidApiKey(request)) {
+    return { blocked: false };
+  }
+
+  return {
+    blocked: true,
+    reason: "UNAUTHORIZED — Bearer hv_... or X-HAI-API-Key required",
+    status: 401,
+  };
 }

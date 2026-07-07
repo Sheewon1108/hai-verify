@@ -2,6 +2,9 @@ param(
   [string]$ProjectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 )
 
+. (Join-Path $ProjectRoot "scripts\lib\with-user-context.ps1")
+Enter-ScriptWithUserContext -Strict
+
 $timestamp = Get-Date -Format "yyyy-MM-dd_HHmm"
 $backupRoot = Join-Path (Split-Path $ProjectRoot -Parent) "backups"
 $destination = Join-Path $backupRoot "hai-verify-$timestamp"

@@ -4,6 +4,7 @@ import { HaiIcDemo } from './hai-ic-demo';
 
 const INTEGRATION = `curl -X POST https://hai-verify.workers.dev/api/hai-ic/analyze \\
   -H "Content-Type: application/json" \\
+  -H "Authorization: Bearer hv_dev_..." \\
   -d '{"input":"Ship 200 units to Seoul by July 15, budget $50k"}'`;
 
 export function HaiIcLanding() {

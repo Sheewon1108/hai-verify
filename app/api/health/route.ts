@@ -3,6 +3,17 @@
 import { NextRequest } from "next/server";
 import { jsonWithCors, corsHeaders } from "@/app/lib/cors";
 import { TRUSTED_PUBLIC_AI_TOOLS } from "@/app/lib/access-control";
+import {
+  PHONE_AREA_POLICY_EN,
+  TIMEZONE_MODEL_POLICY_EN,
+  US_TIMEZONE_POLICY_EN,
+  USER_CONTEXT_POLICY_EN,
+  USER_CONTEXT_RULES,
+  areaCodeZoneHint,
+  describeContextDecoupling,
+  inferenceRuleForModel,
+  resolveTimezoneModel,
+} from "@/app/lib/user-context-policy";
 
 export async function GET(request: NextRequest) {
   const origin = request.headers.get("origin");
@@ -11,10 +22,44 @@ export async function GET(request: NextRequest) {
     {
       ok: true,
       service: "HAI Verify",
-      mode: "mvp-open",
+      mode: process.env.HAI_ACCESS_MODE === "open" ? "open" : "protected",
       access: {
-        grok: true,
+        auth: "Bearer hv_... or X-HAI-API-Key (external); same-origin browser + localhost bypass",
         trustedAiTools: TRUSTED_PUBLIC_AI_TOOLS,
+      },
+      userContext: {
+        policy: USER_CONTEXT_POLICY_EN,
+        usTimezonePolicy: US_TIMEZONE_POLICY_EN,
+        phoneAreaPolicy: PHONE_AREA_POLICY_EN,
+        timezoneModelPolicy: TIMEZONE_MODEL_POLICY_EN,
+        country: process.env.USER_COUNTRY ?? null,
+        residence: process.env.USER_REGION ?? null,
+        timezone: process.env.USER_TIMEZONE ?? null,
+        timezoneModel: resolveTimezoneModel(
+          process.env.USER_REGION ?? "",
+          process.env.USER_COUNTRY,
+        ),
+        timezoneInferenceRule: inferenceRuleForModel(
+          resolveTimezoneModel(process.env.USER_REGION ?? "", process.env.USER_COUNTRY),
+        ),
+        displayLocale: process.env.USER_DISPLAY_LOCALE ?? null,
+        contactPhone: process.env.USER_CONTACT_PHONE ?? null,
+        phoneAreaHint: process.env.USER_CONTACT_PHONE
+          ? areaCodeZoneHint(process.env.USER_CONTACT_PHONE)
+          : null,
+        decouplingNotes: describeContextDecoupling({
+          region: process.env.USER_REGION ?? "",
+          timezone: process.env.USER_TIMEZONE ?? "",
+          country: process.env.USER_COUNTRY,
+          contactPhone: process.env.USER_CONTACT_PHONE,
+        }),
+        rules: USER_CONTEXT_RULES,
+        multiTimezoneCountries: listMultiTimezoneCountries(),
+        product: {
+          pitch: PRODUCT_PITCH_EN,
+          free: PRODUCT_TIERS.free,
+          paid: PRODUCT_TIERS.paid,
+        },
       },
       endpoints: {
         verify: {

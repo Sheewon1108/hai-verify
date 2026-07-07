@@ -1,0 +1,100 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Hai-Ic Intent Confidence API",
+    "version": "1.0.0-mvp",
+    "description": "Pre-LLM gate. Sincere answers only when Intent Confidence >= 75%."
+  },
+  "servers": [
+    { "url": "https://{domain}", "variables": { "domain": { "default": "api.example.com" } } },
+    { "url": "http://localhost:3001", "description": "Owner dev only" }
+  ],
+  "paths": {
+    "/api/hai-ic/health": {
+      "get": {
+        "summary": "Health check",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": { "type": "boolean" },
+                    "product": { "type": "string", "example": "hai-ic" },
+                    "version": { "type": "string" },
+                    "status": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/hai-ic/analyze": {
+      "get": {
+        "summary": "API discovery",
+        "responses": { "200": { "description": "Endpoint metadata" } }
+      },
+      "post": {
+        "summary": "Analyze intent confidence",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["input"],
+                "properties": {
+                  "input": { "type": "string", "maxLength": 8000 }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Analysis result",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AnalyzeResult" }
+              }
+            }
+          },
+          "400": { "description": "Invalid body" },
+          "413": { "description": "Input too long" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AnalyzeResult": {
+        "type": "object",
+        "properties": {
+          "ok": { "type": "boolean" },
+          "product": { "type": "string" },
+          "version": { "type": "string" },
+          "confidence": { "type": "integer", "minimum": 0, "maximum": 100 },
+          "sincereMode": { "type": "boolean" },
+          "mode": { "type": "string" },
+          "breakdown": {
+            "type": "object",
+            "properties": {
+              "core": { "type": "string" },
+              "understood": { "type": "string" },
+              "missing": { "type": "string" },
+              "risk": { "type": "string" }
+            }
+          },
+          "questions": { "type": "array", "items": { "type": "string" } },
+          "response": { "type": "string" },
+          "analyzedAt": { "type": "string", "format": "date-time" },
+          "isDueDiligence": { "type": "boolean" }
+        }
+      }
+    }
+  }
+}

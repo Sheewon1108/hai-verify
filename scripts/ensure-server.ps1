@@ -1,6 +1,8 @@
-# Single server on :3000 — kill duplicates, start production if down
-$port = 3001
+# Single server on :3001 — kill duplicates, start production if down
 $project = Split-Path -Parent $PSScriptRoot
+. (Join-Path $project "scripts\lib\with-user-context.ps1")
+Enter-ScriptWithUserContext -Strict
+$port = 3001
 
 $listeners = Get-NetTCPConnection -LocalPort $port -State Listen -ErrorAction SilentlyContinue
 if ($listeners.Count -gt 1) {

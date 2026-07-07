@@ -1,5 +1,8 @@
 const { spawn } = require("child_process");
 const path = require("path");
+const { assertUserContext } = require("./lib/load-user-context.cjs");
+
+assertUserContext({ strict: true });
 
 const projectRoot = path.join(__dirname, "..");
 const nextBin = path.join(projectRoot, "node_modules", "next", "dist", "bin", "next");

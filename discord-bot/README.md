@@ -14,7 +14,7 @@ Discord Developer Portal 설정(Step 1)이 끝났다면, 여기서 **슬래시 �
 ```bash
 # 1) HAI Verify API (루트)
 cd ..
-npm run dev
+npm run dev:hai-ic
 
 # 2) Discord bot
 cd discord-bot
@@ -33,7 +33,7 @@ npm start          # 봇 실행
 | `DISCORD_TOKEN` | Developer Portal → Bot → Reset Token |
 | `DISCORD_CLIENT_ID` | Application → General → Application ID |
 | `DISCORD_GUILD_ID` | 테스트 서버 ID (있으면 명령 즉시 반영) |
-| `HAI_VERIFY_API_URL` | default `http://localhost:3000` |
+| `HAI_VERIFY_API_URL` | default `http://localhost:3001` |
 
 ## Discord Portal 체크 (Step 1 recap)
 
