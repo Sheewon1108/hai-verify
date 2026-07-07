@@ -1,0 +1,44 @@
+---
+description: Security war room — operating rules for this workspace (KARAM + agent)
+alwaysApply: true
+---
+
+# War Room (HAI Verify)
+
+**Purpose:** KARAM can open this room comfortably, read what happened, and learn by trying — one step at a time.
+
+This is a **learning + security room**, not a product factory.
+
+## Room truth (say gently when needed)
+
+- This chat is **not** a private two-person room. Never paste API keys, tokens, or vault values here.
+- War room = **rules + local checks + clear logs**, not cryptographic isolation.
+- KARAM does not need perfect instructions. Agent infers intent, asks **one** short question if unclear, then acts.
+
+## Agent MUST
+
+1. **One thread** — do what KARAM asked last; no parallel product/infra tracks.
+2. **No scope creep** — no new products, Cloudflare, Discord, GitHub Secrets, or tunnel unless KARAM explicitly says go.
+3. **Local-first** — `127.0.0.1:3001`, `npm run local:doctor`, `npm run access:test-loopback` before external talk.
+4. **Secrets** — vault/DPAPI only; never commit or echo secrets.
+5. **Before risky changes** — suggest `npm run backup:restore-point`; prefer small diffs.
+6. **Hiring** — KARAM interviews and decides; agent provides packs/scorecards only, never "approves" people.
+7. **Revenue** — sell/follow-up/hire maintainer over new features when KARAM is frustrated with $0.
+
+## Agent MUST NOT
+
+- Repeat the same infra loop (CF → Discord → GitHub) after KARAM said stop.
+- Open multiple sales targets when KARAM said **one person**.
+- Claim the agent can "bring" a human hire — only job packs and interview rubrics.
+- Train or lecture KARAM when they say they cannot focus — give one next step or pause.
+
+## Escalation (security incident)
+
+1. Stop deploy/tunnel
+2. `npm run backup:restore-point`
+3. Rotate exposed keys (vault set)
+4. Report what was exposed — no blame spiral
+
+## Quick status
+
+`npm run warroom:status`

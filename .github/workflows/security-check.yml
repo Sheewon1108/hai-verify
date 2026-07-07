@@ -1,9 +1,8 @@
 name: Hourly Security Check
 
 on:
-  schedule:
-    - cron: "0 * * * *"   # 매 시간 정각
-  workflow_dispatch:        # 수동 실행 가능
+  # Hourly emails disabled — use npm run warroom:status on your PC instead.
+  workflow_dispatch:
 
 jobs:
   security:
@@ -108,39 +107,9 @@ jobs:
           echo "✅ Build: passed"
           echo "================================"
 
-      # 7. 이메일 보고 (성공)
-      - name: Email report — SUCCESS
-        if: success()
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com
-          server_port: 587
-          secure: false
-          username: ${{ secrets.GMAIL_USER }}
-          password: ${{ secrets.GMAIL_APP_PASSWORD }}
-          subject: "✅ [XGOMA Security] Hourly Check PASSED — ${{ github.run_number }}"
-          to: sheewon1111@gmail.com
-          from: "XGOMA Security Bot <${{ secrets.GMAIL_USER }}>"
-          body: |
-            ✅ XGOMA / HAI Verify — Hourly Security Report
-
-            Time: ${{ github.run_id }} / ${{ github.event.repository.updated_at }}
-            Status: ALL CLEAR
-
-            Checks Passed:
-            ✅ No Stripe/Cloudflare/OpenAI keys exposed in code
-            ✅ .env.local not tracked by git
-            ✅ TypeScript build passed
-            ✅ npm audit passed
-
-            Repo: https://github.com/${{ github.repository }}
-            Actions: https://github.com/${{ github.repository }}/actions
-
-            — XGOMA Security Bot
-
-      # 8. 이메일 보고 (실패)
+      # Email only on FAILURE (no hourly success spam)
       - name: Email report — FAILURE
-        if: failure()
+        if: failure() && secrets.GMAIL_USER != '' && secrets.GMAIL_APP_PASSWORD != ''
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
