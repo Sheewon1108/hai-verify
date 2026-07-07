@@ -22,6 +22,7 @@
     "vault:status": "powershell -ExecutionPolicy Bypass -File ./scripts/vault.ps1 status",
     "vault:migrate": "powershell -ExecutionPolicy Bypass -File ./scripts/vault.ps1 migrate",
     "vault:list": "powershell -ExecutionPolicy Bypass -File ./scripts/vault.ps1 list",
+    "backup:restore-point": "powershell -ExecutionPolicy Bypass -File ./scripts/backup-security-restore-point.ps1",
     "pm2:clear-errors": "powershell -ExecutionPolicy Bypass -File ./scripts/clear-pm2-error-logs.ps1",
     "pm2:register-log-cleanup": "powershell -ExecutionPolicy Bypass -File ./scripts/register-pm2-log-cleanup.ps1",
     "user-context:assert": "powershell -ExecutionPolicy Bypass -File ./scripts/lib/assert-user-timezone.ps1",
