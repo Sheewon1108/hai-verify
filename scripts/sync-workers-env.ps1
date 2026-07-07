@@ -20,7 +20,9 @@ $vaultScript = Join-Path $PSScriptRoot "lib\secrets-vault.ps1"
 $vaultJson = & $vaultScript export-json 2>$null
 $vaultSecrets = @{}
 if ($vaultJson) {
-  $vaultSecrets = $vaultJson | ConvertFrom-Json -AsHashtable
+  ($vaultJson | ConvertFrom-Json).PSObject.Properties | ForEach-Object {
+    $vaultSecrets[$_.Name] = [string]$_.Value
+  }
 }
 
 $parsed = @{}
