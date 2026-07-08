@@ -11,16 +11,12 @@ import {
 } from "@/app/lib/hai-ruleset";
 
 /**
- * HAI Verify Middleware
+ * HAI Verify Middleware (Edge)
  *
+ * Cloudflare/OpenNext requires Edge middleware — not Next.js 16 proxy.ts (Node).
  * Flow: AI (1번) → HAI Verification → Human Approval → XGOMA
- *
- * Injects HAI Verify ruleset headers on EVERY request so that:
- * - All downstream API handlers know the ruleset was applied
- * - XGOMA orchestrator can confirm uncontaminated data ingestion
- * - Human-approval layer has a consistent audit trail
  */
-export async function proxy(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const origin = request.headers.get("origin");
   const now = new Date().toISOString();
