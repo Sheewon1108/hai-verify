@@ -1,4 +1,4 @@
-# Hai-Ic Trust Ledger — 2026-07-07
+# Hai-Ic Trust Ledger — 2026-07-08
 
 **Owner:** KARAM SHIN  
 **Product:** Intent Confidence Gate (진심일 때만 답함)
@@ -9,12 +9,12 @@
 
 | Metric | Value |
 |--------|-------|
-| Questions analyzed | **170** |
-| 진심 모드 ON (≥75%) | **71** (42%) |
-| 진심 모드 OFF (<75%) | **99** (58%) |
-| DD / 검증형 질문 | **108** |
-| DD 중 OFF (증거 요구 차단) | **97** |
-| Avg Intent Confidence | **75.9%** |
+| Questions analyzed | **200** |
+| 진심 모드 ON (≥75%) | **82** (41%) |
+| 진심 모드 OFF (<75%) | **118** (59%) |
+| DD / 검증형 질문 | **126** |
+| DD 중 OFF (증거 요구 차단) | **115** |
+| Avg Intent Confidence | **75.8%** |
 
 ## Buyer value (why this matters)
 

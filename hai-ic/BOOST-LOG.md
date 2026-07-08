@@ -81,3 +81,9 @@ Started: 2026-07-05T04:14:39.3051681-07:00
 - Daily @ 2026-07-07T14:00:43.245Z → report + backup done
 - Watch @ 2026-07-07T14:16:43.532Z → server ok
 - Hour 22 @ 2026-07-07T14:16:43.533Z | new Q 10 | avg IC 75.4% | backup step-022-2026-07-07.json | buyer pack updated (OFF 99)
+- Boot @ 2026-07-07T15:27:04.385Z → server restarted
+- Hour 23 @ 2026-07-07T15:27:04.387Z | new Q 10 | avg IC 74.1% | backup step-023-2026-07-07.json | buyer pack updated (OFF 106)
+- Boot @ 2026-07-08T05:31:46.228Z → server restarted
+- Hour 24 @ 2026-07-08T05:31:46.229Z | new Q 10 | avg IC 75.5% | backup step-024-2026-07-08.json | buyer pack updated (OFF 112)
+- Boot @ 2026-07-08T21:50:38.612Z → server restarted
+- Hour 25 @ 2026-07-08T21:50:38.613Z | new Q 10 | avg IC 75.6% | backup step-025-2026-07-08.json | buyer pack updated (OFF 118)

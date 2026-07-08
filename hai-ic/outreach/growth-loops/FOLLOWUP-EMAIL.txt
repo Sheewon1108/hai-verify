@@ -1,0 +1,15 @@
+﻿Dear Growth Loops Team,
+
+Following up on my note from July 7 ??Hai-Ic (Intent Confidence Gate before your LLM / multi-agent stack).
+
+One concrete offer:
+- 2-week POC on your pipeline
+- We only answer in full when intent confidence is 75%+
+- Pilot terms: scoped in the call (no link in email)
+
+Are you open to 30 minutes this week or next? I will walk through a live example on your use case.
+
+Best regards,
+KARAM SHIN
+Founder, Hai-Ic
+jay.transtar.inc@gmail.com
