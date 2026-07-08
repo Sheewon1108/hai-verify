@@ -8,6 +8,15 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: projectRoot,
   },
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/hai-ic",
+        permanent: false,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

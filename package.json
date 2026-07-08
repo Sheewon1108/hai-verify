@@ -12,7 +12,7 @@
     "tunnel": "npx --yes localtunnel --port 3001",
     "local:doctor": "powershell -ExecutionPolicy Bypass -File ./scripts/local-doctor.ps1",
     "access:test-loopback": "powershell -ExecutionPolicy Bypass -File ./scripts/test-access-loopback.ps1",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
