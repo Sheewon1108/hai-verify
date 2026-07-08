@@ -5,35 +5,47 @@ $root = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
 Enter-ScriptWithUserContext -Strict
 Set-Location $root
 
+$parsed = @{}
 $envFile = Join-Path $root ".env.local"
-if (-not (Test-Path $envFile)) {
-  Write-Host "Create .env.local from .env.example and set CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID"
-  exit 1
-}
-
-Get-Content $envFile | ForEach-Object {
-  $line = $_.Trim()
-  if ($line -match '^#|^$') { return }
-  if ($line -match '^([^=]+)=(.*)$') {
-    $name = $matches[1].Trim()
-    $value = $matches[2].Trim()
-    if ($name -eq 'CLOUDFLARE_API_TOKEN' -or $name -eq 'CLOUDFLARE_ACCOUNT_ID') {
-      Set-Item -Path "env:$name" -Value $value
+if (Test-Path $envFile) {
+  Get-Content $envFile | ForEach-Object {
+    $line = $_.Trim()
+    if ($line -match '^#|^$') { return }
+    if ($line -match '^([^=]+)=(.*)$') {
+      $parsed[$matches[1].Trim()] = $matches[2].Trim()
     }
   }
+}
+
+$vaultScript = Join-Path $PSScriptRoot "lib\secrets-vault.ps1"
+$vaultJson = & $vaultScript export-json 2>$null
+$vaultSecrets = @{}
+if ($vaultJson) {
+  ($vaultJson | ConvertFrom-Json).PSObject.Properties | ForEach-Object {
+    $vaultSecrets[$_.Name] = [string]$_.Value
+  }
+}
+
+foreach ($cfKey in @('CLOUDFLARE_API_TOKEN', 'CLOUDFLARE_ACCOUNT_ID')) {
+  $cfVal = $vaultSecrets[$cfKey]
+  if (-not $cfVal) { $cfVal = $parsed[$cfKey] }
+  if ($cfVal) { Set-Item -Path "env:$cfKey" -Value $cfVal }
 }
 
 if (-not $env:CLOUDFLARE_API_TOKEN -or -not $env:CLOUDFLARE_ACCOUNT_ID) {
   Write-Host @"
 
-Missing Cloudflare credentials in .env.local
+Missing Cloudflare credentials (vault or .env.local)
 
 1. Open https://dash.cloudflare.com/profile/api-tokens
 2. Create Token -> template "Edit Cloudflare Workers"
 3. Copy token + Account ID (dash home -> right sidebar)
-4. Add to .env.local:
-   CLOUDFLARE_API_TOKEN=...
-   CLOUDFLARE_ACCOUNT_ID=...
+4. Store locally (do not paste in chat):
+   .\scripts\vault.ps1 set CLOUDFLARE_API_TOKEN
+   .\scripts\vault.ps1 set CLOUDFLARE_ACCOUNT_ID
+   OR add to .env.local
+
+GitHub deploy: repo Secrets + Run workflow (see hai-ic/hiring/GITHUB-SECRETS-STEPS.txt)
 
 Then run: npm run deploy:cf
 
