@@ -12,22 +12,29 @@ export const CORS_ALLOW_ORIGINS = [
   "https://www.cursor.com",
 ] as const;
 
-export function corsHeaders(requestOrigin: string | null): HeadersInit {
-  const allowOrigin =
-    requestOrigin &&
-    (CORS_ALLOW_ORIGINS.includes(requestOrigin as (typeof CORS_ALLOW_ORIGINS)[number]) ||
-      requestOrigin.startsWith("http://localhost:") ||
-      requestOrigin.startsWith("http://127.0.0.1:"))
-      ? requestOrigin
-      : "*";
+export function isAllowedCorsOrigin(requestOrigin: string | null): boolean {
+  if (!requestOrigin) return false;
+  return (
+    CORS_ALLOW_ORIGINS.includes(requestOrigin as (typeof CORS_ALLOW_ORIGINS)[number]) ||
+    requestOrigin.startsWith("http://localhost:") ||
+    requestOrigin.startsWith("http://127.0.0.1:")
+  );
+}
 
-  return {
-    "Access-Control-Allow-Origin": allowOrigin,
+export function corsHeaders(requestOrigin: string | null): HeadersInit {
+  const headers: Record<string, string> = {
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
     "Access-Control-Allow-Headers":
-      "Content-Type, Accept, Accept-Language, Authorization, X-Requested-With",
+      "Content-Type, Accept, Accept-Language, Authorization, X-Requested-With, X-HAI-API-Key, X-HAI-CSRF",
     "Access-Control-Max-Age": "86400",
+    Vary: "Origin",
   };
+
+  if (isAllowedCorsOrigin(requestOrigin)) {
+    headers["Access-Control-Allow-Origin"] = requestOrigin as string;
+  }
+
+  return headers;
 }
 
 export function jsonWithCors(

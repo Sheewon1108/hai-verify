@@ -2,6 +2,7 @@
 // Private & Confidential. Unauthorized copying or distribution of this file is strictly prohibited.
 
 import { extractBearerToken, validateApiKey } from "@/app/lib/api-keys";
+import { HAI_CSRF_COOKIE, HAI_CSRF_HEADER } from "@/app/lib/security-constants";
 
 export interface AccessCheckInput {
   countryCode: string | null;
@@ -150,8 +151,33 @@ function isLoopbackClient(request: Request): boolean {
   return true;
 }
 
-function isSameOriginBrowserRequest(request: Request): boolean {
-  return request.headers.get("sec-fetch-site") === "same-origin";
+function getCookieValue(request: Request, cookieName: string): string | null {
+  const rawCookie = request.headers.get("cookie");
+  if (!rawCookie) return null;
+
+  const parts = rawCookie.split(";");
+  for (const part of parts) {
+    const [name, ...valueParts] = part.trim().split("=");
+    if (name !== cookieName) continue;
+    const rawValue = valueParts.join("=");
+    try {
+      return decodeURIComponent(rawValue);
+    } catch {
+      return rawValue;
+    }
+  }
+
+  return null;
+}
+
+function hasValidCsrfToken(request: Request): boolean {
+  const headerToken = request.headers.get(HAI_CSRF_HEADER)?.trim();
+  if (!headerToken) return false;
+
+  const cookieToken = getCookieValue(request, HAI_CSRF_COOKIE)?.trim();
+  if (!cookieToken) return false;
+
+  return headerToken === cookieToken;
 }
 
 function extractApiKey(request: Request): string | null {
@@ -207,7 +233,7 @@ export async function checkRequestHeaders(request: Request): Promise<AccessCheck
     return { blocked: false };
   }
 
-  if (isSameOriginBrowserRequest(request)) {
+  if (hasValidCsrfToken(request)) {
     return { blocked: false };
   }
 

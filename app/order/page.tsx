@@ -19,6 +19,7 @@ import {
   formatRiskFlagsForAppLocale,
   type OrderCopy,
 } from "../lib/ui-locale";
+import { csrfRequestHeaders } from "../lib/browser-security";
 
 type VerifySuccess = {
   ok: true;
@@ -123,6 +124,7 @@ async function postVerify(
     headers: {
       "Content-Type": "application/json",
       "Accept-Language": acceptLanguage,
+      ...csrfRequestHeaders(),
     },
     body: JSON.stringify({ content, locale: ORDER_VERIFY_LOCALE }),
   });
@@ -137,7 +139,7 @@ async function postCheckout(input: {
 }): Promise<{ res: Response; data: MockCheckoutSuccess | VerifyError }> {
   const res = await fetch("/api/checkout", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", ...csrfRequestHeaders() },
     body: JSON.stringify(input),
   });
   const data = (await res.json()) as MockCheckoutSuccess | VerifyError;
