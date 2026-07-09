@@ -11,7 +11,7 @@ import {
   toVerifyApiLocale,
   type AppLocale,
 } from "../lib/ui-locale";
-import { csrfRequestHeaders } from "../lib/browser-security";
+import { csrfFetchHeaders } from "../lib/browser-security";
 
 type VerifySuccess = {
   ok: true;
@@ -44,7 +44,7 @@ async function postVerify(
     headers: {
       "Content-Type": "application/json",
       "Accept-Language": acceptLanguageHeader(locale),
-      ...csrfRequestHeaders(),
+      ...csrfFetchHeaders(),
     },
     body: JSON.stringify({ content: text, locale: apiLocale }),
   });

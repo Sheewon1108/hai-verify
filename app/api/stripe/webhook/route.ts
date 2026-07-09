@@ -23,10 +23,53 @@ function getStripe(): Stripe {
   return new Stripe(key, { apiVersion: "2026-06-24.dahlia" });
 }
 
+async function queueApiKeyDelivery(input: {
+  email: string;
+  plan: ApiKeyPlan;
+  apiKey: string;
+  sessionId: string;
+}): Promise<void> {
+  const resendApiKey = process.env.RESEND_API_KEY?.trim();
+  const from = process.env.HAI_API_KEY_DELIVERY_FROM?.trim();
+  if (!resendApiKey || !from) {
+    throw new Error("API key delivery is not configured");
+  }
+
+  const subject = "Your HAI Verify API key";
+  const text = [
+    "HAI Verify API key delivery",
+    "",
+    `Plan: ${input.plan}`,
+    `Session: ${input.sessionId}`,
+    "",
+    "API key:",
+    input.apiKey,
+    "",
+    "Keep this key secret. Do not share it in chat, screenshots, or public code.",
+  ].join("\n");
+
+  const emailResponse = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${resendApiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from,
+      to: [input.email],
+      subject,
+      text,
+    }),
+  });
+
+  if (!emailResponse.ok) {
+    throw new Error("API key delivery request failed");
+  }
+}
+
 export async function POST(request: NextRequest) {
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
   if (!webhookSecret) {
-    console.error("[webhook] STRIPE_WEBHOOK_SECRET not set");
     return NextResponse.json({ ok: false, error: "Webhook not configured" }, { status: 503 });
   }
 
@@ -41,10 +84,8 @@ export async function POST(request: NextRequest) {
   try {
     const stripe = getStripe();
     event = stripe.webhooks.constructEvent(rawBody, sig, webhookSecret);
-  } catch (err) {
-    const msg = err instanceof Error ? err.message : "Webhook verification failed";
-    console.error("[webhook] verification failed:", msg);
-    return NextResponse.json({ ok: false, error: msg }, { status: 400 });
+  } catch {
+    return NextResponse.json({ ok: false, error: "Webhook verification failed" }, { status: 400 });
   }
 
   if (event.type === "checkout.session.completed") {
@@ -54,7 +95,6 @@ export async function POST(request: NextRequest) {
     const plan = (session.metadata?.plan ?? "starter") as ApiKeyPlan;
 
     if (!email) {
-      console.error("[webhook] no email in session", session.id);
       return NextResponse.json({ ok: false, error: "No email in session" }, { status: 400 });
     }
 
@@ -66,26 +106,29 @@ export async function POST(request: NextRequest) {
         issuedAt: Math.floor(Date.now() / 1000),
         stripeSessionId: session.id,
       });
-    } catch (err) {
-      console.error("[webhook] key generation failed:", err);
+    } catch {
       return NextResponse.json({ ok: false, error: "Key generation failed" }, { status: 500 });
     }
 
-    // ── Log issued key (replace with email delivery in production) ──────────
-    console.log(`[webhook] HAI API key issued for ${email} (plan: ${plan})`);
-    console.log(`[webhook] API key: ${apiKey}`);
-
-    // TODO: Send apiKey to email via Resend / SendGrid / SES
-    // await sendApiKeyEmail({ email, plan, apiKey });
+    try {
+      await queueApiKeyDelivery({
+        email,
+        plan,
+        apiKey,
+        sessionId: session.id,
+      });
+    } catch {
+      return NextResponse.json(
+        { ok: false, error: "API key delivery queue failed" },
+        { status: 500 },
+      );
+    }
 
     return NextResponse.json({
       ok: true,
       received: true,
       event: event.type,
-      plan,
-      email,
-      // NOTE: Remove apiKey from response in production — deliver via email only
-      apiKey,
+      deliveryQueued: true,
     });
   }
 

@@ -18,3 +18,5 @@ export function csrfRequestHeaders(): Record<string, string> {
   if (!token) return {};
   return { [HAI_CSRF_HEADER]: token };
 }
+
+export const csrfFetchHeaders = csrfRequestHeaders;

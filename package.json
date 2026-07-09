@@ -13,6 +13,8 @@
     "local:doctor": "powershell -ExecutionPolicy Bypass -File ./scripts/local-doctor.ps1",
     "access:test-loopback": "powershell -ExecutionPolicy Bypass -File ./scripts/test-access-loopback.ps1",
     "build": "next build --webpack",
+    "security:check": "node ./scripts/security-check.cjs",
+    "security:csrf-test": "node ./scripts/security-csrf-test.cjs",
     "start": "next start",
     "lint": "eslint",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",

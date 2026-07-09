@@ -69,11 +69,6 @@ export async function GET(request: NextRequest) {
           path: "/api/verify",
           body: { content: "string", locale: "ko | en (optional)" },
         },
-        checkout: {
-          method: "POST",
-          path: "/api/checkout",
-          body: { planId: "starter | trust_pilot", email: "string", orderId: "string" },
-        },
         stripeCheckout: {
           method: "POST",
           path: "/api/stripe/checkout",

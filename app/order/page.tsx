@@ -19,7 +19,7 @@ import {
   formatRiskFlagsForAppLocale,
   type OrderCopy,
 } from "../lib/ui-locale";
-import { csrfRequestHeaders } from "../lib/browser-security";
+import { csrfFetchHeaders } from "../lib/browser-security";
 
 type VerifySuccess = {
   ok: true;
@@ -32,6 +32,11 @@ type VerifySuccess = {
 };
 
 type VerifyError = { ok: false; error: string };
+type StripeCheckoutSuccess = {
+  ok: true;
+  checkoutUrl: string;
+  sessionId?: string;
+};
 
 type FlowPhase = "form" | "processing" | "checkout" | "report";
 
@@ -124,7 +129,7 @@ async function postVerify(
     headers: {
       "Content-Type": "application/json",
       "Accept-Language": acceptLanguage,
-      ...csrfRequestHeaders(),
+      ...csrfFetchHeaders(),
     },
     body: JSON.stringify({ content, locale: ORDER_VERIFY_LOCALE }),
   });
@@ -136,13 +141,14 @@ async function postCheckout(input: {
   planId: CheckoutPlanId;
   email: string;
   orderId: string;
-}): Promise<{ res: Response; data: MockCheckoutSuccess | VerifyError }> {
-  const res = await fetch("/api/checkout", {
+}): Promise<{ res: Response; data: StripeCheckoutSuccess | VerifyError }> {
+  const stripePlan = input.planId === "trust_pilot" ? "pro" : "starter";
+  const res = await fetch("/api/stripe/checkout", {
     method: "POST",
-    headers: { "Content-Type": "application/json", ...csrfRequestHeaders() },
-    body: JSON.stringify(input),
+    headers: { "Content-Type": "application/json", ...csrfFetchHeaders() },
+    body: JSON.stringify({ plan: stripePlan, email: input.email }),
   });
-  const data = (await res.json()) as MockCheckoutSuccess | VerifyError;
+  const data = (await res.json()) as StripeCheckoutSuccess | VerifyError;
   return { res, data };
 }
 
@@ -475,21 +481,8 @@ export default function OrderPage() {
         setCheckoutConfirming(false);
         return;
       }
-      if (!verifyResult) {
-        setError(t.errCheckoutFailed);
-        setCheckoutConfirming(false);
-        return;
-      }
-      const snapshot: OrderReportSnapshot = {
-        verifyResult,
-        checkoutResult: data,
-        email: email.trim(),
-        planId,
-        orderId,
-      };
-      saveOrderReport(data.checkoutSessionId, snapshot);
-      syncRestoredReport(snapshot);
-      router.replace(data.receiptUrl, { scroll: false });
+      window.location.assign(data.checkoutUrl);
+      return;
     } catch {
       setError(t.errCheckout);
     } finally {
