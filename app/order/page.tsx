@@ -6,7 +6,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useCallback, useState, useSyncExternalStore } from "react";
+import { useCallback, useState } from "react";
 import { SiteHeader } from "../components/site-header";
 import { useLocale } from "../components/locale-provider";
 import {
