@@ -391,7 +391,7 @@ export default function OrderPage() {
   const restoredReport = useSyncExternalStore(
     subscribeOrderReport,
     getOrderReportSnapshot,
-    getOrderReportSnapshot, // server snapshot도 동일 함수 사용
+    () => getOrderReportSnapshot(), // server snapshot 동일하게
   );
   const [content, setContent] = useState("");
   const [email, setEmail] = useState(restoredReport?.email ?? "");
