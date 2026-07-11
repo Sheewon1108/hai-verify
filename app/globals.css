@@ -152,3 +152,16 @@ h1 span {
   -webkit-text-fill-color: transparent !important;
   font-weight: 800 !important;
 }
+
+/* HAI IC Hero 강제 강조 */
+h1 span {
+  background: linear-gradient(90deg, #ff0033, #ff6699) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.04em;
+}
+
+h1 {
+  line-height: 1.1 !important;
+}
