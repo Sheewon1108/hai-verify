@@ -388,32 +388,30 @@ function TrustPilotCard({
 export default function OrderPage() {
   const router = useRouter();
   const { locale, order: t } = useLocale();
-  // TODO: Infinite loop fix - temporary disable for stability
-  // const restoredReport = useSyncExternalStore(...);
-
-  // Use local state instead for now
-  const [restoredReport, setRestoredReport] = useState<OrderReportSnapshot | null>(null);
+  // Infinite loop fix - temporary local state (useSyncExternalStore 문제 해결)
+  const [restoredReport, setRestoredReport] = useState(null);
+  const restored = restoredReport as OrderReportSnapshot | null;
   const [content, setContent] = useState("");
-  const [email, setEmail] = useState(restoredReport?.email ?? "");
-  const [planId, setPlanId] = useState<CheckoutPlanId>(restoredReport?.planId ?? "starter");
-  const [phase, setPhase] = useState<FlowPhase>(restoredReport ? "report" : "form");
+  const [email, setEmail] = useState(restored?.email ?? "");
+  const [planId, setPlanId] = useState<CheckoutPlanId>(restored?.planId ?? "starter");
+  const [phase, setPhase] = useState<FlowPhase>(restored ? "report" : "form");
   const [error, setError] = useState<string | null>(null);
   const [verifyResult, setVerifyResult] = useState<VerifySuccess | null>(
-    restoredReport?.verifyResult ?? null,
+    restored?.verifyResult ?? null,
   );
   const [checkoutResult, setCheckoutResult] = useState<MockCheckoutSuccess | null>(
-    restoredReport?.checkoutResult ?? null,
+    restored?.checkoutResult ?? null,
   );
-  const [orderId, setOrderId] = useState(restoredReport?.orderId ?? "");
+  const [orderId, setOrderId] = useState(restored?.orderId ?? "");
   const [checkoutConfirming, setCheckoutConfirming] = useState(false);
 
-  const activeVerifyResult = verifyResult ?? restoredReport?.verifyResult ?? null;
-  const activeCheckoutResult = checkoutResult ?? restoredReport?.checkoutResult ?? null;
-  const activeEmail = email || restoredReport?.email || "";
+  const activeVerifyResult = verifyResult ?? restored?.verifyResult ?? null;
+  const activeCheckoutResult = checkoutResult ?? restored?.checkoutResult ?? null;
+  const activeEmail = email || restored?.email || "";
   const activePlanId = planId;
-  const activeOrderId = orderId || restoredReport?.orderId || "";
+  const activeOrderId = orderId || restored?.orderId || "";
   const showReport =
-    (phase === "report" || Boolean(restoredReport)) &&
+    (phase === "report" || Boolean(restored)) &&
     activeVerifyResult &&
     activeCheckoutResult;
 
