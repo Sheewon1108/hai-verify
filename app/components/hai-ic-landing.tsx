@@ -29,10 +29,12 @@ export function HaiIcLanding() {
         <section className="py-16 md:py-24">
           <div className="max-w-3xl">
             <p className="text-sm uppercase tracking-[0.25em] text-red-accent mb-4">Intent Confidence Layer</p>
-            <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-white">
+            <h1 className="text-5xl md:text-6xl font-bold tracking-tighter">
               AI가 실행하기 전,
               <br />
-              <span className="text-[#ff3366]">의도를 먼저 측정한다.</span>
+              <span className="bg-gradient-to-r from-red-500 to-pink-500 bg-clip-text text-transparent">
+                의도를 먼저 측정한다.
+              </span>
             </h1>
 
             <p className="mt-6 text-xl text-gray-300 max-w-2xl">
