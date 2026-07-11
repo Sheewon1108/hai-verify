@@ -511,7 +511,7 @@ export default function OrderPage() {
   }
 
   return (
-    <div className="relative min-h-full flex-1 bg-background">
+    <div className="main-container relative min-h-full flex-1 bg-background">
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-[radial-gradient(ellipse_at_top,rgba(255,0,51,0.07),transparent_70%)]"
         aria-hidden
@@ -704,7 +704,7 @@ export default function OrderPage() {
               onSubmit={handleSubmit}
               className="animate-fade-in-up stagger-2 space-y-6 lg:sticky lg:top-6"
             >
-              <div className="rounded-2xl border border-white/[0.08] bg-surface-elevated p-5 shadow-[0_8px_32px_rgba(0,0,0,0.18)] sm:p-6">
+              <div className="stripe-element rounded-2xl border border-white/[0.08] bg-surface-elevated p-5 shadow-[0_8px_32px_rgba(0,0,0,0.18)] sm:p-6">
                 <p className="text-[10px] font-medium tracking-[0.14em] text-muted uppercase">
                   {t.brand} · {t.intakeEyebrow}
                 </p>
