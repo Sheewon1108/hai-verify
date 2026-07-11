@@ -388,8 +388,8 @@ function TrustPilotCard({
 export default function OrderPage() {
   const router = useRouter();
   const { locale, order: t } = useLocale();
-  // Infinite loop + TypeScript fix
-  const [restoredReport, setRestoredReport] = useState<any>(null);
+  // Infinite loop fix - temporary local state (useSyncExternalStore 문제 해결)
+  const [restoredReport, setRestoredReport] = useState(null);
   const restored = restoredReport as OrderReportSnapshot | null;
   const [content, setContent] = useState("");
   const [email, setEmail] = useState(restored?.email ?? "");
