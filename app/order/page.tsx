@@ -387,32 +387,32 @@ function TrustPilotCard({
 export default function OrderPage() {
   const router = useRouter();
   const { locale, order: t } = useLocale();
-  const restoredReport = useSyncExternalStore(
+  const restoredOrderReport = useSyncExternalStore(
     subscribeOrderReport,
     getOrderReportSnapshot,
-    () => null,
+    () => null, // getServerSnapshot
   );
   const [content, setContent] = useState("");
-  const [email, setEmail] = useState(restoredReport?.email ?? "");
-  const [planId, setPlanId] = useState<CheckoutPlanId>(restoredReport?.planId ?? "starter");
-  const [phase, setPhase] = useState<FlowPhase>(restoredReport ? "report" : "form");
+  const [email, setEmail] = useState(restoredOrderReport?.email ?? "");
+  const [planId, setPlanId] = useState<CheckoutPlanId>(restoredOrderReport?.planId ?? "starter");
+  const [phase, setPhase] = useState<FlowPhase>(restoredOrderReport ? "report" : "form");
   const [error, setError] = useState<string | null>(null);
   const [verifyResult, setVerifyResult] = useState<VerifySuccess | null>(
-    restoredReport?.verifyResult ?? null,
+    restoredOrderReport?.verifyResult ?? null,
   );
   const [checkoutResult, setCheckoutResult] = useState<MockCheckoutSuccess | null>(
-    restoredReport?.checkoutResult ?? null,
+    restoredOrderReport?.checkoutResult ?? null,
   );
-  const [orderId, setOrderId] = useState(restoredReport?.orderId ?? "");
+  const [orderId, setOrderId] = useState(restoredOrderReport?.orderId ?? "");
   const [checkoutConfirming, setCheckoutConfirming] = useState(false);
 
-  const activeVerifyResult = verifyResult ?? restoredReport?.verifyResult ?? null;
-  const activeCheckoutResult = checkoutResult ?? restoredReport?.checkoutResult ?? null;
-  const activeEmail = email || restoredReport?.email || "";
+  const activeVerifyResult = verifyResult ?? restoredOrderReport?.verifyResult ?? null;
+  const activeCheckoutResult = checkoutResult ?? restoredOrderReport?.checkoutResult ?? null;
+  const activeEmail = email || restoredOrderReport?.email || "";
   const activePlanId = planId;
-  const activeOrderId = orderId || restoredReport?.orderId || "";
+  const activeOrderId = orderId || restoredOrderReport?.orderId || "";
   const showReport =
-    (phase === "report" || Boolean(restoredReport)) &&
+    (phase === "report" || Boolean(restoredOrderReport)) &&
     activeVerifyResult &&
     activeCheckoutResult;
 
