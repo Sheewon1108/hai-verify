@@ -62,10 +62,7 @@ body {
 }
 
 .main-container {
-  background-color: #0a0a0a;
-  background-image:
-    radial-gradient(circle at 30% 20%, rgba(255, 0, 51, 0.08) 0%, transparent 60%),
-    linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
   color: #e2e2e2;
 }
 
@@ -75,11 +72,22 @@ h2 {
   text-shadow: 0 0 15px rgba(255, 0, 51, 0.5);
 }
 
+h1 {
+  background: linear-gradient(90deg, #ff3366, #ff6699);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 button {
   background: linear-gradient(90deg, #ff0033, #ff3366);
   border: none;
   color: white;
   font-weight: 600;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(255, 0, 51, 0.3);
 }
 
 .stripe-element {
