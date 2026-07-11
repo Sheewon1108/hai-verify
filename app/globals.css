@@ -144,3 +144,11 @@ button:not(:disabled) {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* HAI IC 강제 강조 */
+h1 span {
+  background: linear-gradient(90deg, #ff3366, #ff6699) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  font-weight: 800 !important;
+}
