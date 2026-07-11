@@ -388,10 +388,11 @@ function TrustPilotCard({
 export default function OrderPage() {
   const router = useRouter();
   const { locale, order: t } = useLocale();
+  const getSnapshot = getOrderReportSnapshot;
   const restoredReport = useSyncExternalStore(
     subscribeOrderReport,
-    getOrderReportSnapshot,
-    () => getOrderReportSnapshot(), // server snapshot 동일하게
+    getSnapshot,
+    getSnapshot, // server snapshot 동일
   );
   const [content, setContent] = useState("");
   const [email, setEmail] = useState(restoredReport?.email ?? "");
