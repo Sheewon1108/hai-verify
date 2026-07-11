@@ -109,6 +109,7 @@ function subscribeOrderReport(onStoreChange: () => void) {
 }
 
 function getOrderReportSnapshot(): OrderReportSnapshot | null {
+  if (typeof window === "undefined") return null;
   const receipt = new URLSearchParams(window.location.search).get("receipt");
   if (!receipt) return null;
   return loadOrderReport(receipt);
@@ -387,32 +388,32 @@ function TrustPilotCard({
 export default function OrderPage() {
   const router = useRouter();
   const { locale, order: t } = useLocale();
-  const restoredOrderReport = useSyncExternalStore(
+  const restoredReport = useSyncExternalStore(
     subscribeOrderReport,
     getOrderReportSnapshot,
-    () => null, // getServerSnapshot
+    getOrderReportSnapshot, // server snapshot도 동일 함수 사용
   );
   const [content, setContent] = useState("");
-  const [email, setEmail] = useState(restoredOrderReport?.email ?? "");
-  const [planId, setPlanId] = useState<CheckoutPlanId>(restoredOrderReport?.planId ?? "starter");
-  const [phase, setPhase] = useState<FlowPhase>(restoredOrderReport ? "report" : "form");
+  const [email, setEmail] = useState(restoredReport?.email ?? "");
+  const [planId, setPlanId] = useState<CheckoutPlanId>(restoredReport?.planId ?? "starter");
+  const [phase, setPhase] = useState<FlowPhase>(restoredReport ? "report" : "form");
   const [error, setError] = useState<string | null>(null);
   const [verifyResult, setVerifyResult] = useState<VerifySuccess | null>(
-    restoredOrderReport?.verifyResult ?? null,
+    restoredReport?.verifyResult ?? null,
   );
   const [checkoutResult, setCheckoutResult] = useState<MockCheckoutSuccess | null>(
-    restoredOrderReport?.checkoutResult ?? null,
+    restoredReport?.checkoutResult ?? null,
   );
-  const [orderId, setOrderId] = useState(restoredOrderReport?.orderId ?? "");
+  const [orderId, setOrderId] = useState(restoredReport?.orderId ?? "");
   const [checkoutConfirming, setCheckoutConfirming] = useState(false);
 
-  const activeVerifyResult = verifyResult ?? restoredOrderReport?.verifyResult ?? null;
-  const activeCheckoutResult = checkoutResult ?? restoredOrderReport?.checkoutResult ?? null;
-  const activeEmail = email || restoredOrderReport?.email || "";
+  const activeVerifyResult = verifyResult ?? restoredReport?.verifyResult ?? null;
+  const activeCheckoutResult = checkoutResult ?? restoredReport?.checkoutResult ?? null;
+  const activeEmail = email || restoredReport?.email || "";
   const activePlanId = planId;
-  const activeOrderId = orderId || restoredOrderReport?.orderId || "";
+  const activeOrderId = orderId || restoredReport?.orderId || "";
   const showReport =
-    (phase === "report" || Boolean(restoredOrderReport)) &&
+    (phase === "report" || Boolean(restoredReport)) &&
     activeVerifyResult &&
     activeCheckoutResult;
 
