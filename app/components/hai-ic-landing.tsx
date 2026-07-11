@@ -29,15 +29,16 @@ export function HaiIcLanding() {
         <section className="py-16 md:py-24">
           <div className="max-w-3xl">
             <p className="text-sm uppercase tracking-[0.25em] text-red-accent mb-4">Intent Confidence Layer</p>
-            <h2 className="text-4xl md:text-6xl font-semibold leading-tight tracking-tight">
+            <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-white">
               AI가 실행하기 전,
               <br />
-              의도를 먼저 측정한다.
-            </h2>
-            <p className="mt-6 text-lg text-muted leading-relaxed">
-              Hai-ic은 자연어 요청의 Intent Confidence를 0–100으로 점수화합니다.
-              모호하면 질문하고, 충분하면 진심 모드로 실행합니다. xAI·Grok·에이전트 파이프라인 앞단에 붙이는
-              검증 레이어입니다.
+              <span className="text-[#ff3366]">의도를 먼저 측정한다.</span>
+            </h1>
+
+            <p className="mt-6 text-xl text-gray-300 max-w-2xl">
+              Hai-ic은 자연어 요청의 Intent Confidence를 0~100으로 실시간 측정합니다.
+              <br />
+              <span className="text-[#ff3366] font-medium">75% 이상 진심 모드</span>에서만 실행됩니다.
             </p>
             <div className="mt-8 flex flex-wrap gap-3 text-sm">
               {['Instant local scoring', '75% sincere-mode gate', 'REST API', 'Human-led verification'].map((tag) => (
