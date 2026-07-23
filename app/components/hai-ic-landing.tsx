@@ -14,7 +14,7 @@ export function HaiIcLanding() {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <div>
             <p className="text-xs uppercase tracking-[0.3em] text-muted">HAI Verify · Product #1</p>
-            <h1 className="text-2xl font-bold">Hai-ic</h1>
+            <p className="text-2xl font-bold">Hai-ic</p>
           </div>
           <nav className="hidden md:flex gap-6 text-sm text-muted">
             <a href="#demo" className="hover:text-foreground">Demo</a>
@@ -26,26 +26,42 @@ export function HaiIcLanding() {
       </header>
 
       <main className="mx-auto max-w-6xl px-6">
-        <section className="py-16 md:py-24">
-          <div className="max-w-3xl">
-            <p className="text-sm uppercase tracking-[0.25em] text-red-accent mb-4">Intent Confidence Layer</p>
-            <h2 className="text-4xl md:text-6xl font-semibold leading-tight tracking-tight">
-              AI가 실행하기 전,
-              <br />
-              의도를 먼저 측정한다.
-            </h2>
-            <p className="mt-6 text-lg text-muted leading-relaxed">
-              Hai-ic은 자연어 요청의 Intent Confidence를 0–100으로 점수화합니다.
-              모호하면 질문하고, 충분하면 진심 모드로 실행합니다. xAI·Grok·에이전트 파이프라인 앞단에 붙이는
-              검증 레이어입니다.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3 text-sm">
-              {['Instant local scoring', '75% sincere-mode gate', 'REST API', 'Human-led verification'].map((tag) => (
-                <span key={tag} className="rounded-full border border-white/10 px-4 py-2 text-muted">
-                  {tag}
-                </span>
-              ))}
-            </div>
+        {/* ===== HERO ===== */}
+        <section className="relative min-h-[85vh] flex flex-col items-center justify-center px-6 text-center">
+          {/* Logo */}
+          <div className="mb-10">
+            <span className="text-4xl font-black tracking-tight">
+              <span className="text-[#ff0033]">H</span>
+              <span className="text-white">ai-ic</span>
+            </span>
+          </div>
+
+          {/* Main Headline */}
+          <h1 className="text-5xl md:text-7xl font-black tracking-[-0.04em] leading-[1.05] text-white max-w-4xl">
+            Before AI takes action,<br />
+            <span className="text-[#ff0033]">measure intent first.</span>
+          </h1>
+
+          {/* Philosophy - small */}
+          <p className="mt-8 text-base md:text-lg text-zinc-400 max-w-2xl leading-relaxed">
+            Humans understand AI with Heart,<br className="hidden md:block" />
+            and AI protects the Heart of Humanity.
+          </p>
+
+          {/* CTA */}
+          <div className="mt-12 flex flex-col sm:flex-row gap-4">
+            <a
+              href="#demo"
+              className="px-10 py-4 bg-[#ff0033] hover:bg-[#ff1a4d] text-white font-semibold rounded-full transition-all text-lg"
+            >
+              Try Live Demo
+            </a>
+            <a
+              href="#pricing"
+              className="px-10 py-4 border border-zinc-600 hover:border-zinc-400 text-zinc-300 hover:text-white font-medium rounded-full transition-all text-lg"
+            >
+              View Pricing
+            </a>
           </div>
         </section>
 
@@ -96,7 +112,7 @@ export function HaiIcLanding() {
               </div>
             ))}
           </div>
-          <div className="mt-10 rounded-2xl border border-red-accent/30 bg-red-accent/5 p-6">
+          <div id="pricing" className="mt-10 rounded-2xl border border-red-accent/30 bg-red-accent/5 p-6">
             <p className="text-sm font-semibold text-red-accent mb-2">Production Ready · KARAM SHIN</p>
             <p className="text-sm text-muted leading-relaxed mb-3">
               Intent Confidence Gate for Grok, Gemini, Claude — reduces business risk from hallucination-driven actions.
