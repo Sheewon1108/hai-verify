@@ -74,8 +74,8 @@ export function HaiIcLanding() {
             <p className="text-xs uppercase tracking-[0.25em] text-muted mb-3">API</p>
             <h3 className="text-3xl font-semibold mb-4">Drop-in pre-execution check</h3>
             <p className="text-muted leading-relaxed mb-6">
-              POST 한 번으로 confidence, breakdown, clarifying questions, response mode를 받습니다.
-              에이전트가 도구를 호출하기 전에 Hai-ic을 통과시키면 잘못된 실행을 줄일 수 있습니다.
+              Send one POST request to receive confidence, breakdown, clarifying questions, and response mode.
+              Run Hai-ic before an agent calls tools to reduce the risk of executing the wrong action.
             </p>
             <ul className="space-y-2 text-sm text-muted">
               <li>• <code className="text-foreground">POST /api/hai-ic/analyze</code></li>
@@ -95,15 +95,15 @@ export function HaiIcLanding() {
             {[
               {
                 title: 'Before action',
-                body: 'Grok가 답하기 전에 intent confidence를 노출해 사용자 신뢰를 높입니다.',
+                body: 'Expose intent confidence before Grok responds, so users can trust what happens next.',
               },
               {
                 title: 'Honest scoring',
-                body: '모호하면 점수를 낮추고 질문합니다. 과장하지 않습니다.',
+                body: 'Lower the score when intent is unclear, then ask targeted questions without exaggeration.',
               },
               {
                 title: 'Enterprise ready',
-                body: 'HAI Verify 생태계의 1번 제품. 감사·승인 워크플로와 연결 가능.',
+                body: 'The first product in the HAI Verify ecosystem, ready to connect with audit and approval workflows.',
               },
             ].map((card) => (
               <div key={card.title} className="rounded-2xl border border-white/10 bg-surface p-5">

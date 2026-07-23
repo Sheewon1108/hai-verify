@@ -26,29 +26,29 @@ export interface HaiIcResult {
 }
 
 const VAGUE_PATTERNS = [
-  /어떻게|뭐가 좋|좋을까|알려줘|도와줘|추천|조언|how should|what should|help me|any ideas/i,
-  /다시|재개|복구|reconnect|again/i,
-  /거래|협력|파트너|business|deal|partner/i,
+  /how should|what should|help me|any ideas|recommend|advice|suggest/i,
+  /reconnect|restart|resume|restore|again/i,
+  /business|deal|partner|partnership|vendor|supplier|customer|logistics/i,
 ];
 
 const DD_PATTERNS = [
-  /before\s*\/\s*after|실제\s*데이터|수치\s*증거|벤치마크|benchmark/i,
-  /latency|지연|false\s*positive|hallucination\s*rate/i,
-  /검증|호환|compatibility|통합\s*난이도|연동/i,
-  /training\s*data|bias|contamination|학습\s*데이터/i,
-  /licensing|독점|가격대|ROI|ip\s*ownership|소유권|modify/i,
-  /due\s*diligence|실사|poc|로드맵|align/i,
+  /before\s*\/\s*after|real\s*data|numeric\s*evidence|benchmark/i,
+  /latency|false\s*positive|hallucination\s*rate/i,
+  /verification|compatibility|integration\s*difficulty|integrat(e|ion)/i,
+  /training\s*data|bias|contamination/i,
+  /licensing|exclusive|pricing|price\s*range|ROI|ip\s*ownership|modify/i,
+  /due\s*diligence|poc|roadmap|align/i,
 ];
 
 const SPECIFIC_PATTERNS = [
-  /\d{4}[-./년]\s*\d{1,2}/,
-  /\d+\s*(만|억|천|원|달러|usd|%|톤|개월)/i,
-  /(주식회사|\(주\)|group|corp|inc|ltd)/i,
-  /(물류|logistics|수출|수입|구매|판매|납품)/i,
+  /\d{4}[-./]\s*\d{1,2}/,
+  /\d+\s*(usd|dollars?|krw|won|%|tons?|months?|k|m|million|billion)/i,
+  /(group|corp|inc|ltd|llc|company)/i,
+  /(logistics|export|import|purchase|sales|delivery|shipping|procurement)/i,
 ];
 
 function hasProperNoun(text: string): boolean {
-  return /[A-Z][a-z]+|[가-힣]{2,}(그룹|물류|회사|전자|산업)/.test(text);
+  return /[A-Z][a-z]+/.test(text);
 }
 
 function isDueDiligenceQuestion(text: string): boolean {
@@ -64,26 +64,26 @@ function buildQuestions(text: string, wantsBusiness: boolean, wantsRestart: bool
   const questions: string[] = [];
 
   if (isDD) {
-    questions.push("이 DD 항목에 대해 지금 바로 제시 가능한 자료(수치·POC·벤치마크)는 무엇인가요?");
-    questions.push("측정 기간·샘플 크기·비교 기준(baseline)을 어떻게 잡을까요?");
-    questions.push("xAI/파트너 미팅 전에 공개 가능한 범위(NDA 포함)는 어디까지인가요?");
+    questions.push("What evidence can you provide now for this DD item, such as metrics, POC results, or benchmarks?");
+    questions.push("What measurement period, sample size, and baseline should be used?");
+    questions.push("What can be shared before the xAI or partner meeting, including any NDA limits?");
     return questions;
   }
 
   if (wantsBusiness) {
-    questions.push("귀하와 상대·중간 채널(예: 물류사)의 역할 관계는 무엇인가요?");
+    questions.push("What is your relationship to the target company and any intermediary channel, such as a logistics partner?");
   }
   if (wantsRestart) {
-    questions.push("이전에 무엇을 거래했고, 왜·언제 관계가 끊겼나요?");
+    questions.push("What did you previously trade, and why or when did the relationship stop?");
   }
   if (!/\d/.test(text)) {
-    questions.push("희망 기한·규모·예산(또는 물동량)은 어느 정도인가요?");
+    questions.push("What deadline, scale, budget, or shipment volume should this request target?");
   }
   if (questions.length < 2) {
-    questions.push("이번 요청의 성공 기준을 한 문장으로 정의해 주실 수 있나요?");
+    questions.push("Can you define the success criteria for this request in one sentence?");
   }
   if (questions.length < 3) {
-    questions.push("지금 가장 먼저 해결해야 할 제약(법적·예산·승인)이 있나요?");
+    questions.push("Is there any legal, budget, or approval constraint that must be resolved first?");
   }
 
   return questions.slice(0, 3);
@@ -92,67 +92,67 @@ function buildQuestions(text: string, wantsBusiness: boolean, wantsRestart: bool
 function buildSincereResponse(text: string, entities: string[], isDD: boolean): string {
   if (isDD) {
     return [
-      "DD(실사) 질문으로 분류했습니다. 진심 모드로 답변 프레임을 제시합니다.",
+      "This is classified as a due diligence question. Sincere Mode will provide a practical response frame.",
       "",
-      "**현재 가능한 답변 범위**",
-      "- 아키텍처·연동 방식: API pre-check 레이어로 설명 가능",
-      "- 수치·검증 항목: POC 설계안 + 측정 지표 제안 가능",
+      "**Current answer scope**",
+      "- Architecture and integration: explainable as an API pre-check layer",
+      "- Metrics and verification: POC design plus measurement indicators can be proposed",
       "",
-      "**다음 액션 (미팅 전)**",
-      "1. 해당 질문 1페이지 기술 브리프 작성",
-      "2. 2주 POC 범위·latency/FP 벤치마크 계획 공유",
-      "3. NDA 하에 공개 가능한 자료 목록 정리",
+      "**Next actions before the meeting**",
+      "1. Draft a one-page technical brief for this question",
+      "2. Share a two-week POC scope and latency / FP benchmark plan",
+      "3. Prepare the list of materials that can be shared under NDA",
       "",
-      "원하시면 이 DD 항목 전용 답변 초안을 바로 작성해 드립니다.",
+      "If needed, draft a dedicated answer for this DD item next.",
     ].join("\n");
   }
 
-  const target = entities[0] ?? "상대";
+  const target = entities[0] ?? "the target";
   return [
-    "맥락이 충분히 잡혔습니다. 진심 모드로 진행합니다.",
+    "The context is clear enough. Proceeding in Sincere Mode.",
     "",
-    `**목표 고정** — "${clip(text, 60)}" 를 한 줄 목표로 문서화하세요.`,
+    `**Lock the goal** - Document "${clip(text, 60)}" as a one-line objective.`,
     "",
-    `**접촉 순서 (${target})**`,
-    "1. 과거 담당자·부서 확인",
-    "2. 재연락 사유 + 제공 가치 3문장",
-    "3. 구체 일정·규모·다음 액션 제안",
+    `**Contact sequence (${target})**`,
+    "1. Confirm the previous owner or department",
+    "2. Write three sentences covering the reason for reconnecting and the value offered",
+    "3. Propose a specific timeline, scale, and next action",
     "",
-    "**리스크 체크**",
-    "- 과거 미수·품질·계약 이슈 선정리",
-    "- 내부 승인권자·예산 확보 여부 확인",
+    "**Risk check**",
+    "- Resolve any past payment, quality, or contract issues first",
+    "- Confirm internal approval owners and budget availability",
     "",
-    "원하시면 첫 연락 메일/메시지 초안을 바로 작성해 드립니다.",
+    "If needed, draft the first outreach email or message next.",
   ].join("\n");
 }
 
 function buildLowScoreResponse(questions: string[], isDD: boolean, confidence: number): string {
   const hope = isDD
-    ? "이 질문은 DD 항목입니다. 지금 점수가 낮아도 **POC·파일럿 데이터**만 준비하면 신뢰를 빠르게 올릴 수 있습니다."
-    : "의도 방향은 읽혔습니다. 조금만 구체화하면 Intent Confidence가 바로 올라갑니다.";
+    ? "This is a DD item. Even with a low score now, **POC or pilot data** can raise trust quickly."
+    : "The intent direction is visible. A little more specificity will raise Intent Confidence quickly.";
 
   const actions = isDD
     ? [
-        "**다음 액션**",
-        "1. DD 항목별 1페이지 브리프 (현재 가능 / 준비 중 / 미정)",
-        "2. 2주 POC 일정 + 측정 지표(latency, FP rate 등) 합의",
-        "3. Growth Loops / xAI 미팅용 체크리스트 공유",
+        "**Next actions**",
+        "1. Create a one-page brief for each DD item: available now / in progress / unknown",
+        "2. Align on a two-week POC schedule and measurement metrics such as latency and FP rate",
+        "3. Share the checklist for Growth Loops or xAI meetings",
       ]
     : [
-        "**다음 액션**",
-        "1. 아래 질문 2~3개에 짧게 답하기",
-        "2. 성공 기준 한 문장으로 고정",
-        "3. 다시 분석 요청",
+        "**Next actions**",
+        "1. Answer two or three of the questions below",
+        "2. Lock the success criteria in one sentence",
+        "3. Run the analysis again",
       ];
 
   return [
-    `Intent Confidence ${confidence}% — 아직 진심 모드(75%) 미만입니다.`,
+    `Intent Confidence ${confidence}% - still below the 75% Sincere Mode gate.`,
     "",
-    `**희망** — ${hope}`,
+    `**Signal** - ${hope}`,
     "",
     ...actions,
     "",
-    "**더 명확히 말해줄래?**",
+    "**Please clarify**",
     ...questions.map((q, i) => `${i + 1}. ${q}`),
   ].join("\n");
 }
@@ -174,7 +174,7 @@ export function analyzeIntent(input: string): HaiIcResult {
 
   if (hasProperNoun(text)) confidence += 8;
   if (!/[?.!？]/.test(text)) confidence -= 4;
-  if (/(왜|언제|무엇|누구|where|when|why|who)/i.test(text)) confidence -= 5;
+  if (/(where|when|why|who|what)/i.test(text)) confidence -= 5;
 
   confidence = Math.max(35, Math.min(96, Math.round(confidence)));
 
@@ -184,42 +184,42 @@ export function analyzeIntent(input: string): HaiIcResult {
 
   confidence = Math.min(96, confidence + HAI_IC_HOURLY_BOOST);
 
-  const wantsStrategy = /어떻게|접근|전략|방법|좋을까|how/i.test(text);
-  const wantsBusiness = /거래|협력|파트너|물류|business|deal/i.test(text);
-  const wantsRestart = /다시|재개|복구|again/i.test(text);
+  const wantsStrategy = /approach|strategy|method|how/i.test(text);
+  const wantsBusiness = /business|deal|partner|partnership|logistics/i.test(text);
+  const wantsRestart = /reconnect|restart|resume|restore|again/i.test(text);
 
-  const entities = text.match(/[A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+)*|[가-힣]{2,}(?:그룹|물류)/g) ?? [];
+  const entities = text.match(/[A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+)*/g) ?? [];
 
   const coreParts: string[] = [];
-  if (isDD) coreParts.push("DD(실사) / 기술·상용 검증 질문");
-  if (wantsBusiness) coreParts.push("비즈니스·거래 관련 요청");
-  if (wantsStrategy) coreParts.push("실행 전략·접근 방법 문의");
-  if (wantsRestart) coreParts.push("관계·거래 재개 의도");
+  if (isDD) coreParts.push("Due diligence / technical and commercial verification question");
+  if (wantsBusiness) coreParts.push("Business or deal-related request");
+  if (wantsStrategy) coreParts.push("Execution strategy or approach question");
+  if (wantsRestart) coreParts.push("Intent to restart a relationship or deal");
   const core =
-    coreParts.length > 0 ? coreParts.join(", ") : "일상어 요청의 목적 파악 및 다음 행동 안내";
+    coreParts.length > 0 ? coreParts.join(", ") : "Clarify the purpose of a natural-language request and guide the next action";
 
   const understood: string[] = [];
-  if (entities.length > 0) understood.push(`언급된 대상: ${entities.slice(0, 3).join(", ")}`);
-  if (isDD) understood.push("수치·검증·법무·통합 증거를 요구하는 실사형 질문");
-  if (wantsStrategy) understood.push("방법·접근 순서에 대한 조언을 원함");
-  if (wantsBusiness) understood.push("상대와의 거래·협력 맥락");
-  if (understood.length === 0) understood.push(`요청 문장: "${clip(text, 80)}"`);
+  if (entities.length > 0) understood.push(`Mentioned targets: ${entities.slice(0, 3).join(", ")}`);
+  if (isDD) understood.push("A due diligence question asking for metrics, verification, legal, or integration evidence");
+  if (wantsStrategy) understood.push("The user wants advice on method or approach sequence");
+  if (wantsBusiness) understood.push("The request involves a deal or partnership context");
+  if (understood.length === 0) understood.push(`Request text: "${clip(text, 80)}"`);
 
   const missing: string[] = [];
-  if (isDD) missing.push("before/after 수치, 벤치마크, 검증 로그 등 공식 증거 미제시");
-  if (entities.length < 2 && wantsBusiness) missing.push("상대·채널·역할 중 일부가 불명확");
-  if (!/\d/.test(text)) missing.push("기한·규모·예산 등 수치 정보 없음");
-  if (wantsRestart) missing.push("과거 관계·중단 사유·이전 거래 내용 미기재");
-  if (vagueHits >= 2) missing.push("요청이 넓어 우선순위·성공 기준이 모호함");
-  if (missing.length === 0) missing.push("세부 조건 일부는 추가 확인 필요");
+  if (isDD) missing.push("No official evidence such as before/after metrics, benchmarks, or verification logs is provided");
+  if (entities.length < 2 && wantsBusiness) missing.push("Some target, channel, or role details are unclear");
+  if (!/\d/.test(text)) missing.push("No numeric details such as deadline, scale, or budget are provided");
+  if (wantsRestart) missing.push("Past relationship, stop reason, or previous deal details are missing");
+  if (vagueHits >= 2) missing.push("The request is broad, so priorities and success criteria are ambiguous");
+  if (missing.length === 0) missing.push("Some detailed conditions still need confirmation");
 
   const risk: string[] = [];
   const sincere = confidence >= HAI_IC_CONFIDENCE_THRESHOLD;
-  if (isDD && !sincere) risk.push("증거 없이 수치를 주장하면 DD 미팅에서 신뢰 손실");
-  if (!sincere) risk.push("정보 부족 상태에서 실행하면 잘못된 담당자·전략으로 접근할 수 있음");
-  if (wantsRestart) risk.push("과거 이슈 미정리 시 재거절·신뢰 손상 가능");
-  if (wantsBusiness && !/\d/.test(text)) risk.push("규모·조건 불명확 시 제안 설득력 약화");
-  if (risk.length === 0) risk.push("맥락은 비교적 분명하나 실행 전 최종 확인 권장");
+  if (isDD && !sincere) risk.push("Claiming metrics without evidence can reduce trust in a DD meeting");
+  if (!sincere) risk.push("Acting with limited information could target the wrong owner or strategy");
+  if (wantsRestart) risk.push("Unresolved past issues can lead to another rejection or trust loss");
+  if (wantsBusiness && !/\d/.test(text)) risk.push("Unclear scale or terms can weaken the proposal");
+  if (risk.length === 0) risk.push("The context is relatively clear, but final confirmation is recommended before execution");
 
   const questions = sincere ? [] : buildQuestions(text, wantsBusiness, wantsRestart, isDD);
 
@@ -232,7 +232,7 @@ export function analyzeIntent(input: string): HaiIcResult {
     version: HAI_IC_VERSION,
     confidence,
     sincereMode: sincere,
-    mode: sincere ? "진심 모드 ON" : "진심 모드 OFF",
+    mode: sincere ? "Sincere Mode ON" : "Sincere Mode OFF",
     breakdown: {
       core,
       understood: understood.join(" · "),

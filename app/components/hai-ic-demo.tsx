@@ -4,9 +4,9 @@ import { useMemo, useState } from 'react';
 import { analyzeIntent, type HaiIcResult } from '@/app/lib/hai-ic-analyze';
 
 const EXAMPLES = [
-  'Transla 물류로 Woosung Group과 다시 거래하고 싶어. 어떻게 접근하는 게 좋을까?',
-  '이번 프로젝트 7월 15일까지 예산 5천만 원으로 끝내줘. 팀은 4명.',
-  'xAI에 Hai-ic API 연동 제안서 보내고 싶어.',
+  'I want to restart business with Woosung Group through Transla Logistics. How should I approach them?',
+  'Finish this project by July 15 with a $50k budget and a four-person team.',
+  'I want to send xAI a proposal to integrate the Hai-ic API.',
 ];
 
 export function HaiIcDemo({ compact = false }: { compact?: boolean }) {
@@ -44,7 +44,7 @@ export function HaiIcDemo({ compact = false }: { compact?: boolean }) {
                 }}
                 className="rounded-full border border-white/10 px-3 py-1 text-xs text-muted hover:border-red-accent hover:text-foreground transition"
               >
-                예시
+                Example
               </button>
             ))}
           </div>
@@ -56,7 +56,7 @@ export function HaiIcDemo({ compact = false }: { compact?: boolean }) {
           onKeyDown={(e) => {
             if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) runAnalyze();
           }}
-          placeholder="자연어 요청을 입력하세요..."
+          placeholder="Enter a natural-language request..."
           className="min-h-[140px] w-full rounded-2xl border border-white/10 bg-background px-5 py-4 text-base md:text-lg outline-none focus:border-red-accent resize-none"
         />
 
@@ -98,10 +98,10 @@ export function HaiIcDemo({ compact = false }: { compact?: boolean }) {
 
           <div className="grid gap-4 md:grid-cols-2 mb-8">
             {[
-              ['핵심 의도', result.breakdown.core],
-              ['이해한 부분', result.breakdown.understood],
-              ['모호/부족', result.breakdown.missing],
-              ['잠재적 위험', result.breakdown.risk],
+              ['Core Intent', result.breakdown.core],
+              ['Understood', result.breakdown.understood],
+              ['Missing / Ambiguous', result.breakdown.missing],
+              ['Potential Risk', result.breakdown.risk],
             ].map(([label, value]) => (
               <div key={label} className="rounded-2xl border border-white/10 bg-background p-4">
                 <p className="text-xs uppercase tracking-wide text-muted mb-2">{label}</p>
