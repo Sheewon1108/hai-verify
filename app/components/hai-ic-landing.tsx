@@ -57,10 +57,12 @@ export function HaiIcLanding() {
               Try Live Demo
             </a>
             <a
-              href="#pricing"
+              href="https://buy.stripe.com/14A8wI6sV3CffST2UT4AU00"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-10 py-4 border border-zinc-600 hover:border-zinc-400 text-zinc-300 hover:text-white font-medium rounded-full transition-all text-lg"
             >
-              View Pricing
+              Request a Pilot
             </a>
           </div>
         </section>
