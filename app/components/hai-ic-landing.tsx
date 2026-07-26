@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { HaiIcDemo } from './hai-ic-demo';
 
 /** HAI Verify Starter $300 — open Stripe Checkout only. No modal/form. */
@@ -24,6 +25,35 @@ function RequestPilotLink({ className = '' }: { className?: string }) {
     >
       Request a Pilot
     </a>
+  );
+}
+
+function CurlCopyBlock() {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(INTEGRATION);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  return (
+    <div className="relative rounded-2xl border border-zinc-700 bg-black p-4 sm:p-6 md:p-8 shadow-2xl">
+      <button
+        type="button"
+        onClick={handleCopy}
+        className="absolute right-3 top-3 z-10 rounded-lg border border-zinc-600 bg-zinc-900 px-3 py-1.5 text-xs sm:text-sm font-semibold text-zinc-100 hover:bg-zinc-800 hover:text-white transition"
+      >
+        {copied ? 'Copied' : 'Copy'}
+      </button>
+      <pre className="overflow-x-auto whitespace-pre text-[13px] sm:text-base md:text-lg leading-relaxed text-zinc-100 pr-16 sm:pr-20 font-mono">
+        {INTEGRATION}
+      </pre>
+    </div>
   );
 }
 
@@ -72,7 +102,24 @@ export function HaiIcLanding() {
             </p>
           </div>
 
-          <section id="demo" className="mt-20">
+          <section id="demo" className="mt-16 sm:mt-20">
+            <div className="mb-8 sm:mb-10">
+              <div className="text-center mb-4 sm:mb-5">
+                <div className="inline px-6 py-2.5 bg-emerald-500/10 border border-emerald-500/30 rounded-full text-emerald-400 text-sm font-medium">
+                  DEMO VIDEO
+                </div>
+              </div>
+              <video
+                src="/hai-ic-demo.mp4"
+                className="w-full max-w-full rounded-2xl border border-zinc-700 bg-black shadow-2xl aspect-video object-cover"
+                autoPlay
+                muted
+                loop
+                playsInline
+                controls
+                preload="metadata"
+              />
+            </div>
             <HaiIcDemo />
           </section>
         </div>
@@ -112,22 +159,20 @@ export function HaiIcLanding() {
             </div>
           </section>
 
-          <section id="api" className="py-16 grid gap-8 md:grid-cols-2">
-            <div>
+          <section id="api" className="py-16 border-t border-white/10">
+            <div className="mb-8 max-w-3xl">
               <p className="text-xs uppercase tracking-[0.25em] text-muted mb-3">API</p>
-              <h3 className="text-3xl font-semibold mb-4">Drop-in pre-execution check</h3>
-              <p className="text-muted leading-relaxed mb-6">
+              <h3 className="text-3xl md:text-4xl font-semibold mb-4">Drop-in pre-execution check</h3>
+              <p className="text-muted text-base md:text-lg leading-relaxed mb-6">
                 One POST returns confidence, breakdown, clarifying questions, and response mode. Route agent traffic through Hai-ic before tools run to cut bad executions.
               </p>
-              <ul className="space-y-2 text-sm text-muted">
+              <ul className="space-y-2 text-sm md:text-base text-muted">
                 <li>• <code className="text-foreground">POST /api/hai-ic/analyze</code></li>
                 <li>• <code className="text-foreground">GET /api/hai-ic/health</code></li>
                 <li>• Threshold: 75%</li>
               </ul>
             </div>
-            <pre className="rounded-2xl border border-white/10 bg-surface p-5 text-xs md:text-sm overflow-x-auto leading-relaxed">
-              {INTEGRATION}
-            </pre>
+            <CurlCopyBlock />
           </section>
 
           <section id="xai" className="py-16 border-t border-white/10">
