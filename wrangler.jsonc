@@ -6,9 +6,15 @@
   "compatibility_flags": [
     "nodejs_compat"
   ],
+  // OpenNext copies Next `public/` into `.open-next/assets` at build time.
+  // Keep run_worker_first false so /hai-ic-demo.mp4 is served as a static asset
+  // before the Next worker (avoids HTML 404 soft-pages for missing media routes).
   "assets": {
     "directory": ".open-next/assets",
-    "binding": "ASSETS"
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+    "run_worker_first": false
   },
   "services": [
     {

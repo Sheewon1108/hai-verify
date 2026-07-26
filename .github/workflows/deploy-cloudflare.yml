@@ -27,6 +27,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Verify public static demo video
+        run: |
+          if [ ! -f public/hai-ic-demo.mp4 ]; then
+            echo "Missing public/hai-ic-demo.mp4 — OpenNext cannot publish it as a Workers static asset."
+            exit 1
+          fi
+          ls -lh public/hai-ic-demo.mp4
+
       - name: Build
         run: npm run build
 
