@@ -2,10 +2,28 @@
 
 import { HaiIcDemo } from './hai-ic-demo';
 
+const STRIPE_PILOT_URL = 'https://buy.stripe.com/14A8wI6sV3CffST2UT4AU00';
+
+const PILOT_CTA_CLASS =
+  'inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-red-600 to-rose-600 px-8 py-4 text-lg font-bold text-white shadow-xl shadow-red-600/40 transition hover:brightness-110';
+
 const INTEGRATION = `curl -X POST https://hai-verify.workers.dev/api/hai-ic/analyze \\
   -H "Content-Type: application/json" \\
   -H "Authorization: Bearer hv_dev_..." \\
   -d '{"input":"Ship 200 units to Seoul by July 15, budget $50k"}'`;
+
+function RequestPilotLink({ className = '' }: { className?: string }) {
+  return (
+    <a
+      href={STRIPE_PILOT_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={className || PILOT_CTA_CLASS}
+    >
+      Request a Pilot
+    </a>
+  );
+}
 
 export function HaiIcLanding() {
   return (
@@ -18,6 +36,7 @@ export function HaiIcLanding() {
           </div>
           <nav className="hidden md:flex gap-6 text-sm text-muted">
             <a href="#demo" className="hover:text-foreground">Demo</a>
+            <a href="#pricing" className="hover:text-foreground">Pricing</a>
             <a href="#api" className="hover:text-foreground">API</a>
             <a href="#xai" className="hover:text-foreground">xAI Integration</a>
             <a href="/verify" className="hover:text-foreground">HAI Verify</a>
@@ -25,103 +44,122 @@ export function HaiIcLanding() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-6xl px-6">
-        {/* ===== HERO ===== */}
-        <section className="relative min-h-[85vh] flex flex-col items-center justify-center px-6 text-center">
-          {/* Logo */}
-          <div className="mb-10">
-            <span className="text-4xl font-black tracking-tight">
-              <span className="text-[#ff0033]">H</span>
-              <span className="text-white">ai-ic</span>
-            </span>
-          </div>
-
-          {/* Main Headline */}
-          <h1 className="text-5xl md:text-7xl font-black tracking-[-0.04em] leading-[1.05] text-white max-w-4xl">
-            Before AI takes action,<br />
-            <span className="text-[#ff0033]">measure intent first.</span>
-          </h1>
-
-          {/* Philosophy - small */}
-          <p className="mt-8 text-base md:text-lg text-zinc-400 max-w-2xl leading-relaxed">
-            Humans understand AI with Heart,<br className="hidden md:block" />
-            and AI protects the Heart of Humanity.
-          </p>
-
-          {/* CTA */}
-          <div className="mt-12 flex flex-col sm:flex-row gap-4">
-            <a
-              href="#demo"
-              className="px-10 py-4 bg-[#ff0033] hover:bg-[#ff1a4d] text-white font-semibold rounded-full transition-all text-lg"
-            >
-              Try Live Demo
-            </a>
-            <a
-              href="https://buy.stripe.com/14A8wI6sV3CffST2UT4AU00"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-10 py-4 border border-zinc-600 hover:border-zinc-400 text-zinc-300 hover:text-white font-medium rounded-full transition-all text-lg"
-            >
-              Request a Pilot
-            </a>
-          </div>
-        </section>
-
-        <section id="demo">
-          <HaiIcDemo />
-        </section>
-
-        <section id="api" className="py-16 grid gap-8 md:grid-cols-2">
-          <div>
-            <p className="text-xs uppercase tracking-[0.25em] text-muted mb-3">API</p>
-            <h3 className="text-3xl font-semibold mb-4">Drop-in pre-execution check</h3>
-            <p className="text-muted leading-relaxed mb-6">
-              Send one POST request to receive confidence, breakdown, clarifying questions, and response mode.
-              Run Hai-ic before an agent calls tools to reduce the risk of executing the wrong action.
+      <main>
+        <div className="max-w-5xl mx-auto px-6 pt-16 pb-24">
+          <div className="text-center">
+            <div className="inline-flex items-center gap-3 px-6 py-3 bg-red-500/10 border border-red-500/30 rounded-full mb-8">
+              <span className="text-red-400 text-sm font-medium tracking-widest">PRODUCT #1</span>
+            </div>
+            <h1 className="text-6xl md:text-7xl font-black tracking-[-0.04em] leading-none text-white mb-8">
+              Before AI takes action,<br />
+              <span className="bg-gradient-to-r from-[#ff0033] via-[#ff1a4d] to-[#ff6699] bg-clip-text text-transparent">
+                measure intent first.
+              </span>
+            </h1>
+            <p className="text-xl md:text-2xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
+              Hai-ic measures <span className="text-red-400 font-semibold">Intent Confidence</span> of natural language requests
+              <br />
+              in real-time from 0 to 100. Executes only in <span className="text-red-400">Sincere Mode (75%+)</span>.
             </p>
-            <ul className="space-y-2 text-sm text-muted">
-              <li>• <code className="text-foreground">POST /api/hai-ic/analyze</code></li>
-              <li>• <code className="text-foreground">GET /api/hai-ic/health</code></li>
-              <li>• Threshold: 75%</li>
-            </ul>
+            <div className="mt-10 flex justify-center">
+              <RequestPilotLink />
+            </div>
+            <div className="mt-8 text-center text-zinc-400 max-w-md mx-auto text-sm leading-relaxed">
+              Humans understand AI with Heart,<br />
+              and AI protects the Heart of Humanity.
+            </div>
           </div>
-          <pre className="rounded-2xl border border-white/10 bg-surface p-5 text-xs md:text-sm overflow-x-auto leading-relaxed">
-            {INTEGRATION}
-          </pre>
-        </section>
 
-        <section id="xai" className="py-16 border-t border-white/10">
-          <p className="text-xs uppercase tracking-[0.25em] text-muted mb-3">For xAI</p>
-          <h3 className="text-3xl font-semibold mb-6">Why Hai-ic for Grok & agent stacks</h3>
-          <div className="grid gap-4 md:grid-cols-3">
-            {[
-              {
-                title: 'Before action',
-                body: 'Expose intent confidence before Grok responds, so users can trust what happens next.',
-              },
-              {
-                title: 'Honest scoring',
-                body: 'Lower the score when intent is unclear, then ask targeted questions without exaggeration.',
-              },
-              {
-                title: 'Enterprise ready',
-                body: 'The first product in the HAI Verify ecosystem, ready to connect with audit and approval workflows.',
-              },
-            ].map((card) => (
-              <div key={card.title} className="rounded-2xl border border-white/10 bg-surface p-5">
-                <h4 className="font-semibold mb-2">{card.title}</h4>
-                <p className="text-sm text-muted leading-relaxed">{card.body}</p>
+          <section id="demo" className="mt-20">
+            <HaiIcDemo />
+          </section>
+        </div>
+
+        <div className="mx-auto max-w-6xl px-6">
+          <section id="pricing" className="py-16 border-t border-white/10">
+            <p className="text-xs uppercase tracking-[0.25em] text-muted mb-3">Pricing</p>
+            <h2 className="text-3xl font-semibold mb-4 text-white">Start with a Pilot</h2>
+            <p className="text-zinc-400 max-w-2xl mb-10 leading-relaxed">
+              Deploy Hai-ic as a pre-execution Intent Confidence gate for Grok, Gemini, Claude, and internal agent stacks. Licensing from $8.5k–$25k/yr · OEM · Enterprise.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+              <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
+                <p className="text-red-400 text-sm font-medium mb-2">Pilot</p>
+                <p className="text-3xl font-bold text-white mb-3">Custom</p>
+                <p className="text-sm text-zinc-400 leading-relaxed">
+                  2–4 week integration with your agent pipeline. Score threshold, clarifying questions, and audit trail.
+                </p>
               </div>
-            ))}
-          </div>
-          <div id="pricing" className="mt-10 rounded-2xl border border-red-accent/30 bg-red-accent/5 p-6">
-            <p className="text-sm font-semibold text-red-accent mb-2">Production Ready · KARAM SHIN</p>
-            <p className="text-sm text-muted leading-relaxed mb-3">
-              Intent Confidence Gate for Grok, Gemini, Claude — reduces business risk from hallucination-driven actions.
-            </p>
-            <p className="text-xs text-muted">Licensing $8.5k–$25k/yr · OEM · Enterprise · Status: Ready to Sell</p>
-          </div>
-        </section>
+              <div className="bg-zinc-900 rounded-2xl p-6 border border-red-500/30">
+                <p className="text-red-400 text-sm font-medium mb-2">OEM</p>
+                <p className="text-3xl font-bold text-white mb-3">$8.5k+/yr</p>
+                <p className="text-sm text-zinc-400 leading-relaxed">
+                  Embed Hai-ic into your product. REST API, health checks, and sincere-mode gate at 75%.
+                </p>
+              </div>
+              <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
+                <p className="text-red-400 text-sm font-medium mb-2">Enterprise</p>
+                <p className="text-3xl font-bold text-white mb-3">$25k/yr</p>
+                <p className="text-sm text-zinc-400 leading-relaxed">
+                  Volume routing, approval workflows, and dedicated onboarding for multi-agent stacks.
+                </p>
+              </div>
+            </div>
+            <div className="flex justify-center md:justify-start">
+              <RequestPilotLink />
+            </div>
+          </section>
+
+          <section id="api" className="py-16 grid gap-8 md:grid-cols-2">
+            <div>
+              <p className="text-xs uppercase tracking-[0.25em] text-muted mb-3">API</p>
+              <h3 className="text-3xl font-semibold mb-4">Drop-in pre-execution check</h3>
+              <p className="text-muted leading-relaxed mb-6">
+                One POST returns confidence, breakdown, clarifying questions, and response mode. Route agent traffic through Hai-ic before tools run to cut bad executions.
+              </p>
+              <ul className="space-y-2 text-sm text-muted">
+                <li>• <code className="text-foreground">POST /api/hai-ic/analyze</code></li>
+                <li>• <code className="text-foreground">GET /api/hai-ic/health</code></li>
+                <li>• Threshold: 75%</li>
+              </ul>
+            </div>
+            <pre className="rounded-2xl border border-white/10 bg-surface p-5 text-xs md:text-sm overflow-x-auto leading-relaxed">
+              {INTEGRATION}
+            </pre>
+          </section>
+
+          <section id="xai" className="py-16 border-t border-white/10">
+            <p className="text-xs uppercase tracking-[0.25em] text-muted mb-3">For xAI</p>
+            <h2 className="text-3xl font-semibold mb-6">Why Hai-ic for Grok & agent stacks</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="bg-zinc-900 rounded-2xl p-6">
+                <div className="text-emerald-400 font-medium">Before action</div>
+                <p className="text-zinc-400">
+                  Grok & agents get Intent Confidence score before execution. No hallucination-driven actions.
+                </p>
+              </div>
+              <div className="bg-zinc-900 rounded-2xl p-6">
+                <div className="text-emerald-400 font-medium">Honest scoring</div>
+                <p className="text-zinc-400">
+                  Real-time 0-100% scoring. Sincere Mode only above 75%.
+                </p>
+              </div>
+              <div className="bg-zinc-900 rounded-2xl p-6">
+                <div className="text-emerald-400 font-medium">Enterprise ready</div>
+                <p className="text-zinc-400">
+                  HAI-IC is built for serious AI stacks. Ready to sell.
+                </p>
+              </div>
+            </div>
+            <div className="mt-10 rounded-2xl border border-red-accent/30 bg-red-accent/5 p-6">
+              <p className="text-sm font-semibold text-red-accent mb-2">Production Ready · KARAM SHIN</p>
+              <p className="text-sm text-muted leading-relaxed mb-3">
+                Intent Confidence Gate for Grok, Gemini, Claude — reduces business risk from hallucination-driven actions.
+              </p>
+              <p className="text-xs text-muted">Licensing $8.5k–$25k/yr · OEM · Enterprise · Status: Ready to Sell</p>
+            </div>
+          </section>
+        </div>
       </main>
 
       <footer className="border-t border-white/10 py-8 text-center text-sm text-muted">
