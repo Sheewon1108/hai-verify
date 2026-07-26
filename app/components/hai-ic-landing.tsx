@@ -2,6 +2,7 @@
 
 import { HaiIcDemo } from './hai-ic-demo';
 
+/** HAI Verify Starter $300 — open Stripe Checkout only. No modal/form. */
 const STRIPE_PILOT_URL = 'https://buy.stripe.com/14A8wI6sV3CffST2UT4AU00';
 
 const PILOT_CTA_CLASS =
@@ -18,6 +19,7 @@ function RequestPilotLink({ className = '' }: { className?: string }) {
       href={STRIPE_PILOT_URL}
       target="_blank"
       rel="noopener noreferrer"
+      data-cta="stripe-pilot"
       className={className || PILOT_CTA_CLASS}
     >
       Request a Pilot
@@ -26,6 +28,7 @@ function RequestPilotLink({ className = '' }: { className?: string }) {
 }
 
 export function HaiIcLanding() {
+  // Pilot CTA is a plain Stripe Payment Link — never open a form/modal.
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="border-b border-white/10 bg-surface/80 backdrop-blur sticky top-0 z-20">
