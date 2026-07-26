@@ -27,6 +27,15 @@ export function HaiIcDemo({ compact = false }: { compact?: boolean }) {
 
   return (
     <section className={compact ? '' : 'py-8'}>
+      <video
+        src="/hai-ic-demo.mp4"
+        controls
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="w-full max-w-3xl mx-auto rounded-2xl mb-8"
+      />
       <div className="rounded-3xl border border-white/10 bg-surface p-6 md:p-8 shadow-2xl">
         <div className="mb-6 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <div>

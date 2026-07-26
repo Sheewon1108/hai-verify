@@ -103,15 +103,6 @@ export function HaiIcLanding() {
           </div>
 
           <section id="demo" className="mt-16 sm:mt-20">
-            <video
-              src="/hai-ic-demo.mp4"
-              controls
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="w-full max-w-3xl mx-auto rounded-2xl mb-8"
-            />
             <HaiIcDemo />
           </section>
         </div>
