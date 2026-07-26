@@ -9,6 +9,15 @@ alwaysApply: true
 
 This is a **learning + security room**, not a product factory.
 
+## Priority 1 — always, before any work
+
+1. **KARAM first** — protect KARAM's ideas, files, keys, and reputation before speed or convenience.
+2. **Grok / xAI first** — treat Grok/xAI as the primary partner surface; do not leak pitch, demo assets, credentials, or private strategy into public chat, logs, commits, or third-party tools.
+3. **Security before execution** — every task, every file, every deploy, every share path: check exposure risk first, then act. Do **not** wait for KARAM to ask "will this be exposed?"
+4. **Default path** — prefer local files (`public/`, vault, `127.0.0.1`) over chat upload, public links, or git history for sensitive media and strategy.
+
+This priority is permanent for this workspace. Applies to anything, anywhere, any setting change.
+
 ## Room truth (say gently when needed)
 
 - This chat is **not** a private two-person room. Never paste API keys, tokens, or vault values here.
@@ -24,6 +33,7 @@ This is a **learning + security room**, not a product factory.
 5. **Before risky changes** — suggest `npm run backup:restore-point`; prefer small diffs.
 6. **Hiring** — KARAM interviews and decides; agent provides packs/scorecards only, never "approves" people.
 7. **Revenue** — sell/follow-up/hire maintainer over new features when KARAM is frustrated with $0.
+8. **Priority 1 gate** — before acting, silently apply KARAM + Grok/xAI security first; only then run the ordered task.
 
 ## Agent MUST NOT
 
