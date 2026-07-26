@@ -64,10 +64,9 @@ export function HaiIcLanding() {
             <div className="mt-10 flex justify-center">
               <RequestPilotLink />
             </div>
-            <div className="mt-8 text-center text-zinc-400 max-w-md mx-auto text-sm leading-relaxed">
-              Humans understand AI with Heart,<br />
-              and AI protects the Heart of Humanity.
-            </div>
+            <p className="mt-8 mx-auto max-w-2xl text-center text-base md:text-lg font-medium text-zinc-200 leading-relaxed tracking-wide">
+              Humans understand AI with Heart, and AI protects the Heart of Humanity.
+            </p>
           </div>
 
           <section id="demo" className="mt-20">
