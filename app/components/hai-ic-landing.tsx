@@ -103,23 +103,15 @@ export function HaiIcLanding() {
           </div>
 
           <section id="demo" className="mt-16 sm:mt-20">
-            <div className="mb-8 sm:mb-10">
-              <div className="text-center mb-4 sm:mb-5">
-                <div className="inline px-6 py-2.5 bg-emerald-500/10 border border-emerald-500/30 rounded-full text-emerald-400 text-sm font-medium">
-                  DEMO VIDEO
-                </div>
-              </div>
-              <video
-                src="/hai-ic-demo.mp4"
-                className="w-full max-w-full rounded-2xl border border-zinc-700 bg-black shadow-2xl aspect-video object-cover"
-                autoPlay
-                muted
-                loop
-                playsInline
-                controls
-                preload="metadata"
-              />
-            </div>
+            <video
+              src="/hai-ic-demo.mp4"
+              controls
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full max-w-3xl mx-auto rounded-2xl mb-8"
+            />
             <HaiIcDemo />
           </section>
         </div>
