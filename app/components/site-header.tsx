@@ -30,6 +30,9 @@ export function SiteHeader() {
           <Link href="/order" className="transition-colors hover:text-white/90">
             {t.common.nav.order}
           </Link>
+          <Link href="/faq" className="transition-colors hover:text-white/90">
+            FAQ
+          </Link>
           <Link href="/#demo" className="transition-colors hover:text-white/90">
             {t.common.nav.demo}
           </Link>

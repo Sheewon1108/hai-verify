@@ -72,6 +72,7 @@ export function HaiIcLanding() {
             <a href="#pricing" className="hover:text-foreground">Pricing</a>
             <a href="#api" className="hover:text-foreground">API</a>
             <a href="#xai" className="hover:text-foreground">xAI Integration</a>
+            <a href="/faq" className="hover:text-foreground">FAQ</a>
             <a href="/verify" className="hover:text-foreground">HAI Verify</a>
           </nav>
         </div>
