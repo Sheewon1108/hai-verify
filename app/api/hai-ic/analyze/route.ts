@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import { analyzeIntent, HAI_IC_PRODUCT, HAI_IC_VERSION } from "@/app/lib/hai-ic-analyze";
 import { HAI_IC_CONFIDENCE_THRESHOLD } from "@/app/lib/hai-ic-system-prompt";
+import { hasValidApiKey } from "@/app/lib/access-control";
 import { jsonWithCors } from "@/app/lib/cors";
 
 const MAX_INPUT_LENGTH = 8_000;
@@ -27,6 +28,13 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   const origin = request.headers.get("origin");
+
+  if (!(await hasValidApiKey(request))) {
+    return jsonWithCors(
+      { ok: false, error: "Unauthorized" },
+      { status: 401, requestOrigin: origin },
+    );
+  }
 
   let body: unknown;
   try {

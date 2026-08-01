@@ -10,10 +10,10 @@
  * Validation re-derives the HMAC and confirms it matches — no DB lookup needed.
  *
  * Plans and pricing:
- *   dev       — free tier, 100 calls/day
- *   starter   — $29/mo,  10,000 calls/day
- *   pro       — $99/mo,  100,000 calls/day
- *   enterprise — custom
+ *   dev        — free tier, 100 calls/day
+ *   starter    — Evaluation Pilot, $300 one-time
+ *   pro        — OEM, $8.5k+/yr
+ *   enterprise — Enterprise, $25k/yr
  */
 
 export type ApiKeyPlan = "dev" | "starter" | "pro" | "enterprise";
@@ -33,9 +33,9 @@ export interface ApiKeyValidationResult {
 
 export const API_KEY_PLANS: Record<ApiKeyPlan, { priceUsd: number; callsPerDay: number; label: string }> = {
   dev: { priceUsd: 0, callsPerDay: 100, label: "Dev (Free)" },
-  starter: { priceUsd: 29, callsPerDay: 10_000, label: "Starter ($29/mo)" },
-  pro: { priceUsd: 99, callsPerDay: 100_000, label: "Pro ($99/mo)" },
-  enterprise: { priceUsd: 0, callsPerDay: Infinity, label: "Enterprise (Custom)" },
+  starter: { priceUsd: 300, callsPerDay: 10_000, label: "Evaluation Pilot ($300)" },
+  pro: { priceUsd: 8_500, callsPerDay: 100_000, label: "OEM ($8.5k+/yr)" },
+  enterprise: { priceUsd: 25_000, callsPerDay: Infinity, label: "Enterprise ($25k/yr)" },
 };
 
 function base64urlEncode(bytes: Uint8Array): string {

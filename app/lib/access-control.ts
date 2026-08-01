@@ -162,7 +162,7 @@ function extractApiKey(request: Request): string | null {
   return headerKey || null;
 }
 
-async function hasValidApiKey(request: Request): Promise<boolean> {
+export async function hasValidApiKey(request: Request): Promise<boolean> {
   const token = extractApiKey(request);
   if (!token) return false;
 

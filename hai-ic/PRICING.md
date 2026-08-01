@@ -7,16 +7,15 @@
 
 | Tier | Annual | Includes |
 |------|--------|----------|
-| **Pilot** | POC only | 2-week integration, Trust Ledger export, 30-min onboarding |
-| **Team** | $8,500/yr | API gate, 50k analyze calls/mo, email support |
+| **Evaluation Pilot** | $300 one-time | Fixed-scope evaluation, threshold behavior, clarifying questions, audit trail |
+| **OEM** | $8,500+/yr | API gate, 50k analyze calls/mo, email support |
 | **Enterprise** | $25,000/yr | Unlimited calls, SLA, custom threshold, audit log export |
 
 ## POC (entry)
 
-- **Duration:** 2 weeks
 - **Scope:** One stack (e.g. multi-agent pipeline, logistics ops bot)
 - **Success metric:** % of uncertain intents blocked (OFF) vs baseline hallucination rate
-- **Convert:** Pilot → Team or Enterprise annual
+- **Convert:** Evaluation Pilot → OEM or Enterprise annual
 
 ## What's metered
 
