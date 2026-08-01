@@ -11,6 +11,16 @@ export function SiteHeader() {
     <header className="sticky top-0 z-30 border-b border-white/[0.06] bg-background/80 backdrop-blur-xl">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-2.5">
+          <img
+            src="/xgoma-mark.svg"
+            alt="XGOMA mark"
+            width={28}
+            height={28}
+            className="shrink-0"
+          />
+          <span className="hidden text-xs font-semibold tracking-wide text-white/75 sm:inline">
+            XGOMA
+          </span>
           <span className="flex size-8 items-center justify-center rounded-lg bg-accent/12 ring-1 ring-accent/20">
             <span className="text-[10px] font-semibold tracking-tight text-accent">HAI</span>
           </span>
