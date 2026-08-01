@@ -14,6 +14,7 @@
     "access:test-loopback": "powershell -ExecutionPolicy Bypass -File ./scripts/test-access-loopback.ps1",
     "build": "next build --webpack",
     "start": "next start",
+    "test": "vitest run",
     "lint": "eslint",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
@@ -49,10 +50,12 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitest/runner": "^4.1.10",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
     "tailwindcss": "^4",
     "typescript": "^5",
+    "vitest": "^4.1.10",
     "wrangler": "^4.95.0"
   }
 }
