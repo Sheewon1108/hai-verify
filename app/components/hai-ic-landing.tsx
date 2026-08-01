@@ -9,7 +9,7 @@ const STRIPE_PILOT_URL = 'https://buy.stripe.com/14A8wI6sV3CffST2UT4AU00';
 const PILOT_CTA_CLASS =
   'inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-red-600 to-rose-600 px-8 py-4 text-lg font-bold text-white shadow-xl shadow-red-600/40 transition hover:brightness-110';
 
-const INTEGRATION = `curl -X POST https://hai-verify.workers.dev/api/hai-ic/analyze \\
+const INTEGRATION = `curl -X POST https://hai-ic.com/api/hai-ic/analyze \\
   -H "Content-Type: application/json" \\
   -H "Authorization: Bearer hv_dev_..." \\
   -d '{"input":"Ship 200 units to Seoul by July 15, budget $50k"}'`;
@@ -117,8 +117,8 @@ export function HaiIcLanding() {
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
               <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
-                <p className="text-red-400 text-sm font-medium mb-2">Pilot</p>
-                <p className="text-3xl font-bold text-white mb-3">Custom</p>
+                <p className="text-red-400 text-sm font-medium mb-2">Evaluation Pilot</p>
+                <p className="text-3xl font-bold text-white mb-3">$300</p>
                 <p className="text-sm text-zinc-400 leading-relaxed">
                   2–4 week integration with your agent pipeline. Score threshold, clarifying questions, and audit trail.
                 </p>
