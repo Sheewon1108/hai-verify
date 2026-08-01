@@ -217,7 +217,7 @@ export async function checkRequestHeaders(request: Request): Promise<AccessCheck
 
   return {
     blocked: true,
-    reason: "UNAUTHORIZED — Bearer hv_... or X-HAI-API-Key required",
+    reason: "UNAUTHORIZED",
     status: 401,
   };
 }
