@@ -113,7 +113,8 @@ export function HaiIcLanding() {
             <p className="text-xs uppercase tracking-[0.25em] text-muted mb-3">Pricing</p>
             <h2 className="text-3xl font-semibold mb-4 text-white">Start with a Pilot</h2>
             <p className="text-zinc-400 max-w-2xl mb-10 leading-relaxed">
-              Pricing is simple: $300 Evaluation Pilot -> OEM $8.5k+/yr -> Enterprise $25k/yr.
+              Pricing is simple: $300 Evaluation Pilot {"->"} OEM $8.5k+/yr {"->"} Enterprise
+              {" "} $25k/yr.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
               <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
@@ -187,7 +188,9 @@ export function HaiIcLanding() {
               <p className="text-sm text-muted leading-relaxed mb-3">
                 Intent Confidence Gate for Grok, Gemini, Claude — reduces business risk from hallucination-driven actions.
               </p>
-              <p className="text-xs text-muted">$300 Evaluation Pilot -> OEM $8.5k+/yr -> Enterprise $25k/yr</p>
+              <p className="text-xs text-muted">
+                $300 Evaluation Pilot {"->"} OEM $8.5k+/yr {"->"} Enterprise $25k/yr
+              </p>
             </div>
           </section>
         </div>
