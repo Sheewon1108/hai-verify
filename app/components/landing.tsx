@@ -26,8 +26,16 @@ export function Hero() {
 
         <div className="animate-fade-in-up stagger-3 mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
           <a
-            href="#demo"
+            href="/order"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center justify-center rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground transition-opacity hover:opacity-90"
+          >
+            Start Paid Pilot
+          </a>
+          <a
+            href="#demo"
+            className="inline-flex items-center justify-center rounded-lg border border-white/[0.1] bg-surface px-5 py-2.5 text-sm text-white/85 transition-colors hover:bg-surface-elevated"
           >
             {l.heroDemo}
           </a>

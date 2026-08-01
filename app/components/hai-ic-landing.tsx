@@ -95,7 +95,15 @@ export function HaiIcLanding() {
               <br />
               in real-time from 0 to 100. Executes only in <span className="text-red-400">Sincere Mode (75%+)</span>.
             </p>
-            <div className="mt-10 flex justify-center">
+            <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+              <a
+                href="/order"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={PILOT_CTA_CLASS}
+              >
+                Start Paid Pilot
+              </a>
               <RequestPilotLink />
             </div>
             <p className="mt-10 mx-auto max-w-3xl text-center text-lg md:text-xl font-medium text-zinc-100 leading-relaxed tracking-[0.01em]">
@@ -138,7 +146,15 @@ export function HaiIcLanding() {
                 </p>
               </div>
             </div>
-            <div className="flex justify-center md:justify-start">
+            <div className="flex flex-col gap-4 sm:flex-row md:justify-start">
+              <a
+                href="/order"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={PILOT_CTA_CLASS}
+              >
+                Start Paid Pilot
+              </a>
               <RequestPilotLink />
             </div>
           </section>
