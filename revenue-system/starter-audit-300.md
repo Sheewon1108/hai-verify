@@ -68,7 +68,7 @@ See [manual-delivery-flow.md](./manual-delivery-flow.md)
 
 ## Payment
 
-**Online (default):** Mock Stripe test checkout at `https://hai-verify.workers.dev/order`  
+**Online (default):** Mock Stripe test checkout at `https://hai-ic.com/order`  
 - Plan ID: `starter` · $300 USD · `POST /api/checkout`
 
 **Manual (fallback):** Zelle · Wise · PayPal · Venmo · Bank transfer (ACH/wire on request)
