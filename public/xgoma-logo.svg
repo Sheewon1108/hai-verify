@@ -1,0 +1,5 @@
+<svg width="132" height="28" viewBox="0 0 132 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="1" y="1" width="26" height="26" rx="7" fill="#10B981"/>
+  <path d="M9.5 9.5L18.5 18.5M18.5 9.5L9.5 18.5" stroke="white" stroke-width="2.4" stroke-linecap="round"/>
+  <text x="36" y="18.5" fill="#F5F5F5" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="700" letter-spacing="1">XGOMA</text>
+</svg>
