@@ -71,12 +71,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ ok: false, error: "Key generation failed" }, { status: 500 });
     }
 
-    // ── Log issued key (replace with email delivery in production) ──────────
-    console.log(`[webhook] HAI API key issued for ${email} (plan: ${plan})`);
-    console.log(`[webhook] API key: ${apiKey}`);
+    // Never log or return the raw API key — deliver via email only.
+    console.log(
+      `[webhook] HAI API key issued for ${email} (plan: ${plan}) session=${session.id}`,
+    );
 
     // TODO: Send apiKey to email via Resend / SendGrid / SES
     // await sendApiKeyEmail({ email, plan, apiKey });
+    void apiKey;
 
     return NextResponse.json({
       ok: true,
@@ -84,8 +86,8 @@ export async function POST(request: NextRequest) {
       event: event.type,
       plan,
       email,
-      // NOTE: Remove apiKey from response in production — deliver via email only
-      apiKey,
+      keyDelivered: false,
+      delivery: "email_pending",
     });
   }
 
