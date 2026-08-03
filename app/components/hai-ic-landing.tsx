@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { HaiIcDemo } from './hai-ic-demo';
 
-/** Open order page directly in a new tab. */
-const PILOT_ORDER_URL = '/order';
+/** Live Stripe Payment Link — public by design (no secrets). */
+const PILOT_ORDER_URL = 'https://buy.stripe.com/14A8wI6sV3CffST2UT4AU00';
 
 const PILOT_CTA_CLASS =
   'inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-red-600 to-rose-600 px-8 py-4 text-lg font-bold text-white shadow-xl shadow-red-600/40 transition hover:brightness-110';
