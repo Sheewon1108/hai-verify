@@ -11,6 +11,7 @@ import {
   toVerifyApiLocale,
   type AppLocale,
 } from "../lib/ui-locale";
+import { getPublicPaymentLink, PRIMARY_PAYMENT_CTA_LABEL } from "../lib/payment-link";
 
 type VerifySuccess = {
   ok: true;
@@ -147,6 +148,7 @@ function formatResultForAi(
 export default function VerifyPage() {
   const { locale, t } = useLocale();
   const v = t.verify;
+  const paymentLink = getPublicPaymentLink();
   const [content, setContent] = useState("");
   const [result, setResult] = useState<VerifySuccess | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -390,10 +392,10 @@ export default function VerifyPage() {
             <div className="mt-5 rounded-xl border border-white/[0.08] bg-background/50 px-4 py-3.5">
               <p className="text-xs leading-relaxed text-muted">{v.orderPrompt}</p>
               <a
-                href="/order"
+                href={paymentLink}
                 className="mt-2 inline-flex text-sm font-medium text-accent underline-offset-2 hover:underline"
               >
-                {v.orderLink}
+                {PRIMARY_PAYMENT_CTA_LABEL}
               </a>
             </div>
 

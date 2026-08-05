@@ -3,9 +3,11 @@
 import Link from "next/link";
 import { LangPicker } from "./lang-picker";
 import { useLocale } from "./locale-provider";
+import { getPublicPaymentLink, PRIMARY_PAYMENT_CTA_LABEL } from "../lib/payment-link";
 
 export function SiteHeader() {
   const { t } = useLocale();
+  const paymentLink = getPublicPaymentLink();
 
   return (
     <header className="sticky top-0 z-30 border-b border-white/[0.06] bg-background/80 backdrop-blur-xl">
@@ -27,29 +29,23 @@ export function SiteHeader() {
           <Link href="/verify" className="transition-colors hover:text-white/90">
             {t.common.nav.verify}
           </Link>
-          <Link href="/order" className="transition-colors hover:text-white/90">
-            {t.common.nav.order}
-          </Link>
           <Link href="/faq" className="transition-colors hover:text-white/90">
             FAQ
           </Link>
           <Link href="/#demo" className="transition-colors hover:text-white/90">
             {t.common.nav.demo}
           </Link>
-          <Link href="/#contact" className="transition-colors hover:text-white/90">
-            {t.common.nav.contact}
-          </Link>
         </nav>
 
         <div className="flex flex-col items-end gap-1">
           <div className="flex items-center gap-2.5 sm:gap-4">
             <LangPicker />
-            <Link
-              href="/order"
+            <a
+              href={paymentLink}
               className="rounded-lg bg-[#FF0033] px-3.5 py-2 text-xs font-medium text-white transition-all hover:scale-105 hover:brightness-110"
             >
-              Start XGOMA Session
-            </Link>
+              {PRIMARY_PAYMENT_CTA_LABEL}
+            </a>
           </div>
           <p className="text-[10px] tracking-wide text-white/35">{t.common.createdBy}</p>
         </div>

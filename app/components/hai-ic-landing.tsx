@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import { HaiIcDemo } from './hai-ic-demo';
+import { getPublicPaymentLink, PRIMARY_PAYMENT_CTA_LABEL } from '../lib/payment-link';
 
-/** Live Stripe Payment Link — public by design (no secrets). */
-const PILOT_ORDER_URL = 'https://buy.stripe.com/14A8wI6sV3CffST2UT4AU00';
+const PILOT_ORDER_URL = getPublicPaymentLink();
 
 const PILOT_CTA_CLASS =
   'inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-red-600 to-rose-600 px-8 py-4 text-lg font-bold text-white shadow-xl shadow-red-600/40 transition hover:brightness-110';
@@ -18,12 +18,10 @@ function RequestPilotLink({ className = '' }: { className?: string }) {
   return (
     <a
       href={PILOT_ORDER_URL}
-      target="_blank"
-      rel="noopener noreferrer"
       data-cta="stripe-pilot"
       className={className || PILOT_CTA_CLASS}
     >
-      Start Paid Pilot
+      {PRIMARY_PAYMENT_CTA_LABEL}
     </a>
   );
 }
@@ -111,9 +109,9 @@ export function HaiIcLanding() {
         <div className="mx-auto max-w-6xl px-6">
           <section id="pricing" className="py-16 border-t border-white/10">
             <p className="text-xs uppercase tracking-[0.25em] text-muted mb-3">Pricing</p>
-            <h2 className="text-3xl font-semibold mb-4 text-white">Start with a Pilot</h2>
+            <h2 className="text-3xl font-semibold mb-4 text-white">Start with the $300 Evaluation Pilot</h2>
             <p className="text-zinc-400 max-w-2xl mb-10 leading-relaxed">
-              Deploy Hai-ic as a pre-execution Intent Confidence gate for Grok, Gemini, Claude, and internal agent stacks. Licensing from $8.5k–$25k/yr · OEM · Enterprise.
+              Start with a paid evaluation request, then scale into OEM or enterprise deployment after HAI reviews your submitted execution flow.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
               <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">

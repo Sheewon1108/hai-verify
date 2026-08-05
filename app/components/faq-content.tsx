@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { getPublicPaymentLink, PRIMARY_PAYMENT_CTA_LABEL } from '../lib/payment-link';
 
 type FaqItem = {
   question: string;
@@ -144,6 +145,8 @@ function FaqRow({ item, defaultOpen = false }: { item: FaqItem; defaultOpen?: bo
 }
 
 export function FaqContent() {
+  const paymentLink = getPublicPaymentLink();
+
   return (
     <div className="min-h-screen bg-black text-white">
       <header className="border-b border-zinc-800 bg-black/80 backdrop-blur sticky top-0 z-20">
@@ -183,10 +186,10 @@ export function FaqContent() {
         </div>
 
         <p className="mt-12 text-center text-sm text-zinc-500">
-          Still have questions?{' '}
-          <Link href="/order" className="text-red-400 hover:text-red-300 underline underline-offset-2">
-            Request a pilot
-          </Link>
+          Ready to start?{' '}
+          <a href={paymentLink} className="text-red-400 hover:text-red-300 underline underline-offset-2">
+            {PRIMARY_PAYMENT_CTA_LABEL}
+          </a>
           .
         </p>
       </main>
