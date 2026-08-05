@@ -4,7 +4,9 @@ import { useState } from 'react';
 import { HaiIcDemo } from './hai-ic-demo';
 
 /** Live Stripe Payment Link — public by design (no secrets). */
-const PILOT_ORDER_URL = 'https://buy.stripe.com/14A8wI6sV3CffST2UT4AU00';
+const DEFAULT_HAI_PAYMENT_LINK = 'https://buy.stripe.com/14A8wI6sV3CffST2UT4AU00';
+const HAI_PAYMENT_LINK =
+  process.env.NEXT_PUBLIC_HAI_PAYMENT_LINK ?? DEFAULT_HAI_PAYMENT_LINK;
 
 const PILOT_CTA_CLASS =
   'inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-red-600 to-rose-600 px-8 py-4 text-lg font-bold text-white shadow-xl shadow-red-600/40 transition hover:brightness-110';
@@ -17,13 +19,13 @@ const INTEGRATION = `curl -X POST https://hai-verify.workers.dev/api/hai-ic/anal
 function RequestPilotLink({ className = '' }: { className?: string }) {
   return (
     <a
-      href={PILOT_ORDER_URL}
+      href={HAI_PAYMENT_LINK}
       target="_blank"
       rel="noopener noreferrer"
       data-cta="stripe-pilot"
       className={className || PILOT_CTA_CLASS}
     >
-      Start Paid Pilot
+      Start $300 Evaluation
     </a>
   );
 }
