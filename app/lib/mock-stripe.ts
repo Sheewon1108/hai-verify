@@ -89,7 +89,7 @@ export function processMockCheckout(input: {
     paymentIntentId,
     checkoutSessionId,
     status: "succeeded",
-    receiptUrl: `/order?receipt=${encodeURIComponent(checkoutSessionId)}`,
+    receiptUrl: `/payment-success?session_id=${encodeURIComponent(checkoutSessionId)}&plan=${encodeURIComponent(planId)}`,
     timestamp: new Date().toISOString(),
   };
 }

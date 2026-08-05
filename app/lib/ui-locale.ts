@@ -178,7 +178,7 @@ const ORDER_COPY: Record<AppLocale, OrderCopy> = {
     disclaimer:
       "This is a rule-based preliminary scan. Human review is required before legal, medical, financial, or high-stakes decisions.",
     submit: "Order & Analyze",
-    flowHint: "Verify → Stripe Test checkout → Instant analysis report",
+    flowHint: "Start $300 Evaluation → payment → /payment-success → /intake",
     errContent: "Enter content to verify.",
     errEmail: "Enter a valid email address.",
     errVerify: "Could not reach the verification API. Please try again.",
@@ -225,7 +225,7 @@ const ORDER_COPY: Record<AppLocale, OrderCopy> = {
       noSub: "No subscription. No commitment.",
       delivery: "Delivered within 48–72 hours — async portal only, no live debrief calls.",
       whatsIncluded: "What's included",
-      cta: "Claim your Starter Audit",
+      cta: "Start $300 Evaluation",
       urgency: "Spots strictly limited. Submit within 24 hours to secure your founding slot.",
     },
     offers: {

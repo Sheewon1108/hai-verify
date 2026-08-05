@@ -520,7 +520,7 @@ const LANDING: Record<AppLocale, LandingCopy> = {
     heroBody:
       "HAI Verify combines human judgment, accountable intent, AI speed, and lawful defensibility — so every model response can be scored, reviewed, and released with evidence.",
     heroDemo: "Open live demo",
-    heroOrder: "Order Starter Audit",
+    heroOrder: "Start $300 Evaluation",
     heroWorkflow: "See how it works",
     heroTagline: "Human · Heart · AI · Law — the verification framework for regulated teams",
     footerHumanVerified: "Human Verified",
