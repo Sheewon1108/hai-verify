@@ -2,9 +2,7 @@
 
 import { useState } from 'react';
 import { HaiIcDemo } from './hai-ic-demo';
-
-/** Live Stripe Payment Link — public by design (no secrets). */
-const PILOT_ORDER_URL = 'https://buy.stripe.com/14A8wI6sV3CffST2UT4AU00';
+import { HAI_IC_STRIPE_PILOT_URL } from './hai-ic-pilot-form';
 
 const PILOT_CTA_CLASS =
   'inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-red-600 to-rose-600 px-8 py-4 text-lg font-bold text-white shadow-xl shadow-red-600/40 transition hover:brightness-110';
@@ -17,13 +15,13 @@ const INTEGRATION = `curl -X POST https://hai-verify.workers.dev/api/hai-ic/anal
 function RequestPilotLink({ className = '' }: { className?: string }) {
   return (
     <a
-      href={PILOT_ORDER_URL}
+      href={HAI_IC_STRIPE_PILOT_URL}
       target="_blank"
       rel="noopener noreferrer"
       data-cta="stripe-pilot"
       className={className || PILOT_CTA_CLASS}
     >
-      Start Paid Pilot
+      Start $300 Evaluation
     </a>
   );
 }
@@ -58,7 +56,7 @@ function CurlCopyBlock() {
 }
 
 export function HaiIcLanding() {
-  // Pilot CTA is a plain Stripe Payment Link — never open a form/modal.
+  // Primary CTA opens the public Stripe Payment Link — never open a form/modal.
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="border-b border-white/10 bg-surface/80 backdrop-blur sticky top-0 z-20">

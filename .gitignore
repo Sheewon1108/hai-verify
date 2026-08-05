@@ -23,6 +23,7 @@
 
 # local backups (never inside project)
 /scripts/backups/
+/mock-data/
 
 # misc
 .DS_Store
