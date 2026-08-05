@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { SiteHeader } from "../components/site-header";
+import { HAI_PAYMENT_CTA_LABEL, HAI_PAYMENT_LINK } from "../lib/hai-payment";
 import { useLocale } from "../components/locale-provider";
 import type { VerifyCopy } from "../lib/site-copy";
 import {
@@ -147,6 +148,7 @@ function formatResultForAi(
 export default function VerifyPage() {
   const { locale, t } = useLocale();
   const v = t.verify;
+  const paymentHref = HAI_PAYMENT_LINK || "#";
   const [content, setContent] = useState("");
   const [result, setResult] = useState<VerifySuccess | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -390,10 +392,11 @@ export default function VerifyPage() {
             <div className="mt-5 rounded-xl border border-white/[0.08] bg-background/50 px-4 py-3.5">
               <p className="text-xs leading-relaxed text-muted">{v.orderPrompt}</p>
               <a
-                href="/order"
-                className="mt-2 inline-flex text-sm font-medium text-accent underline-offset-2 hover:underline"
+                href={paymentHref}
+                aria-disabled={!HAI_PAYMENT_LINK}
+                className={`mt-2 inline-flex text-sm font-medium text-accent underline-offset-2 hover:underline ${HAI_PAYMENT_LINK ? "" : "pointer-events-none opacity-50"}`}
               >
-                {v.orderLink}
+                {HAI_PAYMENT_CTA_LABEL}
               </a>
             </div>
 

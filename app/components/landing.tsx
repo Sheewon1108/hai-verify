@@ -1,10 +1,12 @@
 "use client";
 
+import { HAI_PAYMENT_CTA_LABEL, HAI_PAYMENT_LINK } from "@/app/lib/hai-payment";
 import { useLocale } from "./locale-provider";
 
 export function Hero() {
   const { t } = useLocale();
   const l = t.landing;
+  const paymentHref = HAI_PAYMENT_LINK || "#";
 
   return (
     <section className="relative overflow-hidden px-4 pb-16 pt-14 sm:px-6 sm:pb-20 sm:pt-20 lg:px-8">
@@ -26,16 +28,17 @@ export function Hero() {
 
         <div className="animate-fade-in-up stagger-3 mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
           <a
-            href="#demo"
-            className="inline-flex items-center justify-center rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground transition-opacity hover:opacity-90"
+            href={paymentHref}
+            aria-disabled={!HAI_PAYMENT_LINK}
+            className={`inline-flex items-center justify-center rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground transition-opacity hover:opacity-90 ${HAI_PAYMENT_LINK ? "" : "pointer-events-none opacity-50"}`}
           >
-            {l.heroDemo}
+            {HAI_PAYMENT_CTA_LABEL}
           </a>
           <a
-            href="/order"
+            href="#demo"
             className="inline-flex items-center justify-center rounded-lg border border-white/[0.1] bg-surface px-5 py-2.5 text-sm text-white/85 transition-colors hover:bg-surface-elevated"
           >
-            {l.heroOrder}
+            {l.heroDemo}
           </a>
           <a
             href="#workflow"
@@ -119,6 +122,7 @@ export function WorkflowSection() {
 export function CTASection() {
   const { t } = useLocale();
   const l = t.landing;
+  const paymentHref = HAI_PAYMENT_LINK || "#";
 
   return (
     <section
@@ -139,25 +143,16 @@ export function CTASection() {
               {l.ctaTitle}
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-muted sm:text-base">{l.ctaDesc}</p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <div className="flex flex-col">
-                <a
-                  href="#demo"
-                  className="inline-flex items-center justify-center rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground transition-all hover:scale-105 hover:opacity-90"
-                >
-                  {l.ctaDemo}
-                </a>
-                <p className="mt-3 text-center text-sm text-gray-400">
-                  Powered by HAI Verification • Monetized by XGOMA Execution
-                </p>
-              </div>
-              <a
-                href="mailto:verify@hai.example"
-                className="inline-flex h-fit items-center justify-center rounded-lg border border-white/[0.1] px-5 py-2.5 text-sm text-white/85 transition-colors hover:bg-background/50"
-              >
-                {l.ctaEnterprise}
-              </a>
-            </div>
+            <a
+              href={paymentHref}
+              aria-disabled={!HAI_PAYMENT_LINK}
+              className={`mt-8 inline-flex items-center justify-center rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground transition-all hover:scale-105 hover:opacity-90 ${HAI_PAYMENT_LINK ? "" : "pointer-events-none opacity-50"}`}
+            >
+              {HAI_PAYMENT_CTA_LABEL}
+            </a>
+            <p className="mt-3 text-sm text-gray-400">
+              Powered by HAI Verification • Stripe checkout → evaluation intake
+            </p>
           </div>
         </div>
       </div>
@@ -169,6 +164,7 @@ export function SiteFooter({ scanId }: { scanId: string | null }) {
   const { t } = useLocale();
   const l = t.landing;
   const n = t.common.nav;
+  const paymentHref = HAI_PAYMENT_LINK || "#";
 
   return (
     <footer className="border-t border-white/[0.06] bg-background px-4 py-10 sm:px-6 lg:px-8">
@@ -215,8 +211,15 @@ export function SiteFooter({ scanId }: { scanId: string | null }) {
           </nav>
         </div>
 
-        <div className="mt-8 flex flex-col gap-2 border-t border-white/[0.06] pt-6 text-[11px] text-muted sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-8 flex flex-col gap-4 border-t border-white/[0.06] pt-6 text-[11px] text-muted sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} HAI Verify. {l.footerCopyright}</p>
+          <a
+            href={paymentHref}
+            aria-disabled={!HAI_PAYMENT_LINK}
+            className={`inline-flex items-center justify-center rounded-lg bg-accent px-4 py-2 text-xs font-medium text-accent-foreground transition-opacity hover:opacity-90 ${HAI_PAYMENT_LINK ? "" : "pointer-events-none opacity-50"}`}
+          >
+            {HAI_PAYMENT_CTA_LABEL}
+          </a>
           {scanId ? (
             <p className="font-mono">
               {l.session} · {scanId}

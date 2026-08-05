@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import { HaiIcDemo } from './hai-ic-demo';
+import { HAI_PAYMENT_CTA_LABEL, HAI_PAYMENT_LINK } from '@/app/lib/hai-payment';
 
-/** Live Stripe Payment Link — public by design (no secrets). */
-const PILOT_ORDER_URL = 'https://buy.stripe.com/14A8wI6sV3CffST2UT4AU00';
+const PILOT_ORDER_URL = HAI_PAYMENT_LINK || '#';
 
 const PILOT_CTA_CLASS =
   'inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-red-600 to-rose-600 px-8 py-4 text-lg font-bold text-white shadow-xl shadow-red-600/40 transition hover:brightness-110';
@@ -18,12 +18,11 @@ function RequestPilotLink({ className = '' }: { className?: string }) {
   return (
     <a
       href={PILOT_ORDER_URL}
-      target="_blank"
-      rel="noopener noreferrer"
+      aria-disabled={!HAI_PAYMENT_LINK}
       data-cta="stripe-pilot"
-      className={className || PILOT_CTA_CLASS}
+      className={`${className || PILOT_CTA_CLASS} ${HAI_PAYMENT_LINK ? '' : 'pointer-events-none opacity-50'}`}
     >
-      Start Paid Pilot
+      {HAI_PAYMENT_CTA_LABEL}
     </a>
   );
 }
@@ -58,7 +57,6 @@ function CurlCopyBlock() {
 }
 
 export function HaiIcLanding() {
-  // Pilot CTA is a plain Stripe Payment Link — never open a form/modal.
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="border-b border-white/10 bg-surface/80 backdrop-blur sticky top-0 z-20">
@@ -75,6 +73,7 @@ export function HaiIcLanding() {
             <a href="/faq" className="hover:text-foreground">FAQ</a>
             <a href="/verify" className="hover:text-foreground">HAI Verify</a>
           </nav>
+          <RequestPilotLink className="hidden rounded-xl bg-gradient-to-r from-red-600 to-rose-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-red-600/30 transition hover:brightness-110 md:inline-flex" />
         </div>
       </header>
 
@@ -95,9 +94,16 @@ export function HaiIcLanding() {
               <br />
               in real-time from 0 to 100. Executes only in <span className="text-red-400">Sincere Mode (75%+)</span>.
             </p>
-            <div className="mt-10 flex justify-center">
+            <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <RequestPilotLink />
+              <a
+                href="#demo"
+                className="inline-flex items-center justify-center rounded-2xl border border-white/15 px-8 py-4 text-lg font-semibold text-white transition hover:border-white/25 hover:bg-white/5"
+              >
+                Open live demo
+              </a>
             </div>
+            <p className="mt-4 text-sm text-zinc-500">Stripe checkout → payment success → evaluation intake</p>
             <p className="mt-10 mx-auto max-w-3xl text-center text-lg md:text-xl font-medium text-zinc-100 leading-relaxed tracking-[0.01em]">
               Humans understand AI with Heart, and AI protects the Heart of Humanity.
             </p>
@@ -111,35 +117,35 @@ export function HaiIcLanding() {
         <div className="mx-auto max-w-6xl px-6">
           <section id="pricing" className="py-16 border-t border-white/10">
             <p className="text-xs uppercase tracking-[0.25em] text-muted mb-3">Pricing</p>
-            <h2 className="text-3xl font-semibold mb-4 text-white">Start with a Pilot</h2>
+            <h2 className="text-3xl font-semibold mb-4 text-white">Start with a $300 Evaluation Pilot</h2>
             <p className="text-zinc-400 max-w-2xl mb-10 leading-relaxed">
-              Deploy Hai-ic as a pre-execution Intent Confidence gate for Grok, Gemini, Claude, and internal agent stacks. Licensing from $8.5k–$25k/yr · OEM · Enterprise.
+              Pay once, then submit one real AI command, workflow, or execution path for HAI review. Broader licensing can follow after the evaluation if it is a fit.
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-              <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
-                <p className="text-red-400 text-sm font-medium mb-2">Pilot</p>
-                <p className="text-3xl font-bold text-white mb-3">Custom</p>
-                <p className="text-sm text-zinc-400 leading-relaxed">
-                  2–4 week integration with your agent pipeline. Score threshold, clarifying questions, and audit trail.
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] mb-10">
+              <div className="rounded-3xl border border-red-500/30 bg-zinc-900 p-8 shadow-2xl shadow-red-950/30">
+                <p className="text-red-400 text-sm font-medium mb-2">Evaluation Pilot</p>
+                <p className="text-5xl font-black tracking-tight text-white mb-4">$300</p>
+                <ul className="space-y-3 text-sm text-zinc-300 leading-relaxed">
+                  <li>• Pay immediately with the Stripe Payment Link.</li>
+                  <li>• Submit one real AI command, workflow, or execution path after payment.</li>
+                  <li>• HAI reviews the submitted execution flow and responds through the email you provide.</li>
+                </ul>
+                <div className="mt-8">
+                  <RequestPilotLink className={PILOT_CTA_CLASS} />
+                </div>
+              </div>
+              <div className="rounded-3xl border border-zinc-800 bg-zinc-950/70 p-8">
+                <p className="text-sm font-medium text-white mb-3">What happens next</p>
+                <ol className="space-y-3 text-sm text-zinc-400 leading-relaxed">
+                  <li>1. Complete the $300 payment.</li>
+                  <li>2. Stripe redirects to the intake step.</li>
+                  <li>3. Submit the exact execution flow you want evaluated.</li>
+                  <li>4. HAI reviews the submitted workflow and follows up by email.</li>
+                </ol>
+                <p className="mt-6 text-xs text-zinc-500">
+                  Enterprise, OEM, and annual licensing stay available after the paid evaluation instead of before it.
                 </p>
               </div>
-              <div className="bg-zinc-900 rounded-2xl p-6 border border-red-500/30">
-                <p className="text-red-400 text-sm font-medium mb-2">OEM</p>
-                <p className="text-3xl font-bold text-white mb-3">$8.5k+/yr</p>
-                <p className="text-sm text-zinc-400 leading-relaxed">
-                  Embed Hai-ic into your product. REST API, health checks, and sincere-mode gate at 75%.
-                </p>
-              </div>
-              <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
-                <p className="text-red-400 text-sm font-medium mb-2">Enterprise</p>
-                <p className="text-3xl font-bold text-white mb-3">$25k/yr</p>
-                <p className="text-sm text-zinc-400 leading-relaxed">
-                  Volume routing, approval workflows, and dedicated onboarding for multi-agent stacks.
-                </p>
-              </div>
-            </div>
-            <div className="flex justify-center md:justify-start">
-              <RequestPilotLink />
             </div>
           </section>
 
@@ -194,7 +200,10 @@ export function HaiIcLanding() {
       </main>
 
       <footer className="border-t border-white/10 py-8 text-center text-sm text-muted">
-        Human + Heart + AI + Law = Verification · Hai-ic by KARAM SHIN
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6">
+          <RequestPilotLink className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-red-600 to-rose-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-red-600/30 transition hover:brightness-110" />
+          <p>Human + Heart + AI + Law = Verification · Hai-ic by KARAM SHIN</p>
+        </div>
       </footer>
     </div>
   );

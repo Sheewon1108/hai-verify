@@ -74,6 +74,19 @@ export async function GET(request: NextRequest) {
           path: "/api/checkout",
           body: { planId: "starter | trust_pilot", email: "string", orderId: "string" },
         },
+        intake: {
+          method: "POST",
+          path: "/api/intake",
+          body: {
+            name: "string",
+            email: "string",
+            companyOrProject: "string",
+            workflowToEvaluate: "string",
+            expectedResult: "string",
+            relevantUrl: "string (optional)",
+            additionalContext: "string (optional)",
+          },
+        },
         stripeCheckout: {
           method: "POST",
           path: "/api/stripe/checkout",
@@ -88,7 +101,8 @@ export async function GET(request: NextRequest) {
         health: { method: "GET", path: "/api/health" },
       },
       pages: {
-        order: "/order",
+        paymentSuccess: "/payment-success",
+        intake: "/intake",
         verify: "/verify",
       },
     },

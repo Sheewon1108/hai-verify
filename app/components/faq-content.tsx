@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { HAI_PAYMENT_CTA_LABEL, HAI_PAYMENT_LINK } from '@/app/lib/hai-payment';
 
 type FaqItem = {
   question: string;
@@ -144,6 +145,8 @@ function FaqRow({ item, defaultOpen = false }: { item: FaqItem; defaultOpen?: bo
 }
 
 export function FaqContent() {
+  const paymentHref = HAI_PAYMENT_LINK || '#';
+
   return (
     <div className="min-h-screen bg-black text-white">
       <header className="border-b border-zinc-800 bg-black/80 backdrop-blur sticky top-0 z-20">
@@ -184,9 +187,13 @@ export function FaqContent() {
 
         <p className="mt-12 text-center text-sm text-zinc-500">
           Still have questions?{' '}
-          <Link href="/order" className="text-red-400 hover:text-red-300 underline underline-offset-2">
-            Request a pilot
-          </Link>
+          <a
+            href={paymentHref}
+            aria-disabled={!HAI_PAYMENT_LINK}
+            className={`text-red-400 underline underline-offset-2 hover:text-red-300 ${HAI_PAYMENT_LINK ? '' : 'pointer-events-none opacity-50'}`}
+          >
+            {HAI_PAYMENT_CTA_LABEL}
+          </a>
           .
         </p>
       </main>
