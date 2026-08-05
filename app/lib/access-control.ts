@@ -65,6 +65,11 @@ const PUBLIC_API_ROUTES: ReadonlyArray<{ method: string; path: string }> = [
   { method: "POST", path: "/api/stripe/webhook" },
 ];
 
+const STRICT_AUTH_API_ROUTES: ReadonlyArray<{ method: string; path: string }> = [
+  { method: "POST", path: "/api/hai-ic/analyze" },
+  { method: "POST", path: "/api/intake" },
+];
+
 function isAccessOpen(): boolean {
   return process.env.HAI_ACCESS_MODE === "open";
 }
@@ -76,6 +81,13 @@ function isLocalBypassEnabled(): boolean {
 function isPublicApiRoute(method: string, pathname: string): boolean {
   const normalized = method.toUpperCase();
   return PUBLIC_API_ROUTES.some(
+    (route) => route.method === normalized && route.path === pathname,
+  );
+}
+
+function requiresStrictAuth(method: string, pathname: string): boolean {
+  const normalized = method.toUpperCase();
+  return STRICT_AUTH_API_ROUTES.some(
     (route) => route.method === normalized && route.path === pathname,
   );
 }
@@ -205,6 +217,18 @@ export async function checkRequestHeaders(request: Request): Promise<AccessCheck
 
   if (isLocalBypassEnabled() && isLoopbackClient(request)) {
     return { blocked: false };
+  }
+
+  if (requiresStrictAuth(method, pathname)) {
+    if (await hasValidApiKey(request)) {
+      return { blocked: false };
+    }
+
+    return {
+      blocked: true,
+      reason: "UNAUTHORIZED — Bearer hv_... or X-HAI-API-Key required",
+      status: 401,
+    };
   }
 
   if (isSameOriginBrowserRequest(request)) {
