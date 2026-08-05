@@ -102,7 +102,7 @@ export type UiCopy = {
 const COMMON: Record<AppLocale, CommonCopy> = {
   en: {
     createdBy: "Created by KARAM",
-    orderCta: "Start XGOMA Session",
+    orderCta: "Start $300 Evaluation",
     nav: {
       origin: "Origin",
       workflow: "Workflow",
@@ -114,7 +114,7 @@ const COMMON: Record<AppLocale, CommonCopy> = {
   },
   ko: {
     createdBy: "Created by KARAM",
-    orderCta: "Start XGOMA Session",
+    orderCta: "Start $300 Evaluation",
     nav: {
       origin: "기원",
       workflow: "워크플로",
@@ -126,7 +126,7 @@ const COMMON: Record<AppLocale, CommonCopy> = {
   },
   ja: {
     createdBy: "Created by KARAM",
-    orderCta: "Start XGOMA Session",
+    orderCta: "Start $300 Evaluation",
     nav: {
       origin: "起源",
       workflow: "ワークフロー",
@@ -138,7 +138,7 @@ const COMMON: Record<AppLocale, CommonCopy> = {
   },
   es: {
     createdBy: "Created by KARAM",
-    orderCta: "Start XGOMA Session",
+    orderCta: "Start $300 Evaluation",
     nav: {
       origin: "Origen",
       workflow: "Flujo",
@@ -150,7 +150,7 @@ const COMMON: Record<AppLocale, CommonCopy> = {
   },
   fr: {
     createdBy: "Created by KARAM",
-    orderCta: "Start XGOMA Session",
+    orderCta: "Start $300 Evaluation",
     nav: {
       origin: "Origine",
       workflow: "Flux",
@@ -520,7 +520,7 @@ const LANDING: Record<AppLocale, LandingCopy> = {
     heroBody:
       "HAI Verify combines human judgment, accountable intent, AI speed, and lawful defensibility — so every model response can be scored, reviewed, and released with evidence.",
     heroDemo: "Open live demo",
-    heroOrder: "Order Starter Audit",
+    heroOrder: "Start $300 Evaluation",
     heroWorkflow: "See how it works",
     heroTagline: "Human · Heart · AI · Law — the verification framework for regulated teams",
     footerHumanVerified: "Human Verified",
@@ -548,7 +548,7 @@ const LANDING: Record<AppLocale, LandingCopy> = {
     ctaDesc: "Start with the interactive demo, then connect HAI Verify to your review queues, policy engine, and audit systems.",
     ctaDemo: "Try the live demo",
     ctaPoweredBy: "Powered by HAI Verification • Monetized by XGOMA Execution",
-    ctaEnterprise: "Request enterprise access",
+    ctaEnterprise: "Start $300 Evaluation",
   },
   ko: {
     heroEyebrow: "엔터프라이즈 AI 검증",
@@ -556,7 +556,7 @@ const LANDING: Record<AppLocale, LandingCopy> = {
     heroBody:
       "HAI Verify는 사람의 판단, 책임 있는 의도, AI 속도, 법적 방어 가능성을 결합해 — 모든 모델 응답을 점수화하고, 검토하고, 근거와 함께 배포할 수 있게 해요.",
     heroDemo: "라이브 데모 열기",
-    heroOrder: "스타터 감사 주문",
+    heroOrder: "Start $300 Evaluation",
     heroWorkflow: "작동 방식 보기",
     heroTagline: "Human · Heart · AI · Law — 규제 팀을 위한 검증 프레임워크",
     footerHumanVerified: "사람 검증 완료",
@@ -584,7 +584,7 @@ const LANDING: Record<AppLocale, LandingCopy> = {
     ctaDesc: "인터랙티브 데모로 시작한 뒤, 검토 대기열·정책 엔진·감사 시스템과 연결하세요.",
     ctaDemo: "라이브 데모 체험",
     ctaPoweredBy: "Powered by HAI Verification • Monetized by XGOMA Execution",
-    ctaEnterprise: "엔터프라이즈 문의",
+    ctaEnterprise: "Start $300 Evaluation",
   },
   ja: {
     heroEyebrow: "エンタープライズAI検証",
@@ -592,7 +592,7 @@ const LANDING: Record<AppLocale, LandingCopy> = {
     heroBody:
       "HAI Verifyは人の判断、説明責任ある意図、AIの速度、法的防御可能性を組み合わせ、すべてのモデル応答をスコア化・レビュー・証拠付きでリリースできます。",
     heroDemo: "ライブデモを開く",
-    heroOrder: "スターター監査を注文",
+    heroOrder: "Start $300 Evaluation",
     heroWorkflow: "仕組みを見る",
     heroTagline: "Human · Heart · AI · Law — 規制チーム向け検証フレームワーク",
     footerHumanVerified: "Human Verified",
@@ -620,7 +620,7 @@ const LANDING: Record<AppLocale, LandingCopy> = {
     ctaDesc: "インタラクティブデモから始め、レビューキュー・ポリシーエンジン・監査システムと接続。",
     ctaDemo: "ライブデモを試す",
     ctaPoweredBy: "Powered by HAI Verification • Monetized by XGOMA Execution",
-    ctaEnterprise: "エンタープライズお問い合わせ",
+    ctaEnterprise: "Start $300 Evaluation",
   },
   es: {
     heroEyebrow: "Verificación IA empresarial",
@@ -628,7 +628,7 @@ const LANDING: Record<AppLocale, LandingCopy> = {
     heroBody:
       "HAI Verify combina juicio humano, intención responsable, velocidad de IA y defensibilidad legal — para puntuar, revisar y publicar cada respuesta con evidencia.",
     heroDemo: "Abrir demo en vivo",
-    heroOrder: "Pedir auditoría inicial",
+    heroOrder: "Start $300 Evaluation",
     heroWorkflow: "Ver cómo funciona",
     heroTagline: "Human · Heart · AI · Law — marco de verificación para equipos regulados",
     footerHumanVerified: "Human Verified",
@@ -656,7 +656,7 @@ const LANDING: Record<AppLocale, LandingCopy> = {
     ctaDesc: "Empiece con la demo interactiva y conecte colas de revisión, motor de políticas y sistemas de auditoría.",
     ctaDemo: "Probar la demo en vivo",
     ctaPoweredBy: "Powered by HAI Verification • Monetized by XGOMA Execution",
-    ctaEnterprise: "Solicitar acceso empresarial",
+    ctaEnterprise: "Start $300 Evaluation",
   },
   fr: {
     heroEyebrow: "Vérification IA entreprise",
@@ -664,7 +664,7 @@ const LANDING: Record<AppLocale, LandingCopy> = {
     heroBody:
       "HAI Verify combine jugement humain, intention responsable, vitesse IA et défendabilité juridique — pour noter, revoir et publier chaque réponse avec preuves.",
     heroDemo: "Ouvrir la démo live",
-    heroOrder: "Commander l'audit starter",
+    heroOrder: "Start $300 Evaluation",
     heroWorkflow: "Voir comment ça marche",
     heroTagline: "Human · Heart · AI · Law — cadre de vérification pour équipes réglementées",
     footerHumanVerified: "Human Verified",
@@ -692,7 +692,7 @@ const LANDING: Record<AppLocale, LandingCopy> = {
     ctaDesc: "Commencez par la démo interactive, puis connectez files de revue, moteur de politiques et systèmes d'audit.",
     ctaDemo: "Essayer la démo live",
     ctaPoweredBy: "Powered by HAI Verification • Monetized by XGOMA Execution",
-    ctaEnterprise: "Demander un accès entreprise",
+    ctaEnterprise: "Start $300 Evaluation",
   },
 };
 

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { SiteHeader } from "../components/site-header";
+import { PaymentCta } from "../components/payment-cta";
 import { useLocale } from "../components/locale-provider";
 import type { VerifyCopy } from "../lib/site-copy";
 import {
@@ -389,12 +390,7 @@ export default function VerifyPage() {
 
             <div className="mt-5 rounded-xl border border-white/[0.08] bg-background/50 px-4 py-3.5">
               <p className="text-xs leading-relaxed text-muted">{v.orderPrompt}</p>
-              <a
-                href="/order"
-                className="mt-2 inline-flex text-sm font-medium text-accent underline-offset-2 hover:underline"
-              >
-                {v.orderLink}
-              </a>
+              <PaymentCta className="mt-2 inline-flex text-sm font-medium text-accent underline-offset-2 hover:underline" />
             </div>
 
             <section className="mt-6 border-t border-white/[0.08] pt-6">

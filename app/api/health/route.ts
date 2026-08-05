@@ -88,7 +88,8 @@ export async function GET(request: NextRequest) {
         health: { method: "GET", path: "/api/health" },
       },
       pages: {
-        order: "/order",
+        paymentSuccess: "/payment-success",
+        intake: "/intake",
         verify: "/verify",
       },
     },

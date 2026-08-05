@@ -1,6 +1,7 @@
 "use client";
 
 import { useLocale } from "./locale-provider";
+import { PaymentCta } from "./payment-cta";
 
 export function Hero() {
   const { t } = useLocale();
@@ -25,17 +26,12 @@ export function Hero() {
         </p>
 
         <div className="animate-fade-in-up stagger-3 mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <PaymentCta className="inline-flex items-center justify-center rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground transition-opacity hover:opacity-90" />
           <a
             href="#demo"
-            className="inline-flex items-center justify-center rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground transition-opacity hover:opacity-90"
-          >
-            {l.heroDemo}
-          </a>
-          <a
-            href="/order"
             className="inline-flex items-center justify-center rounded-lg border border-white/[0.1] bg-surface px-5 py-2.5 text-sm text-white/85 transition-colors hover:bg-surface-elevated"
           >
-            {l.heroOrder}
+            {l.heroDemo}
           </a>
           <a
             href="#workflow"
@@ -141,21 +137,16 @@ export function CTASection() {
             <p className="mt-3 text-sm leading-relaxed text-muted sm:text-base">{l.ctaDesc}</p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <div className="flex flex-col">
-                <a
-                  href="#demo"
-                  className="inline-flex items-center justify-center rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground transition-all hover:scale-105 hover:opacity-90"
-                >
-                  {l.ctaDemo}
-                </a>
+                <PaymentCta className="inline-flex items-center justify-center rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground transition-all hover:scale-105 hover:opacity-90" />
                 <p className="mt-3 text-center text-sm text-gray-400">
                   Powered by HAI Verification • Monetized by XGOMA Execution
                 </p>
               </div>
               <a
-                href="mailto:verify@hai.example"
+                href="#demo"
                 className="inline-flex h-fit items-center justify-center rounded-lg border border-white/[0.1] px-5 py-2.5 text-sm text-white/85 transition-colors hover:bg-background/50"
               >
-                {l.ctaEnterprise}
+                {l.heroDemo}
               </a>
             </div>
           </div>
@@ -209,9 +200,7 @@ export function SiteFooter({ scanId }: { scanId: string | null }) {
             <a href="#demo" className="hover:text-white/80">
               {n.demo}
             </a>
-            <a href="#contact" className="hover:text-white/80">
-              {n.contact}
-            </a>
+            <PaymentCta className="hover:text-white/80" />
           </nav>
         </div>
 

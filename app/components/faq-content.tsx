@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { PaymentCta } from './payment-cta';
 
 type FaqItem = {
   question: string;
@@ -182,13 +183,9 @@ export function FaqContent() {
           ))}
         </div>
 
-        <p className="mt-12 text-center text-sm text-zinc-500">
-          Still have questions?{' '}
-          <Link href="/order" className="text-red-400 hover:text-red-300 underline underline-offset-2">
-            Request a pilot
-          </Link>
-          .
-        </p>
+        <div className="mt-12 text-center">
+          <PaymentCta className="inline-flex items-center justify-center rounded-xl bg-red-600 px-5 py-3 text-sm font-bold text-white transition hover:brightness-110" />
+        </div>
       </main>
 
       <footer className="border-t border-zinc-800 py-8 text-center text-sm text-zinc-500">

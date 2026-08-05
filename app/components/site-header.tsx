@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { LangPicker } from "./lang-picker";
+import { PaymentCta } from "./payment-cta";
 import { useLocale } from "./locale-provider";
 
 export function SiteHeader() {
@@ -27,29 +28,18 @@ export function SiteHeader() {
           <Link href="/verify" className="transition-colors hover:text-white/90">
             {t.common.nav.verify}
           </Link>
-          <Link href="/order" className="transition-colors hover:text-white/90">
-            {t.common.nav.order}
-          </Link>
           <Link href="/faq" className="transition-colors hover:text-white/90">
             FAQ
           </Link>
           <Link href="/#demo" className="transition-colors hover:text-white/90">
             {t.common.nav.demo}
           </Link>
-          <Link href="/#contact" className="transition-colors hover:text-white/90">
-            {t.common.nav.contact}
-          </Link>
         </nav>
 
         <div className="flex flex-col items-end gap-1">
           <div className="flex items-center gap-2.5 sm:gap-4">
             <LangPicker />
-            <Link
-              href="/order"
-              className="rounded-lg bg-[#FF0033] px-3.5 py-2 text-xs font-medium text-white transition-all hover:scale-105 hover:brightness-110"
-            >
-              Start XGOMA Session
-            </Link>
+            <PaymentCta className="rounded-lg bg-[#FF0033] px-3.5 py-2 text-xs font-medium text-white transition-all hover:scale-105 hover:brightness-110" />
           </div>
           <p className="text-[10px] tracking-wide text-white/35">{t.common.createdBy}</p>
         </div>
