@@ -44,12 +44,13 @@ export function SiteHeader() {
         <div className="flex flex-col items-end gap-1">
           <div className="flex items-center gap-2.5 sm:gap-4">
             <LangPicker />
-            <Link
-              href="/order"
+            <a
+              href={process.env.NEXT_PUBLIC_HAI_PAYMENT_LINK || '/hai-ic#pricing'}
+              data-cta="header-evaluation-300"
               className="rounded-lg bg-[#FF0033] px-3.5 py-2 text-xs font-medium text-white transition-all hover:scale-105 hover:brightness-110"
             >
-              Start XGOMA Session
-            </Link>
+              Start $300 Evaluation
+            </a>
           </div>
           <p className="text-[10px] tracking-wide text-white/35">{t.common.createdBy}</p>
         </div>

@@ -26,16 +26,17 @@ export function Hero() {
 
         <div className="animate-fade-in-up stagger-3 mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
           <a
-            href="#demo"
+            href={process.env.NEXT_PUBLIC_HAI_PAYMENT_LINK || '/hai-ic#pricing'}
+            data-cta="hero-evaluation-300"
             className="inline-flex items-center justify-center rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground transition-opacity hover:opacity-90"
           >
-            {l.heroDemo}
+            Start $300 Evaluation
           </a>
           <a
-            href="/order"
+            href="#demo"
             className="inline-flex items-center justify-center rounded-lg border border-white/[0.1] bg-surface px-5 py-2.5 text-sm text-white/85 transition-colors hover:bg-surface-elevated"
           >
-            {l.heroOrder}
+            {l.heroDemo}
           </a>
           <a
             href="#workflow"
@@ -140,22 +141,18 @@ export function CTASection() {
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-muted sm:text-base">{l.ctaDesc}</p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <div className="flex flex-col">
-                <a
-                  href="#demo"
-                  className="inline-flex items-center justify-center rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground transition-all hover:scale-105 hover:opacity-90"
-                >
-                  {l.ctaDemo}
-                </a>
-                <p className="mt-3 text-center text-sm text-gray-400">
-                  Powered by HAI Verification • Monetized by XGOMA Execution
-                </p>
-              </div>
               <a
-                href="mailto:verify@hai.example"
+                href={process.env.NEXT_PUBLIC_HAI_PAYMENT_LINK || '/hai-ic#pricing'}
+                data-cta="section-evaluation-300"
+                className="inline-flex items-center justify-center rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground transition-all hover:scale-105 hover:opacity-90"
+              >
+                Start $300 Evaluation
+              </a>
+              <a
+                href="#demo"
                 className="inline-flex h-fit items-center justify-center rounded-lg border border-white/[0.1] px-5 py-2.5 text-sm text-white/85 transition-colors hover:bg-background/50"
               >
-                {l.ctaEnterprise}
+                {l.ctaDemo}
               </a>
             </div>
           </div>
