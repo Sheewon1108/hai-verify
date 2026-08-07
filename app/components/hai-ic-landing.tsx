@@ -20,10 +20,10 @@ function RequestPilotLink({ className = '' }: { className?: string }) {
       href={PILOT_ORDER_URL}
       target="_blank"
       rel="noopener noreferrer"
-      data-cta="stripe-pilot"
+      data-cta="stripe-pilot-300"
       className={className || PILOT_CTA_CLASS}
     >
-      Start Paid Pilot
+      Start $300 Pilot
     </a>
   );
 }
@@ -111,19 +111,19 @@ export function HaiIcLanding() {
         <div className="mx-auto max-w-6xl px-6">
           <section id="pricing" className="py-16 border-t border-white/10">
             <p className="text-xs uppercase tracking-[0.25em] text-muted mb-3">Pricing</p>
-            <h2 className="text-3xl font-semibold mb-4 text-white">Start with a Pilot</h2>
+            <h2 className="text-3xl font-semibold mb-4 text-white">Start with a $300 Pilot</h2>
             <p className="text-zinc-400 max-w-2xl mb-10 leading-relaxed">
-              Deploy Hai-ic as a pre-execution Intent Confidence gate for Grok, Gemini, Claude, and internal agent stacks. Licensing from $8.5k–$25k/yr · OEM · Enterprise.
+              Deploy Hai-ic as a pre-execution Intent Confidence gate for Grok, Gemini, Claude, and internal agent stacks. $300 Pilot → OEM $8.5k+/yr → Enterprise $25k/yr.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-              <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
+              <div className="bg-zinc-900 rounded-2xl p-6 border border-red-500/50 ring-1 ring-red-500/20">
                 <p className="text-red-400 text-sm font-medium mb-2">Pilot</p>
-                <p className="text-3xl font-bold text-white mb-3">Custom</p>
+                <p className="text-3xl font-bold text-white mb-3">$300</p>
                 <p className="text-sm text-zinc-400 leading-relaxed">
-                  2–4 week integration with your agent pipeline. Score threshold, clarifying questions, and audit trail.
+                  Pay once. Submit one AI command, workflow, or execution path. HAI reviews Intent Confidence and follows up by email.
                 </p>
               </div>
-              <div className="bg-zinc-900 rounded-2xl p-6 border border-red-500/30">
+              <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
                 <p className="text-red-400 text-sm font-medium mb-2">OEM</p>
                 <p className="text-3xl font-bold text-white mb-3">$8.5k+/yr</p>
                 <p className="text-sm text-zinc-400 leading-relaxed">
@@ -187,7 +187,7 @@ export function HaiIcLanding() {
               <p className="text-sm text-muted leading-relaxed mb-3">
                 Intent Confidence Gate for Grok, Gemini, Claude — reduces business risk from hallucination-driven actions.
               </p>
-              <p className="text-xs text-muted">Licensing $8.5k–$25k/yr · OEM · Enterprise · Status: Ready to Sell</p>
+              <p className="text-xs text-muted">Pilot $300 · OEM $8.5k+/yr · Enterprise $25k/yr · Status: Ready to Sell</p>
             </div>
           </section>
         </div>

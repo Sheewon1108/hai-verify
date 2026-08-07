@@ -1,24 +1,28 @@
 # Hai-Ic Pricing
 
 **Owner:** KARAM SHIN  
-**Effective:** 2026-07-07
+**Effective:** 2026-08-07
 
 ## Tiers
 
-| Tier | Annual | Includes |
+| Tier | Price | Includes |
 |------|--------|----------|
-| **Pilot** | POC only | 2-week integration, Trust Ledger export, 30-min onboarding |
-| **Team** | $8,500/yr | API gate, 50k analyze calls/mo, email support |
-| **Enterprise** | $25,000/yr | Unlimited calls, SLA, custom threshold, audit log export |
+| **Pilot** | **$300** | One paid evaluation — submit one AI command/workflow/execution path; Intent Confidence review + email follow-up |
+| **OEM** | $8.5k+/yr | Embed Hai-ic into your product; API gate, health checks, sincere-mode gate at 75% |
+| **Enterprise** | $25k/yr | Volume routing, SLA, custom threshold, approval workflows, audit log export |
 
-## POC (entry)
+## Path
 
-- **Duration:** 2 weeks
-- **Scope:** One stack (e.g. multi-agent pipeline, logistics ops bot)
-- **Success metric:** % of uncertain intents blocked (OFF) vs baseline hallucination rate
-- **Convert:** Pilot → Team or Enterprise annual
+**$300 Pilot → OEM $8.5k+/yr → Enterprise $25k/yr**
 
-## What's metered
+## Pilot (entry)
+
+- **Price:** $300 one-time (Stripe Payment Link on hai-ic.com)
+- **Scope:** One real AI command, workflow, or execution path
+- **Outcome:** Intent Confidence review + clarifying questions / findings by email
+- **Convert:** Pilot → OEM or Enterprise annual
+
+## What's metered (OEM / Enterprise)
 
 | Unit | Definition |
 |------|------------|
