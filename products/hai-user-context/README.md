@@ -146,21 +146,17 @@ scripts/
 
 ## HAI Verify 연동
 
-무료 정책은 `/api/health` → `userContext` 에서 확인:
+공개 `GET /api/health` 는 서비스 상태만 반환한다 (정책·환경·엔드포인트 목록 없음).
 
 ```json
 {
-  "userContext": {
-    "policy": "Whatever language you use, wherever you are — ...",
-    "timezoneModelPolicy": "Worldwide: in any multi-timezone country, ...",
-    "product": {
-      "pitch": "Language policy free forever. Timezone accuracy bundled — ...",
-      "free": { "id": "language-policy", "name": "Language decoupling (free)", ... },
-      "paid": { "id": "timezone-bundle", "name": "Timezone bundle (paid)", ... }
-    }
-  }
+  "ok": true,
+  "service": "HAI Verify",
+  "status": "healthy"
 }
 ```
+
+언어/타임존 정책 원문은 `app/lib/user-context-policy.ts` 와 이 README를 본다.
 
 ---
 
