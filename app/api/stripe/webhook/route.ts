@@ -9,7 +9,7 @@
  *
  * Set webhook endpoint in Stripe Dashboard:
  *   https://dashboard.stripe.com/webhooks
- *   URL: https://hai-verify.workers.dev/api/stripe/webhook
+ *   URL: https://hai-ic.com/api/stripe/webhook
  *   Events: checkout.session.completed
  */
 

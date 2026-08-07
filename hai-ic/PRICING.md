@@ -5,18 +5,22 @@
 
 ## Tiers
 
-| Tier | Annual | Includes |
+| Tier | Price | Includes |
 |------|--------|----------|
-| **Pilot** | POC only | 2-week integration, Trust Ledger export, 30-min onboarding |
-| **Team** | $8,500/yr | API gate, 50k analyze calls/mo, email support |
-| **Enterprise** | $25,000/yr | Unlimited calls, SLA, custom threshold, audit log export |
+| **Evaluation Pilot** | $300 | 2–4 week integration, Trust Ledger export, onboarding |
+| **OEM** | $8.5k+/yr | Embed Hai-ic into your product; API gate, health checks, sincere-mode gate at 75% |
+| **Enterprise** | $25k/yr | Volume routing, SLA, custom threshold, approval workflows, audit log export |
+
+## Path
+
+**$300 Evaluation Pilot → OEM $8.5k+/yr → Enterprise $25k/yr**
 
 ## POC (entry)
 
-- **Duration:** 2 weeks
+- **Duration:** 2–4 weeks
 - **Scope:** One stack (e.g. multi-agent pipeline, logistics ops bot)
 - **Success metric:** % of uncertain intents blocked (OFF) vs baseline hallucination rate
-- **Convert:** Pilot → Team or Enterprise annual
+- **Convert:** Evaluation Pilot → OEM or Enterprise annual
 
 ## What's metered
 
