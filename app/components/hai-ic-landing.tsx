@@ -11,9 +11,9 @@ const PILOT_ORDER_URL =
 const PILOT_CTA_CLASS =
   'inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-red-600 to-rose-600 px-8 py-4 text-lg font-bold text-white shadow-xl shadow-red-600/40 transition hover:brightness-110';
 
-const INTEGRATION = `curl -X POST https://hai-verify.workers.dev/api/hai-ic/analyze \\
+const INTEGRATION = `curl -X POST https://hai-ic.com/api/hai-ic/analyze \\
   -H "Content-Type: application/json" \\
-  -H "Authorization: Bearer hv_dev_..." \\
+  -H "Authorization: Bearer YOUR_HAI_API_KEY" \\
   -d '{"input":"Ship 200 units to Seoul by July 15, budget $50k"}'`;
 
 function RequestPilotLink({ className = '' }: { className?: string }) {
