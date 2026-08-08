@@ -31,7 +31,7 @@ HAI User Context는 **언어·전화번호·로케일과 실제 거주지/시간
 - 언어·`Accept-Language`·대화로 **거주지/시간대 추론 금지** 원칙
 - `USER_DISPLAY_LOCALE` — UI/메시지 표시용만 (위치 아님)
 - 정책 상수 (`user-context-policy.ts`)
-- `/api/health` → `userContext.policy`, `rules`
+- 정책 원문: `app/lib/user-context-policy.ts` (공개 `/api/health` 는 서비스 상태만)
 - 오픈 문서·예제
 
 ### 적용 대상 신호 (추론 금지)
@@ -146,21 +146,17 @@ scripts/
 
 ## HAI Verify 연동
 
-무료 정책은 `/api/health` → `userContext` 에서 확인:
+공개 `GET /api/health` 는 서비스 상태만 반환한다 (정책·환경·엔드포인트 목록 없음).
 
 ```json
 {
-  "userContext": {
-    "policy": "Whatever language you use, wherever you are — ...",
-    "timezoneModelPolicy": "Worldwide: in any multi-timezone country, ...",
-    "product": {
-      "pitch": "Language policy free forever. Timezone accuracy bundled — ...",
-      "free": { "id": "language-policy", "name": "Language decoupling (free)", ... },
-      "paid": { "id": "timezone-bundle", "name": "Timezone bundle (paid)", ... }
-    }
-  }
+  "ok": true,
+  "service": "HAI Verify",
+  "status": "healthy"
 }
 ```
+
+언어/타임존 정책 원문은 `app/lib/user-context-policy.ts` 와 이 README를 본다.
 
 ---
 
