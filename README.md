@@ -2,6 +2,7 @@
 
 Enterprise AI output verification — hallucination risk scoring, human review routing, and audit-ready summaries.
 
+**Legal entity:** XGOMA Inc  
 **Human + Heart + AI + Law = Verification**
 
 ## Getting started

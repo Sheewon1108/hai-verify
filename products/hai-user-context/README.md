@@ -168,8 +168,9 @@ scripts/
 
 - Product codename: **hai-user-context**
 - Parent project: **HAI Verify / XGOMA**
+- Legal entity: **XGOMA Inc**
 - Policy owner: user-declared config (`~/secrets/hai-verify.env`) — **never guess from language**
 
 ---
 
-*Last updated: 2026-07-07*
+*Last updated: 2026-08-08*

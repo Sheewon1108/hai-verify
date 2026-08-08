@@ -216,7 +216,7 @@ export function SiteFooter({ scanId }: { scanId: string | null }) {
         </div>
 
         <div className="mt-8 flex flex-col gap-2 border-t border-white/[0.06] pt-6 text-[11px] text-muted sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} HAI Verify. {l.footerCopyright}</p>
+          <p>© {new Date().getFullYear()} XGOMA Inc · HAI Verify. {l.footerCopyright}</p>
           {scanId ? (
             <p className="font-mono">
               {l.session} · {scanId}

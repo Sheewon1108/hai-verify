@@ -183,7 +183,7 @@ export function HaiIcLanding() {
               </div>
             </div>
             <div className="mt-10 rounded-2xl border border-red-accent/30 bg-red-accent/5 p-6">
-              <p className="text-sm font-semibold text-red-accent mb-2">Production Ready · KARAM SHIN</p>
+              <p className="text-sm font-semibold text-red-accent mb-2">Production Ready · XGOMA Inc · KARAM SHIN</p>
               <p className="text-sm text-muted leading-relaxed mb-3">
                 Intent Confidence Gate for Grok, Gemini, Claude — reduces business risk from hallucination-driven actions.
               </p>
@@ -194,7 +194,7 @@ export function HaiIcLanding() {
       </main>
 
       <footer className="border-t border-white/10 py-8 text-center text-sm text-muted">
-        Human + Heart + AI + Law = Verification · Hai-ic by KARAM SHIN
+        Human + Heart + AI + Law = Verification · Hai-ic by XGOMA Inc · KARAM SHIN
       </footer>
     </div>
   );

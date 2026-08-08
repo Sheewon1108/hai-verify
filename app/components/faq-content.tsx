@@ -192,7 +192,7 @@ export function FaqContent() {
       </main>
 
       <footer className="border-t border-zinc-800 py-8 text-center text-sm text-zinc-500">
-        Human + Heart + AI + Law = Verification · Hai-ic by KARAM SHIN
+        Human + Heart + AI + Law = Verification · Hai-ic by XGOMA Inc · KARAM SHIN
       </footer>
     </div>
   );

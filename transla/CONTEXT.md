@@ -2,7 +2,7 @@
 
 **Owner:** KARAM SHIN  
 **Parent workspace:** `hai-verify/transla/`  
-**Updated:** 2026-07-07
+**Updated:** 2026-08-08
 
 ---
 
@@ -10,9 +10,11 @@
 
 | Entity | Role |
 |--------|------|
+| **XGOMA Inc** | **Confirmed** legal entity — AI / verification stack (HAI Verify, Hai-Ic) |
 | **Transtar Transportation Inc.** | California registered — main trucking |
-| **XGOMA / HAI** | Delaware C-Corp (planned) — AI / verification stack |
 | **Transla** (new) | Tesla Trailer + LTL Tire logistics |
+
+**Legal (locked 2026-08-08):** Product, Stripe billing, and buyer-facing AI stack operate under **XGOMA Inc** (not LLC; not “planned”).
 
 **Hai-Ic link:** AI integrity monitoring on logistics (intent confidence, no fake answers on ops data).
 

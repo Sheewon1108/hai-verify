@@ -101,7 +101,7 @@ export type UiCopy = {
 
 const COMMON: Record<AppLocale, CommonCopy> = {
   en: {
-    createdBy: "Created by KARAM",
+    createdBy: "Created by KARAM · XGOMA Inc",
     orderCta: "Start XGOMA Session",
     nav: {
       origin: "Origin",
@@ -113,7 +113,7 @@ const COMMON: Record<AppLocale, CommonCopy> = {
     },
   },
   ko: {
-    createdBy: "Created by KARAM",
+    createdBy: "Created by KARAM · XGOMA Inc",
     orderCta: "Start XGOMA Session",
     nav: {
       origin: "기원",
@@ -125,7 +125,7 @@ const COMMON: Record<AppLocale, CommonCopy> = {
     },
   },
   ja: {
-    createdBy: "Created by KARAM",
+    createdBy: "Created by KARAM · XGOMA Inc",
     orderCta: "Start XGOMA Session",
     nav: {
       origin: "起源",
@@ -137,7 +137,7 @@ const COMMON: Record<AppLocale, CommonCopy> = {
     },
   },
   es: {
-    createdBy: "Created by KARAM",
+    createdBy: "Created by KARAM · XGOMA Inc",
     orderCta: "Start XGOMA Session",
     nav: {
       origin: "Origen",
@@ -149,7 +149,7 @@ const COMMON: Record<AppLocale, CommonCopy> = {
     },
   },
   fr: {
-    createdBy: "Created by KARAM",
+    createdBy: "Created by KARAM · XGOMA Inc",
     orderCta: "Start XGOMA Session",
     nav: {
       origin: "Origine",
@@ -197,7 +197,7 @@ const ORIGIN: Record<AppLocale, OriginCopy> = {
     flowEyebrow: "Flow",
     flowSteps: ["Human", "AI", "HAI Verification", "Human Approval", "XGOMA"],
     footerLegal:
-      "All founder-originated concepts, workflows, verification structure, and HAI principles are retained by KARAM unless separately transferred by written agreement.",
+      "© XGOMA Inc. All founder-originated concepts, workflows, verification structure, and HAI principles are retained by XGOMA Inc / KARAM unless separately transferred by written agreement.",
   },
   ko: {
     tagline: "Human-Heart + AI-Law = Verification",
@@ -233,7 +233,7 @@ const ORIGIN: Record<AppLocale, OriginCopy> = {
     flowEyebrow: "흐름",
     flowSteps: ["Human", "AI", "HAI Verification", "Human Approval", "XGOMA"],
     footerLegal:
-      "창업자가 만든 모든 개념, 워크플로, 검증 구조, HAI 원칙은 별도 서면 양도 없이 KARAM에게 귀속됩니다.",
+      "© XGOMA Inc. 창업자가 만든 모든 개념, 워크플로, 검증 구조, HAI 원칙은 별도 서면 양도 없이 XGOMA Inc / KARAM에게 귀속됩니다.",
   },
   ja: {
     tagline: "Human-Heart + AI-Law = Verification",
@@ -269,7 +269,7 @@ const ORIGIN: Record<AppLocale, OriginCopy> = {
     flowEyebrow: "フロー",
     flowSteps: ["Human", "AI", "HAI Verification", "Human Approval", "XGOMA"],
     footerLegal:
-      "創業者起点のすべての概念、ワークフロー、検証構造、HAI原則は、別途書面譲渡がない限りKARAMに帰属します。",
+      "© XGOMA Inc. 創業者起点のすべての概念、ワークフロー、検証構造、HAI原則は、別途書面譲渡がない限りXGOMA Inc / KARAMに帰属します。",
   },
   es: {
     tagline: "Human-Heart + AI-Law = Verification",
@@ -305,7 +305,7 @@ const ORIGIN: Record<AppLocale, OriginCopy> = {
     flowEyebrow: "Flujo",
     flowSteps: ["Human", "AI", "HAI Verification", "Human Approval", "XGOMA"],
     footerLegal:
-      "Todos los conceptos, flujos, estructura de verificación y principios HAI del fundador permanecen con KARAM salvo transferencia escrita.",
+      "© XGOMA Inc. Todos los conceptos, flujos, estructura de verificación y principios HAI del fundador permanecen con XGOMA Inc / KARAM salvo transferencia escrita.",
   },
   fr: {
     tagline: "Human-Heart + AI-Law = Verification",
@@ -341,7 +341,7 @@ const ORIGIN: Record<AppLocale, OriginCopy> = {
     flowEyebrow: "Flux",
     flowSteps: ["Human", "AI", "HAI Verification", "Human Approval", "XGOMA"],
     footerLegal:
-      "Tous les concepts, flux, structure de vérification et principes HAI du fondateur restent avec KARAM sauf transfert écrit.",
+      "© XGOMA Inc. Tous les concepts, flux, structure de vérification et principes HAI du fondateur restent avec XGOMA Inc / KARAM sauf transfert écrit.",
   },
 };
 
@@ -524,7 +524,7 @@ const LANDING: Record<AppLocale, LandingCopy> = {
     heroWorkflow: "See how it works",
     heroTagline: "Human · Heart · AI · Law — the verification framework for regulated teams",
     footerHumanVerified: "Human Verified",
-    footerDesc: "HAI Verify — enterprise AI output verification.",
+    footerDesc: "HAI Verify by XGOMA Inc — enterprise AI output verification.",
     footerCopyright: "All rights reserved.",
     session: "Session",
     trustTitle: "Built for enterprise trust",
@@ -560,7 +560,7 @@ const LANDING: Record<AppLocale, LandingCopy> = {
     heroWorkflow: "작동 방식 보기",
     heroTagline: "Human · Heart · AI · Law — 규제 팀을 위한 검증 프레임워크",
     footerHumanVerified: "사람 검증 완료",
-    footerDesc: "HAI Verify — 엔터프라이즈 AI 출력 검증.",
+    footerDesc: "HAI Verify · XGOMA Inc — 엔터프라이즈 AI 출력 검증.",
     footerCopyright: "모든 권리 보유.",
     session: "세션",
     trustTitle: "엔터프라이즈 신뢰를 위해",
@@ -596,7 +596,7 @@ const LANDING: Record<AppLocale, LandingCopy> = {
     heroWorkflow: "仕組みを見る",
     heroTagline: "Human · Heart · AI · Law — 規制チーム向け検証フレームワーク",
     footerHumanVerified: "Human Verified",
-    footerDesc: "HAI Verify — エンタープライズAI出力検証。",
+    footerDesc: "HAI Verify · XGOMA Inc — エンタープライズAI出力検証。",
     footerCopyright: "All rights reserved.",
     session: "セッション",
     trustTitle: "エンタープライズ信頼のために",
@@ -632,7 +632,7 @@ const LANDING: Record<AppLocale, LandingCopy> = {
     heroWorkflow: "Ver cómo funciona",
     heroTagline: "Human · Heart · AI · Law — marco de verificación para equipos regulados",
     footerHumanVerified: "Human Verified",
-    footerDesc: "HAI Verify — verificación empresarial de salida IA.",
+    footerDesc: "HAI Verify · XGOMA Inc — verificación empresarial de salida IA.",
     footerCopyright: "Todos los derechos reservados.",
     session: "Sesión",
     trustTitle: "Diseñado para confianza empresarial",
@@ -668,7 +668,7 @@ const LANDING: Record<AppLocale, LandingCopy> = {
     heroWorkflow: "Voir comment ça marche",
     heroTagline: "Human · Heart · AI · Law — cadre de vérification pour équipes réglementées",
     footerHumanVerified: "Human Verified",
-    footerDesc: "HAI Verify — vérification entreprise des sorties IA.",
+    footerDesc: "HAI Verify · XGOMA Inc — vérification entreprise des sorties IA.",
     footerCopyright: "Tous droits réservés.",
     session: "Session",
     trustTitle: "Conçu pour la confiance entreprise",

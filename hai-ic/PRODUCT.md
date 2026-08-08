@@ -1,9 +1,10 @@
 # Hai-Ic — Product (Intent Confidence Gate)
 
 **Owner:** KARAM SHIN  
+**Legal entity:** XGOMA Inc  
 **Product:** Hai-Ic  
 **Version:** 1.0.0-mvp  
-**Parent:** HAI Verify
+**Parent:** HAI Verify (XGOMA Inc)
 
 ## One line
 

@@ -1,6 +1,7 @@
 # Hai-Ic Pricing
 
 **Owner:** KARAM SHIN  
+**Legal entity / billing:** XGOMA Inc  
 **Effective:** 2026-07-07
 
 ## Tiers
@@ -33,4 +34,4 @@
 
 ## Contact
 
-jay.transtar.inc@gmail.com — KARAM SHIN
+**XGOMA Inc** · KARAM SHIN · jay.transtar.inc@gmail.com

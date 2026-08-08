@@ -1,9 +1,10 @@
 # HAI Verify / XGOMA Platform — Contributors
 
-**Copyright 2026 KARAM. All Rights Reserved.**
+**Legal entity:** XGOMA Inc  
+**Copyright 2026 KARAM / XGOMA Inc. All Rights Reserved.**
 
 This project recognizes everyone who helped build the public democratization engine and MVP.  
-Source code remains KARAM IP; this file is for **attribution and transparency** only.
+Source code remains KARAM / XGOMA Inc IP; this file is for **attribution and transparency** only.
 
 ---
 

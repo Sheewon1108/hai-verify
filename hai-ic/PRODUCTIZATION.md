@@ -1,6 +1,7 @@
 # Hai-Ic Productization (병행 트랙)
 
 **Owner:** KARAM SHIN  
+**Legal entity:** XGOMA Inc  
 **Parallel with:** `transla/` (Woosung LTL)  
 **Version target:** 1.0.0 → 1.1.0-product
 
@@ -8,6 +9,7 @@
 
 | | |
 |---|---|
+| **Company** | XGOMA Inc |
 | **What** | Pre-LLM Intent Confidence Gate |
 | **Threshold** | 75% — below = no sincere answer |
 | **Proof** | Trust Ledger (live test log, scores not manually raised) |

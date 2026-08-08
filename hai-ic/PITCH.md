@@ -1,6 +1,7 @@
 # Hai-ic — Intent Confidence Analyzer (Production Ready)
 
-**Owner:** KARAM SHIN
+**Owner:** KARAM SHIN  
+**Legal entity:** XGOMA Inc
 
 ## Core Value
 

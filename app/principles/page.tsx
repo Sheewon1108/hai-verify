@@ -5,7 +5,7 @@ import { OriginPrinciplesSection } from "../components/origin-principles";
 export const metadata = {
   title: "HAI Verify — Origin & Principles",
   description:
-    "Human-led AI verification by KARAM SHIN. Detect risk, explain uncertainty, require human verification before action.",
+    "Human-led AI verification by XGOMA Inc (KARAM SHIN). Detect risk, explain uncertainty, require human verification before action.",
 };
 
 export default function PrinciplesPage() {

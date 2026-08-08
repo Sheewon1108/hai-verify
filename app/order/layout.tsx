@@ -3,19 +3,19 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "XGOMA Order · Starter Audit $300",
+  title: "XGOMA Inc · Order · Starter Audit $300",
   description:
-    "Founding Customer Special: $300 one-time Starter Audit. 48–72 hour delivery. HAI-VERIFY-01 compliance certificate. Up to 50 AI outputs verified. No live debrief calls — Secure Portal only.",
+    "XGOMA Inc founding customer special: $300 one-time Starter Audit. 48–72 hour delivery. HAI-VERIFY-01 compliance certificate. Up to 50 AI outputs verified. No live debrief calls — Secure Portal only.",
   openGraph: {
-    title: "XGOMA · Starter Audit $300",
+    title: "XGOMA Inc · Starter Audit $300",
     description:
-      "HAI-VERIFY-01 certified audit. 48–72 hr delivery. Human reviewer within 24 hours. Claim your founding slot.",
+      "HAI-VERIFY-01 certified audit by XGOMA Inc. 48–72 hr delivery. Human reviewer within 24 hours. Claim your founding slot.",
   },
 };
 
 const CRAWLER_SUMMARY = `
-XGOMA Enterprise Order — Starter Audit ($300 one-time)
-Founding Customer Special (Limited Time). No subscription. Delivered within 48–72 hours.
+XGOMA Inc — Enterprise Order — Starter Audit ($300 one-time)
+Legal entity: XGOMA Inc. Founding Customer Special (Limited Time). No subscription. Delivered within 48–72 hours.
 Includes: up to 50 HAI-verified AI outputs, hallucination risk scoring, policy alignment (1 core domain),
 human reviewer within 24 hours, exportable audit PDF (Korean/English), HAI-VERIFY-01 certificate,
 async feedback via Secure Portal (no live debrief calls).

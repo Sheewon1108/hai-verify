@@ -1,13 +1,15 @@
 # Hai-Ic Productization — Status
 
-**Generated:** 2026-07-07  
-**Owner:** KARAM SHIN
+**Generated:** 2026-07-29  
+**Updated:** 2026-08-08  
+**Owner:** KARAM SHIN  
+**Legal entity:** XGOMA Inc
 
 ## Parallel tracks
 
 | Track | Phase | Next |
 |-------|-------|------|
-| **Hai-Ic** | P2 Package | API key + public deploy |
+| **Hai-Ic** (XGOMA Inc) | P2 Package | API key + public deploy |
 | **Transla** | Definition | Woosung LTL proposal |
 | **Link** | Spec | `transla/HAI-IC-LINK.md` |
 
@@ -16,7 +18,7 @@
 | Check | Value |
 |-------|-------|
 | Server :3001 | healthy (1.0.0-mvp) |
-| Trust Ledger | 80 q / OFF 44 / ON 36 / avg 76.6% |
+| Trust Ledger | 210 q / OFF 124 / ON 86 / avg 75.8% |
 | Outreach | outreach sent 2026-07-07 |
 | Follow-up | ~2026-07-14 |
 

@@ -2,7 +2,7 @@
 
 **Founder:** KARAM SHIN
 **Patents:** USPTO #19/546,296 · #19/544,919 · #63/985,005
-**Company:** XGOMA, Inc.
+**Company:** XGOMA Inc (confirmed legal entity — not LLC)
 **Contact:** jay.transtar.inc@gmail.com | sheewon1111@gmail.com
 **Location:** Torrance → Redondo Beach, CA (이사 예정)
 
@@ -67,7 +67,7 @@ XGOMA가 리더. 모두 가족. 경쟁자 아님.
 
 ### 아직 막힌 것 ⏳
 1. **Vercel 배포** — vercel.com → GitHub 연결
-2. **Stripe XGOMA, Inc. 계정** — 은행 계좌 + 웹사이트 URL 제출
+2. **Stripe (XGOMA Inc)** — 법적 상호 = XGOMA Inc; 은행 계좌 + 웹사이트 URL이 Dashboard Business details와 일치하는지 확인
 3. **GitHub Secrets** — CLOUDFLARE_API_TOKEN, GMAIL_USER 등
 4. **`.env.local`** — 아직 비어있음 (.env.example 참고)
 

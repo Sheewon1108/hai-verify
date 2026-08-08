@@ -165,7 +165,7 @@ export type OrderCopy = {
 
 const ORDER_COPY: Record<AppLocale, OrderCopy> = {
   en: {
-    brand: "XGOMA",
+    brand: "XGOMA Inc",
     title: "Enterprise Intake · Order & Analyze",
     subtitle:
       "Submit AI content for HAI verification, complete secure checkout, and receive your HAI-VERIFY-01 certified audit report — delivered within 48–72 hours.",
@@ -206,7 +206,7 @@ const ORDER_COPY: Record<AppLocale, OrderCopy> = {
     nextStep: "Recommended next step",
     submitAnother: "Submit another order",
     asideHai: "HAI Verify runs the 75-point Trust Index engine.",
-    asideXgoma: "XGOMA handles paid intake, mock Stripe checkout, and report delivery.",
+    asideXgoma: "XGOMA Inc handles paid intake, Stripe checkout, and report delivery.",
     freeScan: "Free scan?",
     returnVerify: "Return to HAI Verify",
     backLanding: "Back to landing",
@@ -255,7 +255,7 @@ const ORDER_COPY: Record<AppLocale, OrderCopy> = {
     },
   },
   ko: {
-    brand: "XGOMA",
+    brand: "XGOMA Inc",
     title: "엔터프라이즈 접수 · 주문 및 분석",
     subtitle:
       "HAI 검증을 요청하고 안전한 결제를 완료하면, HAI-VERIFY-01 인증 감사 리포트를 48–72시간 내 받을 수 있어요.",
@@ -296,7 +296,7 @@ const ORDER_COPY: Record<AppLocale, OrderCopy> = {
     nextStep: "추천하는 다음 행동",
     submitAnother: "다른 주문 제출",
     asideHai: "HAI Verify는 75점 신뢰 지수 엔진을 실행해요.",
-    asideXgoma: "XGOMA는 유료 접수, 모의 Stripe 결제, 리포트 전달을 담당해요.",
+    asideXgoma: "XGOMA Inc는 유료 접수, Stripe 결제, 리포트 전달을 담당해요.",
     freeScan: "무료 스캔?",
     returnVerify: "HAI Verify로 돌아가기",
     backLanding: "랜딩으로 돌아가기",
@@ -345,7 +345,7 @@ const ORDER_COPY: Record<AppLocale, OrderCopy> = {
     },
   },
   ja: {
-    brand: "XGOMA",
+    brand: "XGOMA Inc",
     title: "エンタープライズ受付 · 注文と分析",
     subtitle:
       "HAI検証を依頼し、安全な決済を完了すると、75点Trust Indexエンジンに基づく監査向け分析レポートをすぐ受け取れます。",
@@ -386,7 +386,7 @@ const ORDER_COPY: Record<AppLocale, OrderCopy> = {
     nextStep: "推奨される次のステップ",
     submitAnother: "別の注文を送信",
     asideHai: "HAI Verifyは75点Trust Indexエンジンを実行します。",
-    asideXgoma: "XGOMAは有料受付、モックStripe決済、レポート配信を担当します。",
+    asideXgoma: "XGOMA Incは有料受付、Stripe決済、レポート配信を担当します。",
     freeScan: "無料スキャン？",
     returnVerify: "HAI Verifyに戻る",
     backLanding: "ランディングに戻る",
@@ -435,7 +435,7 @@ const ORDER_COPY: Record<AppLocale, OrderCopy> = {
     },
   },
   es: {
-    brand: "XGOMA",
+    brand: "XGOMA Inc",
     title: "Recepción empresarial · Pedir y analizar",
     subtitle:
       "Envíe contenido para verificación HAI, complete el pago seguro y reciba un informe de análisis listo para auditoría — con el motor Trust Index de 75 puntos.",
@@ -476,7 +476,7 @@ const ORDER_COPY: Record<AppLocale, OrderCopy> = {
     nextStep: "Siguiente paso recomendado",
     submitAnother: "Enviar otro pedido",
     asideHai: "HAI Verify ejecuta el motor Trust Index de 75 puntos.",
-    asideXgoma: "XGOMA gestiona la recepción de pago, el pago simulado Stripe y la entrega del informe.",
+    asideXgoma: "XGOMA Inc gestiona la recepción de pago, el pago Stripe y la entrega del informe.",
     freeScan: "¿Escaneo gratuito?",
     returnVerify: "Volver a HAI Verify",
     backLanding: "Volver al inicio",
@@ -525,7 +525,7 @@ const ORDER_COPY: Record<AppLocale, OrderCopy> = {
     },
   },
   fr: {
-    brand: "XGOMA",
+    brand: "XGOMA Inc",
     title: "Réception entreprise · Commander et analyser",
     subtitle:
       "Soumettez du contenu pour vérification HAI, finalisez le paiement sécurisé et recevez un rapport d'analyse prêt pour audit — moteur Trust Index 75 points.",
@@ -566,7 +566,7 @@ const ORDER_COPY: Record<AppLocale, OrderCopy> = {
     nextStep: "Prochaine étape recommandée",
     submitAnother: "Soumettre une autre commande",
     asideHai: "HAI Verify exécute le moteur Trust Index 75 points.",
-    asideXgoma: "XGOMA gère l'accueil payant, le paiement Stripe simulé et la livraison du rapport.",
+    asideXgoma: "XGOMA Inc gère l'accueil payant, le paiement Stripe et la livraison du rapport.",
     freeScan: "Scan gratuit ?",
     returnVerify: "Retour à HAI Verify",
     backLanding: "Retour à l'accueil",
