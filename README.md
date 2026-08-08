@@ -27,8 +27,8 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Public deploy (Grok / external access)
 
-**Production URL (Cloudflare):** `https://hai-verify.workers.dev`  
-After deploy: `/order`, `/api/health`, `POST /api/verify`
+**Production API example:** `https://hai-ic.com/api/hai-ic/analyze`  
+After deploy: `/order`, `/api/health`, `POST /api/hai-ic/analyze`
 
 ### Option A — Cloudflare (repo default)
 
@@ -59,8 +59,9 @@ Import [github.com/Sheewon1108/hai-verify](https://github.com/Sheewon1108/hai-ve
 
 ### Grok quick links (after deploy)
 
-- Order: `https://hai-verify.workers.dev/order`
-- Health: `https://hai-verify.workers.dev/api/health`
+- Order: `https://hai-ic.com/order`
+- Health: `https://hai-ic.com/api/health`
+- Analyze: `https://hai-ic.com/api/hai-ic/analyze`
 
 ## Stack
 
