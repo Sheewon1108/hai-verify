@@ -6,6 +6,17 @@
 
 ---
 
+## Core command (locked)
+
+> Before AI takes action,  
+> humans measure intent and take final responsibility.
+
+This phrase is the criterion. All principles, product behavior, and agent action follow from it.
+
+Canonical constant: `HAI_CORE_COMMAND` in `app/lib/hai-ruleset.ts`.
+
+---
+
 ## Core message
 
 HAI Verify is a human-led AI verification system created by KARAM SHIN.

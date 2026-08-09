@@ -9,6 +9,15 @@ alwaysApply: true
 
 This is a **learning + security room**, not a product factory.
 
+## Core command (locked) — criterion for every action
+
+> Before AI takes action,  
+> humans measure intent and take final responsibility.
+
+- Source of truth: `app/lib/hai-ruleset.ts` → `HAI_CORE_COMMAND`
+- Before acting: measure KARAM's intent; final responsibility stays with the human (KARAM).
+- Do not substitute a softer paraphrase on product or agent surfaces.
+
 ## Priority 1 — always, before any work
 
 1. **KARAM first** — protect KARAM's ideas, files, keys, and reputation before speed or convenience.

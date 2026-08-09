@@ -35,6 +35,16 @@ export function OriginPrinciplesSection() {
           </p>
         </div>
 
+        <div className="mt-10 rounded-2xl border border-accent/30 bg-accent/[0.06] px-5 py-5 sm:px-6">
+          <p className="text-[10px] font-medium tracking-wider text-accent uppercase">
+            {o.coreCommandEyebrow}
+          </p>
+          <p className="mt-3 text-base font-medium leading-relaxed text-white/95 sm:text-lg">
+            {o.coreCommand}
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-white/75">{o.coreCommandNote}</p>
+        </div>
+
         <div className="mt-10 rounded-2xl border border-accent/20 bg-accent/[0.04] px-5 py-5 sm:px-6">
           <p className="text-[10px] font-medium tracking-wider text-accent uppercase">
             {o.compassEyebrow}
