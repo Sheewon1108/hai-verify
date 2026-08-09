@@ -10,6 +10,13 @@
  * before reaching the XGOMA orchestrator or any downstream consumer.
  */
 
+/**
+ * Core command (locked) — criterion for every HAI Verify / agent action.
+ * Shown before privacy-policy cookie choice; do not paraphrase on product surfaces.
+ */
+export const HAI_CORE_COMMAND =
+  "Before AI takes action, humans measure intent and take final responsibility." as const;
+
 export const HAI_RULESET_VERSION = "1.0" as const;
 
 /**
