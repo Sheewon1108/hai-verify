@@ -19,6 +19,16 @@
 
 ## 핵심 철학
 
+### 핵심 명령 (고정 · 기준)
+
+```
+Before AI takes action,
+humans measure intent and take final responsibility.
+```
+
+AI가 행동하기 전에, 인간이 의도를 측정하고 최종 책임을 진다.  
+이 문구가 기준이다. (`HAI_CORE_COMMAND` in `app/lib/hai-ruleset.ts`)
+
 ```
 AI (1번) → HAI Verify (검증) → Human 승인 → XGOMA 실행
 ```

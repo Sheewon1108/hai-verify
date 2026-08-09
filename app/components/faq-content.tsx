@@ -25,7 +25,7 @@ const FAQ_ITEMS: FaqItem[] = [
   {
     question: '3. Does HAI Verify replace my AI?',
     answer: [
-      'No. You keep using your preferred models. HAI Verify adds a verification layer before action. People still use natural language with their AI; HAI measures intent confidence and risk so decisions stay accountable. Hybrid by design.',
+      'No. You keep using your preferred models. HAI Verify adds a verification layer before action. Core command: before AI takes action, humans measure intent and take final responsibility. Hybrid by design.',
     ],
   },
   {

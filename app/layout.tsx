@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { LocaleShell } from "./components/locale-shell";
+import { HAI_CORE_COMMAND } from "./lib/hai-ruleset";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Hai-ic | Intent Confidence Analyzer",
-  description: "Hai-ic — measure intent confidence before AI executes. First product of HAI Verify by KARAM SHIN.",
+  description: `${HAI_CORE_COMMAND} Hai-ic — first product of HAI Verify by KARAM SHIN.`,
 };
 
 export default function RootLayout({

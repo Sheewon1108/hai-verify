@@ -1,10 +1,20 @@
 'use client';
 
 import { useState } from 'react';
+import { HAI_CORE_COMMAND } from '../lib/hai-ruleset';
 import { HaiIcDemo } from './hai-ic-demo';
 
 /** Live Stripe Payment Link — public by design (no secrets). */
 const PILOT_ORDER_URL = 'https://buy.stripe.com/14A8wI6sV3CffST2UT4AU00';
+
+const [CORE_COMMAND_LEAD, CORE_COMMAND_TAIL] = (() => {
+  const marker = ', ';
+  const idx = HAI_CORE_COMMAND.indexOf(marker);
+  return [
+    HAI_CORE_COMMAND.slice(0, idx + 1),
+    HAI_CORE_COMMAND.slice(idx + marker.length),
+  ] as const;
+})();
 
 const PILOT_CTA_CLASS =
   'inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-red-600 to-rose-600 px-8 py-4 text-lg font-bold text-white shadow-xl shadow-red-600/40 transition hover:brightness-110';
@@ -84,10 +94,11 @@ export function HaiIcLanding() {
             <div className="inline-flex items-center gap-3 px-6 py-3 bg-red-500/10 border border-red-500/30 rounded-full mb-8">
               <span className="text-red-400 text-sm font-medium tracking-widest">PRODUCT #1</span>
             </div>
-            <h1 className="text-6xl md:text-7xl font-black tracking-[-0.04em] leading-none text-white mb-8">
-              Before AI takes action,<br />
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-[-0.04em] leading-[1.05] text-white mb-8">
+              {CORE_COMMAND_LEAD}
+              <br />
               <span className="bg-gradient-to-r from-[#ff0033] via-[#ff1a4d] to-[#ff6699] bg-clip-text text-transparent">
-                measure intent first.
+                {CORE_COMMAND_TAIL}
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">

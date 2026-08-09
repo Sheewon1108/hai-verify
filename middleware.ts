@@ -14,6 +14,7 @@ import {
  * HAI Verify Middleware (Edge)
  *
  * Cloudflare/OpenNext requires Edge middleware — not Next.js 16 proxy.ts (Node).
+ * Core command: Before AI takes action, humans measure intent and take final responsibility.
  * Flow: AI (1번) → HAI Verification → Human Approval → XGOMA
  */
 export async function middleware(request: NextRequest) {

@@ -1,5 +1,6 @@
 import type { AppLocale } from "./ui-locale";
 import { getDemoCopy, type DemoCopy } from "./demo-copy";
+import { HAI_CORE_COMMAND } from "./hai-ruleset";
 
 export type CommonCopy = {
   createdBy: string;
@@ -19,6 +20,10 @@ export type OriginCopy = {
   intro1: string;
   intro2a: string;
   intro2b: string;
+  coreCommandEyebrow: string;
+  /** Locked English core command — do not paraphrase. */
+  coreCommand: string;
+  coreCommandNote: string;
   compassEyebrow: string;
   compassHeadline: string;
   compassBody: string;
@@ -168,6 +173,9 @@ const ORIGIN: Record<AppLocale, OriginCopy> = {
     intro1: "It was born from real human–AI interaction risk.",
     intro2a: "The goal is not to replace human judgment.",
     intro2b: "The goal is to protect it.",
+    coreCommandEyebrow: "Core command",
+    coreCommand: HAI_CORE_COMMAND,
+    coreCommandNote: "This phrase is the criterion. Everything else follows from it.",
     compassEyebrow: "KARAM compass",
     compassHeadline: "Not money only",
     compassBody:
@@ -204,6 +212,9 @@ const ORIGIN: Record<AppLocale, OriginCopy> = {
     intro1: "실제 사람과 AI 상호작용의 위험에서 시작했어요.",
     intro2a: "목표는 사람의 판단을 대체하는 것이 아니에요.",
     intro2b: "목표는 그 판단을 지키는 것이에요.",
+    coreCommandEyebrow: "핵심 명령",
+    coreCommand: HAI_CORE_COMMAND,
+    coreCommandNote: "이 문구가 기준이에요. AI가 행동하기 전에, 인간이 의도를 측정하고 최종 책임을 져요.",
     compassEyebrow: "KARAM 나침반",
     compassHeadline: "돈만이 전부가 아니에요",
     compassBody:
@@ -240,6 +251,9 @@ const ORIGIN: Record<AppLocale, OriginCopy> = {
     intro1: "実際の人とAIの相互作用リスクから生まれました。",
     intro2a: "目的は人の判断を置き換えることではありません。",
     intro2b: "目的はその判断を守ることです。",
+    coreCommandEyebrow: "コアコマンド",
+    coreCommand: HAI_CORE_COMMAND,
+    coreCommandNote: "この文が基準です。それ以外はすべてここから続きます。",
     compassEyebrow: "KARAMコンパス",
     compassHeadline: "お金だけではない",
     compassBody:
@@ -276,6 +290,9 @@ const ORIGIN: Record<AppLocale, OriginCopy> = {
     intro1: "Nació del riesgo real en la interacción humano–IA.",
     intro2a: "El objetivo no es reemplazar el juicio humano.",
     intro2b: "El objetivo es protegerlo.",
+    coreCommandEyebrow: "Comando central",
+    coreCommand: HAI_CORE_COMMAND,
+    coreCommandNote: "Esta frase es el criterio. Todo lo demás se deriva de ella.",
     compassEyebrow: "Brújula KARAM",
     compassHeadline: "No solo dinero",
     compassBody:
@@ -312,6 +329,9 @@ const ORIGIN: Record<AppLocale, OriginCopy> = {
     intro1: "Né du risque réel de l'interaction humain–IA.",
     intro2a: "L'objectif n'est pas de remplacer le jugement humain.",
     intro2b: "L'objectif est de le protéger.",
+    coreCommandEyebrow: "Commande centrale",
+    coreCommand: HAI_CORE_COMMAND,
+    coreCommandNote: "Cette phrase est le critère. Tout le reste en découle.",
     compassEyebrow: "Boussole KARAM",
     compassHeadline: "Pas l'argent seul",
     compassBody:
