@@ -5,13 +5,13 @@ import { analyzeIntent, type HaiIcResult } from "@/app/lib/hai-ic-analyze";
 import { HAI_CORE_COMMAND } from "@/app/lib/hai-ruleset";
 import {
   DEFAULT_COOKIE_PREFERENCES,
+  PRIVACY_CONSENT_STORAGE_KEY,
   buildPrivacyConsentRecord,
   canEnterCookieChoice,
   nextPrivacyGateStep,
-  readPrivacyConsent,
+  parsePrivacyConsent,
   writePrivacyConsent,
   type CookiePreferences,
-  type PrivacyConsentRecord,
   type PrivacyGateStep,
 } from "@/app/lib/privacy-consent";
 
@@ -38,19 +38,25 @@ function subscribePrivacyConsent(onStoreChange: () => void) {
   };
 }
 
-function getPrivacyConsentSnapshot(): PrivacyConsentRecord | null {
-  return readPrivacyConsent();
+/** Primitive snapshot — stable reference when localStorage value is unchanged. */
+function getPrivacyConsentRawSnapshot(): string {
+  if (typeof window === "undefined") return "";
+  return window.localStorage.getItem(PRIVACY_CONSENT_STORAGE_KEY) ?? "";
 }
 
-function getPrivacyConsentServerSnapshot(): null {
-  return null;
+function getPrivacyConsentServerSnapshot(): string {
+  return "";
 }
 
 export function PrivacyConsentGate() {
-  const storedConsent = useSyncExternalStore(
+  const storedRaw = useSyncExternalStore(
     subscribePrivacyConsent,
-    getPrivacyConsentSnapshot,
+    getPrivacyConsentRawSnapshot,
     getPrivacyConsentServerSnapshot,
+  );
+  const storedConsent = useMemo(
+    () => parsePrivacyConsent(storedRaw || null),
+    [storedRaw],
   );
 
   const [phase, setPhase] = useState<GatePhase>("core-command");
@@ -60,7 +66,7 @@ export function PrivacyConsentGate() {
   const [humanApproved, setHumanApproved] = useState(false);
   const [humanApprovedAt, setHumanApprovedAt] = useState<string | null>(null);
   const [preferences, setPreferences] = useState<CookiePreferences>(
-    () => storedConsent?.preferences ?? DEFAULT_COOKIE_PREFERENCES,
+    DEFAULT_COOKIE_PREFERENCES,
   );
 
   const [coreLead, coreTail] = useMemo(
