@@ -1,0 +1,20 @@
+{
+  "measuredAt": "2026-08-11T04:30:05.919Z",
+  "url": "http://127.0.0.1:3000/api/hai-ic/analyze",
+  "sampleInput": "Route an invoice approval request to the correct approver before any tool action is taken, budget $50k, deadline Q3.",
+  "warmupRequests": 20,
+  "measuredRequests": 200,
+  "processingSpeedRequestsPerSecond": 321.45,
+  "latencyMs": {
+    "min": 2.28,
+    "p50": 2.85,
+    "p95": 4.04,
+    "max": 8.2,
+    "avg": 2.98
+  },
+  "responseShape": {
+    "confidence": 93,
+    "sincereMode": true,
+    "mode": "Sincere Mode ON"
+  }
+}

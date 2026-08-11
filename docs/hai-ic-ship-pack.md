@@ -48,10 +48,12 @@
 
 | Metric | Current status | Measurement method |
 |---|---|---|
-| Processing speed | **Pending local benchmark** | `npm run measure:hai-ic` against production build |
-| Latency p50 / p95 | **Pending local benchmark** | Same benchmark JSON |
+| Processing speed | **321.45 requests/sec** | Local production benchmark, 200 measured requests after 20 warmups |
+| Latency p50 / p95 | **2.85 ms / 4.04 ms** | Same benchmark JSON |
 | Cost reduction vs baseline infrastructure | **Not measured yet** | Monthly cost table vs one chosen baseline |
 | Uptime target | **Target set: >= 99.9%** | 30-day external health-check log |
+
+Latest benchmark record: `docs/hai-ic-metrics-local-prod.json`
 
 ### Cost reduction formula
 
@@ -110,5 +112,5 @@ If **No**:
 ## E. Exact next 3 execution actions for Karam only
 
 1. Export one real payment proof artifact from Stripe or invoicing and save it locally as founder evidence for the pilot pack.
-2. Run one dated HAI-IC benchmark with `npm run measure:hai-ic` on the production build and freeze the JSON result.
-3. Send the one-page positioning copy to one paid-pilot target only, with a Yes/No ask for a single workflow pilot.
+2. Choose one buyer and one workflow where final human approval already exists, and do not open a second target until the first says Yes or No.
+3. Send the one-page positioning copy to that one paid-pilot target only, attaching today’s payment proof and benchmark record if appropriate.
