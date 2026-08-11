@@ -129,12 +129,13 @@ Partner cannot complete bank linking for Owner. Partner prepares checklists, cod
 
 | Commit | Meaning |
 |--------|---------|
+| `fd7a1c4` | **Tip:** hash cleanup — no stale pre-rebase short SHAs |
 | `0f5bfb5` | Workflow lock: KARAM thinks → partner finishes → KARAM approves |
 | `486a2f5` | WR-CLOSE handoff body (Owner+Partner only) |
 | `be281bf` | 50/50 close knot / NO LOOP |
 | `74eda7b` | XGOMA Inc branding (docs + UI) |
 
-Repo: `https://github.com/Sheewon1108/hai-verify` · branch `main`
+Repo: `https://github.com/Sheewon1108/hai-verify` · branch `main` · tip must match `git rev-parse origin/main`
 
 ---
 
