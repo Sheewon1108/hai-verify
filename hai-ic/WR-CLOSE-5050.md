@@ -81,9 +81,8 @@ Do not insert extra names into that seat without a new Owner knot.
 
 | Rule | Meaning |
 |------|---------|
-| **COMPLETELY BLIND** | Default: explain only. Execute only with unlock |
-| **Unlock** | `실행:` / `GO:` / clear `해` · `마무리` · `진행` — one scope, then back to blind |
-| **Lift blind** | `blind off` (Owner or EM only) |
+| **COMPLETELY BLIND** | **OFF** (Owner 2026-08-11). Re-enable only if Owner says so |
+| **Work order** | 가람 생각 → partner finish → 가람 승인 (no mid freeze) |
 | **NO LOOP** | No re-fight: tool vs person seat, Meta/Micro operators, family = character, heal-scripts as control |
 | **No secrets in chat** | Keys, tokens, vault values forbidden here |
 | **Stakeholders (HAI-IC term)** | EM + Owner; Partner is not stakeholder roster |
