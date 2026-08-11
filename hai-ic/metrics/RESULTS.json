@@ -1,0 +1,16 @@
+{
+  "measuredAt": "2026-08-11T07:42:25.912Z",
+  "endpoint": "http://127.0.0.1:3001",
+  "sampleSize": 100,
+  "processingSpeedAnalyzesPerSec": 125.6,
+  "latencyMs": {
+    "p50": 6,
+    "p95": 14.2,
+    "min": 5,
+    "max": 90.1
+  },
+  "costReductionPctVsBaseline": 20,
+  "uptimePct": null,
+  "uptimeWindowHours": null,
+  "notes": "costReductionPctVsBaseline = OFF/total*100 (LLM skipped on OFF). uptimePct requires ≥24h health probe log — see METRICS-PLAN.md."
+}

@@ -1,31 +1,19 @@
 /**
- * Hai-Ic drop-in client (productization P2)
- * Usage: gate LLM calls — only proceed when sincereMode === true
+ * HAI-IC drop-in HTTP client (productization P2)
+ * Usage: gate LLM calls — only proceed when sincereMode === true.
+ * Types: hai-ic/interfaces/public.ts
  */
 
-export const HAI_IC_THRESHOLD = 75;
+import {
+  HAI_IC_CONFIDENCE_THRESHOLD,
+  type HaiIcAnalyzeHttpResponse,
+  type HaiIcGateDecision,
+  type HaiIcHealthResponse,
+} from "../interfaces/public";
 
-export interface HaiIcBreakdown {
-  core: string;
-  understood: string;
-  missing: string;
-  risk: string;
-}
-
-export interface HaiIcAnalyzeResponse {
-  ok: boolean;
-  product?: string;
-  version?: string;
-  confidence: number;
-  sincereMode: boolean;
-  mode: string;
-  breakdown: HaiIcBreakdown;
-  questions: string[];
-  response: string;
-  analyzedAt: string;
-  isDueDiligence?: boolean;
-  error?: string;
-}
+export { HAI_IC_CONFIDENCE_THRESHOLD };
+export type { HaiIcAnalyzeHttpResponse as HaiIcAnalyzeResponse };
+export type { HaiIcGateDecision };
 
 export interface HaiIcClientOptions {
   baseUrl: string;
@@ -41,12 +29,12 @@ export class HaiIcClient {
     this.fetchFn = options.fetchImpl ?? fetch;
   }
 
-  async health(): Promise<{ ok: boolean; status?: string }> {
+  async health(): Promise<HaiIcHealthResponse> {
     const res = await this.fetchFn(`${this.baseUrl}/api/hai-ic/health`);
     return res.json();
   }
 
-  async analyze(input: string): Promise<HaiIcAnalyzeResponse> {
+  async analyze(input: string): Promise<HaiIcAnalyzeHttpResponse> {
     const res = await this.fetchFn(`${this.baseUrl}/api/hai-ic/analyze`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -56,21 +44,17 @@ export class HaiIcClient {
   }
 
   /** Returns full response if sincere; otherwise questions only (no fake answer). */
-  async gate(input: string): Promise<{
-    allowed: boolean;
-    confidence: number;
-    questions: string[];
-    response?: string;
-  }> {
+  async gate(input: string): Promise<HaiIcGateDecision> {
     const result = await this.analyze(input);
     if (!result.ok) {
-      throw new Error(result.error ?? "Hai-Ic analyze failed");
+      throw new Error(result.error ?? "HAI-IC analyze failed");
     }
     return {
-      allowed: result.sincereMode && result.confidence >= HAI_IC_THRESHOLD,
+      allowed: result.sincereMode && result.confidence >= HAI_IC_CONFIDENCE_THRESHOLD,
       confidence: result.confidence,
       questions: result.questions,
       response: result.sincereMode ? result.response : undefined,
+      humanFinalDecisionRequired: true,
     };
   }
 }

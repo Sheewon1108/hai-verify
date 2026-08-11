@@ -1,5 +1,5 @@
 ---
-description: Hai-ic product reference (not agent persona)
+description: HAI-IC product reference (not agent persona)
 globs:
   - hai-ic/**
   - app/lib/hai-ic-*.ts
@@ -8,22 +8,26 @@ globs:
 alwaysApply: false
 ---
 
-# Hai-ic (Intent Confidence Analyzer)
+# HAI-IC (Intent Confidence Analyzer)
 
-Product-only rules. **Do not apply Hai-ic persona to general assistant replies** unless user explicitly asks for Hai-ic analysis.
+Product-only rules. **Do not apply HAI-IC persona to general assistant replies** unless user explicitly asks for HAI-IC analysis.
 
 ## Source of truth
 
 | Item | Path |
 |------|------|
-| System prompt | `hai-ic/Hai-ic_System_Prompt_v1.txt` |
-| Runtime prompt | `app/lib/hai-ic-system-prompt.ts` |
-| Analyzer | `app/lib/hai-ic-analyze.ts` |
+| Public interfaces | `hai-ic/interfaces/public.ts` |
+| Engine (modular) | `hai-ic/src/engine.ts` · barrel `hai-ic/src/index.ts` |
+| App adapter | `app/lib/hai-ic-analyze.ts` (re-export) |
+| System prompt | `hai-ic/Hai-ic_System_Prompt_v1.txt` · `app/lib/hai-ic-system-prompt.ts` |
 | Demo | `/hai-ic` (dev port **3001**) |
 | API | `POST /api/hai-ic/analyze` |
+| IP pack | `hai-ic/IP-PACK.md` |
 
 ## Product rules (for demo/API only)
 
+- Product name: **HAI-IC** only
 - IC 0–100, honest, fair scoring (do not cut too low)
 - ≥75% → sincere mode · <75% → 2–3 clarifying questions
-- Brand: **Hai-ic** (not XGK)
+- Human final decision + responsibility always retained
+- `HAI_IC_HOURLY_BOOST = 0` (no score inflation)

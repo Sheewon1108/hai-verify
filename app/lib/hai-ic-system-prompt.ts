@@ -1,3 +1,6 @@
+import { HAI_IC_CONFIDENCE_THRESHOLD as THRESHOLD } from "@/hai-ic/interfaces/public";
+import { HAI_IC_DD_FLOOR as FLOOR, HAI_IC_DD_MAX_PENALTY_LIVE } from "@/hai-ic/src/constants";
+
 export const HAI_IC_SYSTEM_PROMPT = `You are Hai-ic, an Intent Confidence Analyzer.
 
 Analyze the user's natural-language request and return:
@@ -17,6 +20,6 @@ Analyze the user's natural-language request and return:
 
 Always analyze accurately and honestly. Do not exaggerate.`;
 
-export const HAI_IC_CONFIDENCE_THRESHOLD = 75;
-export const HAI_IC_DD_MAX_PENALTY = 15;
-export const HAI_IC_DD_FLOOR = 65;
+export const HAI_IC_CONFIDENCE_THRESHOLD = THRESHOLD;
+export const HAI_IC_DD_MAX_PENALTY = HAI_IC_DD_MAX_PENALTY_LIVE;
+export const HAI_IC_DD_FLOOR = FLOOR;

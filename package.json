@@ -8,6 +8,8 @@
     "hai-ic:automation": "powershell -ExecutionPolicy Bypass -File ./scripts/hai-ic-automation-start.ps1",
     "hai-ic:keepalive": "powershell -ExecutionPolicy Bypass -File ./scripts/register-hai-ic-autostart.ps1",
     "hai-ic:productization": "node ./scripts/hai-ic-productization-status.cjs",
+    "hai-ic:metrics": "node ./scripts/hai-ic-metrics.cjs",
+
     "dev:local": "next dev",
     "tunnel": "npx --yes localtunnel --port 3001",
     "local:doctor": "powershell -ExecutionPolicy Bypass -File ./scripts/local-doctor.ps1",
