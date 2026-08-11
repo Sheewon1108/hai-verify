@@ -9,12 +9,14 @@
  *
  * Set webhook endpoint in Stripe Dashboard:
  *   https://dashboard.stripe.com/webhooks
- *   URL: https://hai-verify.workers.dev/api/stripe/webhook
+ *   URL: https://hai-ic.com/api/stripe/webhook
+ *     (fallback Workers URL if custom domain not wired)
  *   Events: checkout.session.completed
  */
 
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
+import { deliverApiKeyByEmail } from "@/app/lib/api-key-delivery";
 import { generateApiKey, type ApiKeyPlan } from "@/app/lib/api-keys";
 
 function getStripe(): Stripe {
@@ -76,9 +78,12 @@ export async function POST(request: NextRequest) {
       `[webhook] HAI API key issued for ${email} (plan: ${plan}) session=${session.id}`,
     );
 
-    // TODO: Send apiKey to email via Resend / SendGrid / SES
-    // await sendApiKeyEmail({ email, plan, apiKey });
-    void apiKey;
+    const delivery = await deliverApiKeyByEmail({
+      email,
+      plan,
+      apiKey,
+      sessionId: session.id,
+    });
 
     return NextResponse.json({
       ok: true,
@@ -86,8 +91,9 @@ export async function POST(request: NextRequest) {
       event: event.type,
       plan,
       email,
-      keyDelivered: false,
-      delivery: "email_pending",
+      keyDelivered: delivery.ok,
+      delivery: delivery.ok ? "email_sent" : "email_failed",
+      ...(delivery.ok ? {} : { deliveryError: delivery.error ?? "unknown" }),
     });
   }
 

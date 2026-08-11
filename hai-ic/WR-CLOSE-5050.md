@@ -68,9 +68,10 @@ Do not insert extra names into that seat without a new Owner knot.
 
 ### Owner half (human only)
 
-- [ ] Stripe **XGOMA Inc**: legal name, bank, website `https://hai-ic.com`
-- [ ] Live keys + webhook + Price IDs → **vault only** (never chat) → sync when ready
-- [ ] One real checkout path check (`/order`, $300)
+- [ ] Stripe **XGOMA Inc**: legal name, bank, website `https://hai-ic.com` (as needed)
+- [x] **Live $300 proven** via Payment Link (2026-08-11) — see `hai-ic/money-path/LIVE-300-LOG.md`
+- [ ] Live keys + webhook URL on **production** confirmed after key-email deploy
+- [ ] `/order` still mock — optional later: point UI at live checkout
 - [ ] Follow-up sends (people/list Owner chooses) — Partner drafts, Owner sends or approves send
 - [ ] Family money / personal schedule — Owner clock only
 
