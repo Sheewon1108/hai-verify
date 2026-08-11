@@ -33,6 +33,7 @@
 | `hai-ic/PRICING.md` | Tier + POC terms |
 | `hai-ic/IP-PACK.md` | One-page IP thesis + proof |
 | `hai-ic/METRICS-PLAN.md` | Objective measurement checklist |
+| `hai-ic/METRICS-LOCAL-2026-08-11.json` | Local API metrics evidence |
 | `hai-ic/ENGINEER-ONBOARDING.md` | Module map + security spec skeleton |
 | `hai-ic/POSITIONING-ONE-PAGER.md` | External HAI-IC sales copy |
 | `hai-ic/NEXT-3-ACTIONS.md` | KARAM-only execution list |

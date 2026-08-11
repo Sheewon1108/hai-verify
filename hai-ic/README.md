@@ -10,6 +10,7 @@ Core rule: before AI takes action, measure intent. Sincere Mode requires Intent 
 |---|---|
 | `IP-PACK.md` | One-page IP thesis, proof, and defensibility |
 | `METRICS-PLAN.md` | Objective measurement checklist and current status |
+| `METRICS-LOCAL-2026-08-11.json` | Local API metrics evidence |
 | `ENGINEER-ONBOARDING.md` | Module map, public interfaces, security spec skeleton, automation outline |
 | `POSITIONING-ONE-PAGER.md` | External sales copy with Yes/No next step |
 | `NEXT-3-ACTIONS.md` | KARAM-only execution list |

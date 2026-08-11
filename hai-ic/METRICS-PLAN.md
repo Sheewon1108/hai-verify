@@ -6,15 +6,16 @@ Objective only. Do not publish a number until the measurement row has a source f
 
 | Metric | Target / formula | Current status | Measurement source |
 |---|---:|---|---|
-| Processing speed | requests per second = total requests / elapsed seconds | Not measured yet | Run `npm run hai-ic:metrics` against the chosen environment |
-| Latency p50 | 50th percentile POST `/api/hai-ic/analyze` latency in ms | Not measured yet | Run `npm run hai-ic:metrics` |
-| Latency p95 | 95th percentile POST `/api/hai-ic/analyze` latency in ms | Not measured yet | Run `npm run hai-ic:metrics` |
+| Processing speed | requests per second = total requests / elapsed seconds | Local measured: 61.17 req/s across 50 requests; production not measured yet | `hai-ic/METRICS-LOCAL-2026-08-11.json` |
+| Latency p50 | 50th percentile POST `/api/hai-ic/analyze` latency in ms | Local measured: 6.7 ms; production not measured yet | `hai-ic/METRICS-LOCAL-2026-08-11.json` |
+| Latency p95 | 95th percentile POST `/api/hai-ic/analyze` latency in ms | Local measured: 16.29 ms; production not measured yet | `hai-ic/METRICS-LOCAL-2026-08-11.json` |
 | Cost reduction vs baseline infrastructure | `((baseline_monthly_usd - hai_ic_monthly_usd) / baseline_monthly_usd) * 100` | Not measured yet | Fill `BASELINE_MONTHLY_USD` and `HAI_IC_MONTHLY_USD`, then run metrics |
 | Uptime | >= 99.9% successful health checks | Target set; not measured yet | Scheduled `GET /api/hai-ic/health` checks over selected window |
 | Trust Ledger sample size | questions analyzed | 200 | `hai-ic/buyer-deliverables/TRUST-LEDGER.md` |
 | Sincere Mode ON | count and percent | 82 / 200 = 41% | `hai-ic/buyer-deliverables/TRUST-LEDGER.md` |
 | Sincere Mode OFF | count and percent | 118 / 200 = 59% | `hai-ic/buyer-deliverables/TRUST-LEDGER.md` |
 | Due-diligence OFF | blocked DD questions / DD questions | 115 / 126 = 91.27% | `hai-ic/buyer-deliverables/TRUST-LEDGER.md` |
+| Human approval gate | responses with `humanApprovalRequired = true` / total responses | Local measured: 50 / 50 = 100%; production not measured yet | `hai-ic/METRICS-LOCAL-2026-08-11.json` |
 | Real cash collected | verified paid receipts only | Not measured in repo yet | Stripe dashboard export or manual invoice receipt log |
 
 ## Exact measurement steps

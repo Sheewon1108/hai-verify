@@ -1,0 +1,27 @@
+{
+  "measuredAt": "2026-08-11T04:31:40.658Z",
+  "baseUrl": "http://127.0.0.1:3001",
+  "totalRequests": 50,
+  "okCount": 50,
+  "failedCount": 0,
+  "processingSpeedRequestsPerSecond": 61.17,
+  "latencyMs": {
+    "p50": 6.7,
+    "p95": 16.29,
+    "max": 425.44
+  },
+  "responsibilityGate": {
+    "checkedResponses": 50,
+    "humanApprovalRequiredCount": 50
+  },
+  "costReduction": {
+    "baselineMonthlyUsd": null,
+    "haiIcMonthlyUsd": null,
+    "reductionPercent": null
+  },
+  "uptime": {
+    "targetPercent": 99.9,
+    "measuredPercent": null,
+    "note": "Run scheduled health checks over the chosen measurement window before filling measuredPercent."
+  }
+}

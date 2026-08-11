@@ -1,4 +1,4 @@
-# Hai-Ic Productization — Status
+# HAI-IC Productization - Status
 
 **Generated:** 2026-08-11
 **Owner:** KARAM SHIN
@@ -13,7 +13,7 @@
 
 | Check | Value |
 |-------|-------|
-| Server :3001 | offline (start: npm run dev:hai-ic) |
+| Server :3001 | healthy (1.0.0-mvp) |
 | Trust Ledger | 200 q / OFF 118 / ON 82 / avg 75.8% |
 | Outreach | outreach sent 2026-07-07 |
 | Follow-up | ~2026-07-14 |
@@ -32,7 +32,8 @@
 - [ ] Public deploy (Cloudflare credentials)
 - [ ] API key middleware
 - [ ] Verified paid receipt evidence
-- [ ] Latency / throughput measurement recorded
+- [x] Local latency / throughput measurement recorded
+- [ ] Production latency / throughput measurement recorded
 
 ## Commands
 

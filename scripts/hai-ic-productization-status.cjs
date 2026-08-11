@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const fs = require("fs");
 const path = require("path");
 
@@ -46,7 +47,7 @@ async function main() {
   const outreach = readOutreach();
   const today = new Date().toISOString().slice(0, 10);
 
-  const md = `# Hai-Ic Productization — Status
+  const md = `# HAI-IC Productization - Status
 
 **Generated:** ${today}
 **Owner:** KARAM SHIN
@@ -80,7 +81,8 @@ async function main() {
 - [ ] Public deploy (Cloudflare credentials)
 - [ ] API key middleware
 - [ ] Verified paid receipt evidence
-- [ ] Latency / throughput measurement recorded
+- [x] Local latency / throughput measurement recorded
+- [ ] Production latency / throughput measurement recorded
 
 ## Commands
 
