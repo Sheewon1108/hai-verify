@@ -28,6 +28,12 @@
 
 | File | Purpose |
 |------|---------|
+| `hai-ic/IP-PACK.md` | 1-page IP / scarcity pack |
+| `hai-ic/METRICS-PLAN.md` | Numbers-only metrics + bench steps |
+| `hai-ic/src/` | Public engineer module (`analyzeIntent` / `gateIntent`) |
+| `hai-ic/MODULE-BOUNDARIES.md` | Plug-and-play boundaries |
+| `hai-ic/SECURITY-SPEC.md` | Threat model / secrets / gates / audit |
+| `hai-ic/AUTOMATION-PIPELINE.md` | Deploy → health → secrets order |
 | `hai-ic/openapi.json` | Buyer / integrator API contract |
 | `hai-ic/sdk/hai-ic-client.ts` | Drop-in client |
 | `hai-ic/PRICING.md` | Tier + POC terms |
