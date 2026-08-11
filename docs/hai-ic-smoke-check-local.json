@@ -1,0 +1,28 @@
+{
+  "checkedAt": "2026-08-11T04:31:22.281Z",
+  "health": {
+    "ok": true,
+    "product": "hai-ic",
+    "version": "1.0.0-mvp",
+    "status": "healthy",
+    "timestamp": "2026-08-11T04:31:22.266Z"
+  },
+  "analyze": {
+    "ok": true,
+    "product": "hai-ic",
+    "version": "1.0.0-mvp",
+    "confidence": 88,
+    "sincereMode": true,
+    "mode": "Sincere Mode ON",
+    "breakdown": {
+      "core": "Clarify the purpose of a natural-language request and guide the next action",
+      "understood": "Mentioned targets: Approve, Friday",
+      "missing": "Some detailed conditions still need confirmation",
+      "risk": "The context is relatively clear, but final confirmation is recommended before execution"
+    },
+    "questions": [],
+    "response": "The context is clear enough. Proceeding in Sincere Mode.\n\n**Lock the goal** - Document \"Approve vendor payment only after finance lead review, amoun…\" as a one-line objective.\n\n**Contact sequence (Approve)**\n1. Confirm the previous owner or department\n2. Write three sentences covering the reason for reconnecting and the value offered\n3. Propose a specific timeline, scale, and next action\n\n**Risk check**\n- Resolve any past payment, quality, or contract issues first\n- Confirm internal approval owners and budget availability\n\nIf needed, draft the first outreach email or message next.",
+    "analyzedAt": "2026-08-11T04:31:22.280Z",
+    "isDueDiligence": false
+  }
+}
