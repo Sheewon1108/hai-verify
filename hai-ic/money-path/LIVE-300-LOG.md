@@ -30,9 +30,11 @@ Payment `pi_3U3EC22eXXOjhg9L1dzLEmDK` · Charge `ch_3U3EC22eXXOjhg9L1cQ46T3v`
 | Action | Status |
 |--------|--------|
 | Record live $300 success | **This file** |
-| Wire webhook → Resend API key email (`deliverApiKeyByEmail`) | **Code change** (deploy required) |
-| Note: prior webhook generated key but **did not email** (TODO) | Fixed in repo |
-| `/order` page still **mock** path | Separate from Payment Link live |
+| Wire webhook → Resend API key email (`deliverApiKeyByEmail`) | **Deployed** |
+| Note: prior webhook generated key but **did not email** (TODO) | Fixed |
+| `/order` → try **live** `/api/stripe/checkout` first (payment mode), mock fallback | **Code** |
+| Checkout mode | **payment** (one-time), not subscription |
+| Follow-up body | `hai-ic/outreach/FOLLOWUP-300-READY.txt` |
 | Receipt email from Stripe | Owner can send from Dashboard if needed |
 
 ---

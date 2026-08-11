@@ -134,7 +134,39 @@ async function postCheckout(input: {
   planId: CheckoutPlanId;
   email: string;
   orderId: string;
-}): Promise<{ res: Response; data: MockCheckoutSuccess | VerifyError }> {
+}): Promise<
+  | { res: Response; data: MockCheckoutSuccess | VerifyError; liveUrl?: undefined }
+  | {
+      res: Response;
+      data: { ok: true; checkoutUrl: string; sessionId: string } | VerifyError;
+      liveUrl?: string;
+    }
+> {
+  // Prefer live Stripe Checkout; fall back to mock only if live is unavailable.
+  const plan = input.planId === "trust_pilot" ? "pro" : "starter";
+  const liveRes = await fetch("/api/stripe/checkout", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ plan, email: input.email }),
+  });
+  const liveData = (await liveRes.json()) as {
+    ok?: boolean;
+    checkoutUrl?: string | null;
+    sessionId?: string;
+    error?: string;
+  };
+  if (liveRes.ok && liveData.ok && liveData.checkoutUrl && liveData.sessionId) {
+    return {
+      res: liveRes,
+      data: {
+        ok: true,
+        checkoutUrl: liveData.checkoutUrl,
+        sessionId: liveData.sessionId,
+      },
+      liveUrl: liveData.checkoutUrl,
+    };
+  }
+
   const res = await fetch("/api/checkout", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -463,7 +495,7 @@ export default function OrderPage() {
     setError(null);
 
     try {
-      const { res, data } = await postCheckout({
+      const { res, data, liveUrl } = await postCheckout({
         planId,
         email: email.trim(),
         orderId,
@@ -473,7 +505,17 @@ export default function OrderPage() {
         setCheckoutConfirming(false);
         return;
       }
+      // Live Stripe Hosted Checkout
+      if (liveUrl && "checkoutUrl" in data && data.checkoutUrl) {
+        window.location.href = data.checkoutUrl;
+        return;
+      }
       if (!verifyResult) {
+        setError(t.errCheckoutFailed);
+        setCheckoutConfirming(false);
+        return;
+      }
+      if (!("checkoutSessionId" in data) || !("receiptUrl" in data)) {
         setError(t.errCheckoutFailed);
         setCheckoutConfirming(false);
         return;

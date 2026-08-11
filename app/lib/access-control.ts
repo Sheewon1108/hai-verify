@@ -63,6 +63,8 @@ const PUBLIC_API_ROUTES: ReadonlyArray<{ method: string; path: string }> = [
   { method: "GET", path: "/api/health" },
   { method: "GET", path: "/api/hai-ic/health" },
   { method: "POST", path: "/api/stripe/webhook" },
+  { method: "POST", path: "/api/stripe/checkout" },
+  { method: "GET", path: "/api/stripe/checkout" },
 ];
 
 function isAccessOpen(): boolean {

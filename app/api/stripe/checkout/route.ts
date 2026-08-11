@@ -88,8 +88,9 @@ export async function POST(request: NextRequest) {
   const planInfo = API_KEY_PLANS[plan];
 
   try {
+    // One-time Evaluation Pilot / audit prices (not subscription).
     const session = await stripe.checkout.sessions.create({
-      mode: "subscription",
+      mode: "payment",
       customer_email: email,
       line_items: [{ price: priceId, quantity: 1 }],
       metadata: { plan, email },
