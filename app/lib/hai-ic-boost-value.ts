@@ -1,2 +1,2 @@
-/** Fixed - no artificial boost for sincerity. */
-export const HAI_IC_HOURLY_BOOST = 0;
+/** Legacy adapter — source of truth: hai-ic/modules/boost.ts */
+export { HAI_IC_HOURLY_BOOST } from "@/hai-ic/modules";

@@ -1,9 +1,14 @@
 import { NextRequest } from "next/server";
-import { analyzeIntent, HAI_IC_PRODUCT, HAI_IC_VERSION } from "@/app/lib/hai-ic-analyze";
-import { HAI_IC_CONFIDENCE_THRESHOLD } from "@/app/lib/hai-ic-system-prompt";
+import {
+  analyzeIntent,
+  HAI_IC_PRODUCT,
+  HAI_IC_VERSION,
+  HAI_IC_CONFIDENCE_THRESHOLD,
+  HAI_IC_MAX_INPUT_LENGTH,
+} from "@/hai-ic/modules";
 import { jsonWithCors } from "@/app/lib/cors";
 
-const MAX_INPUT_LENGTH = 8_000;
+const MAX_INPUT_LENGTH = HAI_IC_MAX_INPUT_LENGTH;
 
 export async function GET(request: NextRequest) {
   const origin = request.headers.get("origin");

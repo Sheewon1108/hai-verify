@@ -1,13 +1,14 @@
-# Hai-Ic — Product (Intent Confidence Gate)
+# HAI-IC — Product (Intent Confidence Gate)
 
 **Owner:** KARAM SHIN  
-**Product:** Hai-Ic  
+**Product:** HAI-IC only  
 **Version:** 1.0.0-mvp  
-**Parent:** HAI Verify
+**Parent:** HAI Verify  
+**IP pack:** `hai-ic/IP-PACK.md` · **Metrics:** `hai-ic/METRICS-PLAN.md` · **Modules:** `hai-ic/modules/`
 
 ## One line
 
-**모를 때 답 안 하는 AI gate** — Intent Confidence 75% 미만이면 진심 답변을 허용하지 않습니다.
+**Before AI acts, measure Intent Confidence — Sincere Mode only at 75%+; human keeps final decision and responsibility.**
 
 ## Problem
 

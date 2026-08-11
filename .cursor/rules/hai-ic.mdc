@@ -16,14 +16,17 @@ Product-only rules. **Do not apply Hai-ic persona to general assistant replies**
 
 | Item | Path |
 |------|------|
-| System prompt | `hai-ic/Hai-ic_System_Prompt_v1.txt` |
-| Runtime prompt | `app/lib/hai-ic-system-prompt.ts` |
-| Analyzer | `app/lib/hai-ic-analyze.ts` |
+| Modules (public) | `hai-ic/modules/` |
+| System prompt (text) | `hai-ic/Hai-ic_System_Prompt_v1.txt` |
+| Runtime prompt | `hai-ic/modules/system-prompt.ts` |
+| Analyzer | `hai-ic/modules/analyze.ts` |
+| Legacy re-exports | `app/lib/hai-ic-*.ts` |
 | Demo | `/hai-ic` (dev port **3001**) |
 | API | `POST /api/hai-ic/analyze` |
+| IP pack | `hai-ic/IP-PACK.md` |
 
 ## Product rules (for demo/API only)
 
 - IC 0–100, honest, fair scoring (do not cut too low)
 - ≥75% → sincere mode · <75% → 2–3 clarifying questions
-- Brand: **Hai-ic** (not XGK)
+- Brand: **HAI-IC** only (not XGK)

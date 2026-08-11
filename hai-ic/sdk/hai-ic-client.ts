@@ -1,6 +1,7 @@
 /**
- * Hai-Ic drop-in client (productization P2)
+ * HAI-IC drop-in client (productization P2)
  * Usage: gate LLM calls — only proceed when sincereMode === true
+ * Types align with hai-ic/modules/interfaces.ts (IHaiIcClient).
  */
 
 export const HAI_IC_THRESHOLD = 75;
