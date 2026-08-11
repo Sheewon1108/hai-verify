@@ -91,8 +91,22 @@
           },
           "questions": { "type": "array", "items": { "type": "string" } },
           "response": { "type": "string" },
+          "responsibility": { "$ref": "#/components/schemas/ResponsibilityGate" },
           "analyzedAt": { "type": "string", "format": "date-time" },
           "isDueDiligence": { "type": "boolean" }
+        }
+      },
+      "ResponsibilityGate": {
+        "type": "object",
+        "required": ["finalDecisionOwner", "humanApprovalRequired", "actionPermission", "reason"],
+        "properties": {
+          "finalDecisionOwner": { "type": "string", "enum": ["human"] },
+          "humanApprovalRequired": { "type": "boolean", "enum": [true] },
+          "actionPermission": {
+            "type": "string",
+            "enum": ["allowed_after_human_approval", "blocked_pending_clarification"]
+          },
+          "reason": { "type": "string" }
         }
       }
     }

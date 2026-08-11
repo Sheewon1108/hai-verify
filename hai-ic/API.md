@@ -28,6 +28,12 @@
   },
   "questions": ["...", "...", "..."],
   "response": "...",
+  "responsibility": {
+    "finalDecisionOwner": "human",
+    "humanApprovalRequired": true,
+    "actionPermission": "blocked_pending_clarification",
+    "reason": "Intent Confidence is below the Sincere Mode threshold; clarify before any AI action."
+  },
   "analyzedAt": "2026-07-05T00:00:00.000Z"
 }
 ```

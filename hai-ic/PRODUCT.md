@@ -1,7 +1,7 @@
-# Hai-Ic — Product (Intent Confidence Gate)
+# HAI-IC — Product (Intent Confidence Gate)
 
 **Owner:** KARAM SHIN  
-**Product:** Hai-Ic  
+**Product:** HAI-IC
 **Version:** 1.0.0-mvp  
 **Parent:** HAI Verify
 
@@ -26,6 +26,7 @@ Hai-Ic는 **LLM 앞단** pre-gate:
 1. Score **Intent Confidence %** (0–100, honest — scores not manually raised)
 2. Return **breakdown** (core intent, understood, missing, risk)
 3. Gate execution — **억지 답 금지**
+4. Keep final approval and responsibility with the human
 
 ## 진정성 원칙 (non-negotiable)
 
@@ -37,11 +38,11 @@ Hai-Ic는 **LLM 앞단** pre-gate:
 
 | Metric | Value |
 |--------|-------|
-| Questions tested | 70 |
-| 진심 OFF | 39 (56%) |
-| 진심 ON | 31 (44%) |
-| DD questions blocked | 39 / 46 |
-| Avg IC | 76.6% |
+| Questions tested | 200 |
+| 진심 OFF | 118 (59%) |
+| 진심 ON | 82 (41%) |
+| DD questions blocked | 115 / 126 |
+| Avg IC | 75.8% |
 
 Source: `hai-ic/buyer-deliverables/TRUST-LEDGER.md`
 
@@ -53,6 +54,7 @@ Source: `hai-ic/buyer-deliverables/TRUST-LEDGER.md`
 | POST | `/api/hai-ic/analyze` | Intent confidence + mode |
 
 **Threshold:** `HAI_IC_CONFIDENCE_THRESHOLD = 75` (`app/lib/hai-ic-system-prompt.ts`)
+**Responsibility:** human final approval required (`app/lib/hai-ic-responsibility.ts`)
 
 ## Demo (owner)
 

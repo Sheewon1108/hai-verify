@@ -48,16 +48,14 @@ async function main() {
 
   const md = `# Hai-Ic Productization — Status
 
-**Generated:** ${today}  
+**Generated:** ${today}
 **Owner:** KARAM SHIN
 
-## Parallel tracks
+## Single track
 
 | Track | Phase | Next |
 |-------|-------|------|
-| **Hai-Ic** | P2 Package | API key + public deploy |
-| **Transla** | Definition | Woosung LTL proposal |
-| **Link** | Spec | \`transla/HAI-IC-LINK.md\` |
+| **HAI-IC** | P2 Package done | Paid pilot + measured metrics |
 
 ## Live
 
@@ -72,16 +70,23 @@ async function main() {
 
 - [x] openapi.json
 - [x] sdk/hai-ic-client.ts
+- [x] IP-PACK.md
+- [x] METRICS-PLAN.md
+- [x] ENGINEER-ONBOARDING.md
+- [x] POSITIONING-ONE-PAGER.md
+- [x] NEXT-3-ACTIONS.md
 - [x] PRICING.md
 - [x] PRODUCTIZATION.md
 - [ ] Public deploy (Cloudflare credentials)
 - [ ] API key middleware
-- [ ] Stripe → Team tier
+- [ ] Verified paid receipt evidence
+- [ ] Latency / throughput measurement recorded
 
 ## Commands
 
 \`\`\`powershell
 node scripts/hai-ic-productization-status.cjs
+node scripts/measure-hai-ic-metrics.cjs
 node scripts/generate-buyer-trust-pack.cjs
 npm run dev:hai-ic
 \`\`\`

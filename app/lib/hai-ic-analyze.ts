@@ -1,6 +1,10 @@
 import { HAI_IC_CONFIDENCE_THRESHOLD, HAI_IC_DD_FLOOR } from "./hai-ic-system-prompt";
 import { HAI_IC_HOURLY_BOOST } from "./hai-ic-boost-value";
 import { HAI_IC_DD_MAX_PENALTY_LIVE } from "./hai-ic-dd-penalty-value";
+import {
+  buildHaiIcResponsibilityGate,
+  type HaiIcResponsibilityGate,
+} from "./hai-ic-responsibility";
 
 export const HAI_IC_PRODUCT = "hai-ic";
 export const HAI_IC_VERSION = "1.0.0-mvp";
@@ -21,6 +25,7 @@ export interface HaiIcResult {
   breakdown: HaiIcBreakdown;
   questions: string[];
   response: string;
+  responsibility: HaiIcResponsibilityGate;
   analyzedAt: string;
   isDueDiligence?: boolean;
 }
@@ -241,6 +246,7 @@ export function analyzeIntent(input: string): HaiIcResult {
     },
     questions,
     response,
+    responsibility: buildHaiIcResponsibilityGate(sincere),
     analyzedAt: new Date().toISOString(),
     isDueDiligence: isDD,
   };

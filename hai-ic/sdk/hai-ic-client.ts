@@ -22,6 +22,12 @@ export interface HaiIcAnalyzeResponse {
   breakdown: HaiIcBreakdown;
   questions: string[];
   response: string;
+  responsibility: {
+    finalDecisionOwner: "human";
+    humanApprovalRequired: true;
+    actionPermission: "allowed_after_human_approval" | "blocked_pending_clarification";
+    reason: string;
+  };
   analyzedAt: string;
   isDueDiligence?: boolean;
   error?: string;
@@ -59,6 +65,7 @@ export class HaiIcClient {
   async gate(input: string): Promise<{
     allowed: boolean;
     confidence: number;
+    humanApprovalRequired: true;
     questions: string[];
     response?: string;
   }> {
@@ -69,6 +76,7 @@ export class HaiIcClient {
     return {
       allowed: result.sincereMode && result.confidence >= HAI_IC_THRESHOLD,
       confidence: result.confidence,
+      humanApprovalRequired: result.responsibility.humanApprovalRequired,
       questions: result.questions,
       response: result.sincereMode ? result.response : undefined,
     };
