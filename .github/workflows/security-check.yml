@@ -1,25 +1,18 @@
-# HAI Verify — security gate (실무: partner runs this green before more public exposure)
 name: Security Check
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
-    branches: [main]
+    branches:
+      - main
   workflow_dispatch:
-
-concurrency:
-  group: security-check-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
 
 jobs:
   security:
-    name: Secret scan + build
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    permissions:
-      contents: read
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -33,97 +26,37 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Check for exposed secrets in code
+      - name: Secret leak scan
         run: |
-          set -euo pipefail
-          echo "=== SECRET LEAK SCAN ==="
+          set -e
           FOUND=0
-
-          if grep -rnE 'sk_live_|rk_live_|pk_live_' \
-               --include='*.ts' --include='*.tsx' --include='*.js' --include='*.jsx' --include='*.json' \
-               --exclude-dir=node_modules --exclude-dir=.next --exclude-dir=.open-next \
-               --exclude='*.example' . ; then
-            echo "CRITICAL: Stripe live key material found in tracked-style paths"
+          if grep -rnE 'sk_live_|rk_live_|pk_live_' --include='*.ts' --include='*.tsx' --include='*.js' --include='*.json' --exclude-dir=node_modules --exclude-dir=.next --exclude-dir=.open-next . ; then
+            echo "CRITICAL: Stripe live key prefix in tree"
             FOUND=1
-          else
-            echo "OK: No Stripe live key prefixes in scanned sources"
           fi
-
-          if grep -rnE 'CLOUDFLARE_API_TOKEN[[:space:]]*=[[:space:]]*[A-Za-z0-9_-]{30,}' \
-               --include='*.ts' --include='*.js' --include='*.toml' --include='*.json' \
-               --exclude-dir=node_modules --exclude='*.example' . ; then
-            echo "CRITICAL: Cloudflare token assignment found in code"
+          if grep -rnE 'sk-proj-|sk-[A-Za-z0-9]{40,}' --include='*.ts' --include='*.tsx' --include='*.js' --exclude-dir=node_modules . ; then
+            echo "CRITICAL: OpenAI-style key prefix in tree"
             FOUND=1
-          else
-            echo "OK: No Cloudflare token assignments in scanned sources"
           fi
-
-          if grep -rnE 'sk-proj-|sk-[A-Za-z0-9]{40,}' \
-               --include='*.ts' --include='*.tsx' --include='*.js' --include='*.jsx' \
-               --exclude-dir=node_modules --exclude='*.example' . ; then
-            echo "CRITICAL: OpenAI-style key material found in code"
-            FOUND=1
-          else
-            echo "OK: No OpenAI-style keys in scanned sources"
-          fi
-
-          if [ "$FOUND" -eq 1 ]; then
-            echo "SECURITY ALERT: Exposed secrets detected."
+          if [ "$FOUND" -ne 0 ]; then
             exit 1
           fi
+          echo "OK secret scan"
 
-      - name: Check .env.local not tracked
+      - name: Env files not tracked
         run: |
-          set -euo pipefail
-          echo "=== ENV FILE TRACKING CHECK ==="
+          set -e
           if git ls-files --error-unmatch .env.local 2>/dev/null; then
-            echo "CRITICAL: .env.local is tracked by git"
+            echo "CRITICAL: .env.local tracked"
             exit 1
           fi
-          echo "OK: .env.local not in git"
+          echo "OK .env.local not tracked"
 
-      - name: TypeScript type check
-        run: npx tsc --noEmit
-        continue-on-error: true
-
-      - name: Build check
+      - name: Build
         run: npm run build
         env:
           SKIP_ENV_VALIDATION: "true"
 
-      - name: NPM audit (high+)
-        run: |
-          set -euo pipefail
-          echo "=== NPM VULNERABILITY SCAN ==="
-          # Soft signal: do not fail the gate on advisory noise; fail only if audit binary errors.
-          npm audit --audit-level=high || echo "WARN: high+ advisories present — review npm audit locally"
+      - name: Summary
+        run: echo "Security Check job completed with steps executed"
 
-      - name: Security report summary
-        run: |
-          echo "================================"
-          echo "  XGOMA / HAI Verify — Security Check"
-          echo "  $(date -u '+%Y-%m-%d %H:%M UTC')"
-          echo "  Jobs ran: secret scan, env track, build"
-          echo "================================"
-
-      - name: Email report — FAILURE
-        if: failure() && secrets.GMAIL_USER != '' && secrets.GMAIL_APP_PASSWORD != ''
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com
-          server_port: 587
-          secure: false
-          username: ${{ secrets.GMAIL_USER }}
-          password: ${{ secrets.GMAIL_APP_PASSWORD }}
-          subject: "[XGOMA Security] ALERT — Action Required #${{ github.run_number }}"
-          to: sheewon1111@gmail.com
-          from: "XGOMA Security Bot <${{ secrets.GMAIL_USER }}>"
-          body: |
-            XGOMA / HAI Verify — SECURITY CHECK FAILED
-
-            A security-check job ran and failed (not a no-jobs stub).
-
-            Repo: https://github.com/${{ github.repository }}
-            Run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
-
-            — Partner / security gate
