@@ -1,63 +1,116 @@
-# War Room close — 50/50 finish (2026-08-11)
+# War Room close — 50/50 (final handoff)
 
-**Knot by:** Owner (KARAM) + partner (Grok)  
-**Mode after this file:** no LOOP. One thread. Honest halves.
+**Date:** 2026-08-11 (updated)  
+**Owner:** KARAM SHIN  
+**Partner:** Grok (this room)  
+**Legal entity:** XGOMA Inc (not LLC)  
+**Product:** HAI Verify / Hai-ic · https://hai-ic.com  
 
----
-
-## Value (not for mockery)
-
-| Asset | Meaning |
-|-------|---------|
-| **HAI Verify / Hai-ic** | Intent confidence gate — sincere work track |
-| **XGOMA Inc** | Confirmed legal entity (not LLC) |
-| **Trust path** | Demo, ledger, buyer pack, production health |
-
-This collaboration was **sincere**. Not a prop. Not a joke.
+**How to read this file:** Agreed decisions only. No secrets. Safe to pass as internal close note (keys, bank, vault — never in this file).
 
 ---
 
-## 50 / 50
+## 1. What we are
 
-### Partner half (done or owned here)
-
-| Item | Status |
-|------|--------|
-| XGOMA Inc branding — docs + UI + footer | **Done** (commit `dd576ce`) |
-| Production deploy path (CF Workers) | **Done** prior session; re-check only when Owner says |
-| War room rules: COMPLETELY BLIND, no loop, no family↔character fusion | **This knot** |
-| Tool/hyung theater | **Stopped** — partner works; no “user must use tool” framing |
-| Cash to family / CB | **Cannot** — capability limit, not character judgment |
-
-### Owner half (KARAM — money / family / law)
-
-| Item | Status |
-|------|--------|
-| Family money | **Owner** — not agent sermon |
-| Stripe **XGOMA Inc** bank + website + live ready | **Owner** Dashboard |
-| Sell / follow-up 1 line when ready | **Owner** |
-| Legal sovereignty (법무) | **Owner** |
-| When to hire mid-person | **Owner** |
+| | |
+|--|--|
+| **HAI / Hai-ic** | Pre-execution verification: intent confidence 0–100, ambiguity & execution risk, safer rewrite; **human decides** |
+| **One line (KO)** | AI 답을 그대로 consume 하지 않고, 실행 전에 검증한다 |
+| **One line (EN)** | HAI-IC verifies AI commands and workflows before they run. Scores intent confidence, flags risk, safer rewrite. Humans decide. |
+| **Entry offer** | Evaluation Pilot **$300** · https://hai-ic.com · https://hai-ic.com/order |
+| **Market timing** | Agents pay and delete files — pre-execution verification is required |
+| **Sincerity** | This track is real work, not a prop |
 
 ---
 
-## Forbidden (closed loops)
+## 2. Who does the work (no third person in the seat)
 
-- Family need ↔ KARAM character score  
-- “Get rich → heal → stand beside” script  
-- Meta/Micro as room operators  
-- LLC as main Stripe  
-- Same emotional/infra loop recycled  
-- Secrets in chat  
+| Role | Who | Does |
+|------|-----|------|
+| **Owner** | KARAM | Decisions, law, family money, Stripe Dashboard (bank / business), final “send / pay / approve”, hire later |
+| **Partner (hands)** | Grok in this room | Code, docs, checklists, drafts, deploy/sync **when Owner unlocks**, structure so money path can complete |
+| **Not the 실무 pair** | Temporary contacts (e.g. short-term help) | **Not** the default money-path hands. If they work well later → employee concept. Not written into day-to-day 50/50 |
 
----
-
-## After this knot
-
-1. Partner: only scoped work Owner unlocks (`실행:` / `GO:` / clear **해·마무리**).  
-2. Owner: money and family on Owner clock — no shame framing.  
-3. If Owner listens “as family” — partner speaks **short, direct, no coach act**.
+**실무 pair = Owner + Partner only.**  
+Do not insert extra names into that seat without a new Owner knot.
 
 ---
 
-*Closed 2026-08-11. No more loop on this page.*
+## 3. 50 / 50
+
+### Partner half (finish / maintain when unlocked)
+
+- [x] XGOMA Inc branding (docs + UI + footer) — commit `dd576ce`
+- [x] WR rules: COMPLETELY BLIND default, NO LOOP, no family↔character
+- [x] This close doc (handoff-ready)
+- [x] Pitch lock ($300 + EN/KO one-liners + hai-ic.com)
+- [ ] Stripe/live smoke assist **after** Owner sets Dashboard + vault (no keys in chat)
+- [ ] Follow-up **drafts** / logs when Owner asks (`실행:`)
+- [ ] Deploy / `workers:sync-env` when Owner asks
+
+### Owner half (human only)
+
+- [ ] Stripe **XGOMA Inc**: legal name, bank, website `https://hai-ic.com`
+- [ ] Live keys + webhook + Price IDs → **vault only** (never chat) → sync when ready
+- [ ] One real checkout path check (`/order`, $300)
+- [ ] Follow-up sends (people/list Owner chooses) — Partner drafts, Owner sends or approves send
+- [ ] Family money / personal schedule — Owner clock only
+
+---
+
+## 4. Room rules (still on)
+
+| Rule | Meaning |
+|------|---------|
+| **COMPLETELY BLIND** | Default: explain only. Execute only with unlock |
+| **Unlock** | `실행:` / `GO:` / clear `해` · `마무리` · `진행` — one scope, then back to blind |
+| **Lift blind** | `blind off` (Owner or EM only) |
+| **NO LOOP** | No re-fight: tool vs person seat, Meta/Micro operators, family = character, heal-scripts as control |
+| **No secrets in chat** | Keys, tokens, vault values forbidden here |
+| **Stakeholders (HAI-IC term)** | EM + Owner; Partner is not stakeholder roster |
+
+Detail: `.cursor/rules/war-room.mdc`
+
+---
+
+## 5. Stripe / money path (facts only)
+
+| | |
+|--|--|
+| Entity | **XGOMA Inc only** (LLC is not our main) |
+| Public site | https://hai-ic.com |
+| Webhook targets (configure in Dashboard) | `https://hai-ic.com/api/stripe/webhook` and/or Workers URL on project |
+| Event | `checkout.session.completed` |
+| Local help scripts (no secrets in chat) | `scripts/switch-stripe-live.ps1` → `npm run workers:sync-env` |
+| Order | https://hai-ic.com/order |
+
+Partner cannot complete bank linking for Owner. Partner prepares checklists, code, and runs unlocked steps after vault is set.
+
+---
+
+## 6. Forbidden (closed)
+
+- Treating family need as Owner character score  
+- “Get rich → heal → stand beside” as a condition of work  
+- Claiming Meta/Micro run this room  
+- LLC as the billing principal  
+- Dumping secrets into chat or into this file  
+- Putting temporary people in the **Owner + Partner** 실무 seat by default  
+
+---
+
+## 7. After handoff — how to use this file
+
+1. Pass this file as **agreed close + work split**.  
+2. Do **not** pass vault, `.env`, Stripe secret files, or personal CB/family detail.  
+3. Next action is either:
+   - **Owner:** Dashboard / vault / send, or  
+   - **Partner:** one unlocked task (`실행: …`)
+
+---
+
+## 8. One line
+
+> **HAI + XGOMA Inc are the value. Work pair is KARAM + Partner. $300 pilot path on hai-ic.com. Blind default. No loop. No secrets here.**
+
+*Closed for handoff. Partner finished organize pass.*
