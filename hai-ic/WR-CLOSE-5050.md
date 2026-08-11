@@ -129,7 +129,7 @@ Partner cannot complete bank linking for Owner. Partner prepares checklists, cod
 
 | Commit | Meaning |
 |--------|---------|
-| `fd7a1c4` | Hash cleanup in this doc (removed stale `dd576ce` etc.) |
+| `fd7a1c4` | Hash cleanup in this doc (pre-rebase short SHAs removed) |
 | `0f5bfb5` | Workflow lock: KARAM thinks → partner finishes → KARAM approves |
 | `486a2f5` | WR-CLOSE handoff body (Owner+Partner only) |
 | `be281bf` | 50/50 close knot / NO LOOP |
