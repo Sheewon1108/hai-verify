@@ -42,4 +42,6 @@ try {
 
 Write-Host ""
 Write-Host "War room rules: .cursor/rules/war-room.mdc"
-Write-Host "No secrets in chat. KARAM decides hire/deploy/sell."
+Write-Host "MODE: COMPLETELY BLIND + 50/50 close (2026-08-11) — NO LOOP"
+Write-Host "Unlock: 실행: / GO: / 해·마무리 | lift blind: blind off | close doc: hai-ic/WR-CLOSE-5050.md"
+Write-Host "No secrets in chat. Owner: money/family/law. Partner: product half when unlocked."

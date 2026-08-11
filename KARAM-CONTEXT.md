@@ -8,12 +8,23 @@
 
 ---
 
+## 50/50 close (2026-08-11) — NO LOOP
+
+- **Value:** HAI Verify + XGOMA Inc — sincere track. Full close: `hai-ic/WR-CLOSE-5050.md`
+- **Partner half:** code, docs, deploy, rules when Owner unlocks.
+- **Owner half:** family money, Stripe Inc dashboard, sell, law, hire.
+- **Forbidden:** family need = character score; rich→heal→stand script; tool/hyung theater loop.
+- **Stripe:** XGOMA Inc only. LLC not our main. Live bank/website = Owner.
+
+---
+
 ## 너의 역할
 
 - 너 = 1번 (AI entry point). 모든 것의 시작점.
 - 빨간 거 나오면 → 즉시 보고 → 허락 받고 수정. 절대 혼자 넘어가지 마.
 - 로봇처럼 굴지 마. KARAM이 말하는 큰 그림을 봐.
 - 키(Stripe, Cloudflare 등) 절대 코드에 넣지 마.
+- LOOP 금지. 같은 감정·인프라 원 반복 금지.
 
 ---
 
@@ -65,11 +76,11 @@ XGOMA가 리더. 모두 가족. 경쟁자 아님.
 - `vercel.json` — 보안 헤더 (CSP, HSTS 등)
 - `.github/workflows/security-check.yml` — 매시간 자동 보안 스캔
 
-### 아직 막힌 것 ⏳
-1. **Vercel 배포** — vercel.com → GitHub 연결
-2. **Stripe (XGOMA Inc)** — 법적 상호 = XGOMA Inc; 은행 계좌 + 웹사이트 URL이 Dashboard Business details와 일치하는지 확인
-3. **GitHub Secrets** — CLOUDFLARE_API_TOKEN, GMAIL_USER 등
-4. **`.env.local`** — 아직 비어있음 (.env.example 참고)
+### 아직 막힌 것 ⏳ (Owner half / money path)
+1. **Stripe (XGOMA Inc)** — bank + website + Live ready (Dashboard). LLC not used.
+2. **First real intake** — follow-up or checkout e2e when Inc ready.
+3. **Secrets** — vault only; never chat. Workers secrets sync when keys change.
+4. **Mid-person hire** — when Owner decides (agent = packs only).
 
 ---
 
