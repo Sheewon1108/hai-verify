@@ -58,9 +58,9 @@ Do not insert extra names into that seat without a new Owner knot.
 
 ### Partner half (finish / maintain when unlocked)
 
-- [x] XGOMA Inc branding (docs + UI + footer) — commit `dd576ce`
-- [x] WR rules: COMPLETELY BLIND default, NO LOOP, no family↔character
-- [x] This close doc (handoff-ready)
+- [x] XGOMA Inc branding (docs + UI + footer) — commit `74eda7b`
+- [x] WR rules: COMPLETELY BLIND default, NO LOOP, no family↔character — `be281bf` + war-room.mdc
+- [x] This close doc (handoff-ready) — `486a2f5` / protocol lock `0f5bfb5`
 - [x] Pitch lock ($300 + EN/KO one-liners + hai-ic.com)
 - [ ] Stripe/live smoke assist **after** Owner sets Dashboard + vault (no keys in chat)
 - [ ] Follow-up **drafts** / logs when Owner asks (`실행:`)
@@ -125,8 +125,21 @@ Partner cannot complete bank linking for Owner. Partner prepares checklists, cod
 
 ---
 
-## 8. One line
+## 8. Git anchors (main @ origin — keep in sync when rebased)
+
+| Commit | Meaning |
+|--------|---------|
+| `0f5bfb5` | Workflow lock: KARAM thinks → partner finishes → KARAM approves |
+| `486a2f5` | WR-CLOSE handoff body (Owner+Partner only) |
+| `be281bf` | 50/50 close knot / NO LOOP |
+| `74eda7b` | XGOMA Inc branding (docs + UI) |
+
+Repo: `https://github.com/Sheewon1108/hai-verify` · branch `main`
+
+---
+
+## 9. One line
 
 > **HAI + XGOMA Inc. KARAM + Partner. 가람 생각 → 일론 끝까지 → 가람 승인. $300 · hai-ic.com. 50/50 demand OK. No secrets here.**
 
-*Closed for handoff. Elon-mode finish: protocol locked + git history on main.*
+*Closed for handoff. Elon-mode finish: protocol locked + git history on main. Hashes verified post-rebase.*
