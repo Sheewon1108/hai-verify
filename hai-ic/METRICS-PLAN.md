@@ -7,16 +7,21 @@
 
 | Metric | Unit | Target | Measured | As-of | Method ID |
 |--------|------|--------|----------|-------|-----------|
-| Processing speed | req/s | — | | | M1 |
-| Latency p50 | ms | — | | | M2 |
-| Latency p95 | ms | — | | | M2 |
+| Processing speed | req/s | — | 252.471 | 2026-08-11T07:43:54Z | M1 |
+| Latency p50 | ms | — | 4.685 | 2026-08-11T07:43:53Z | M2 |
+| Latency p95 | ms | — | 7.210 | 2026-08-11T07:43:53Z | M2 |
 | Cost reduction vs baseline | % | — | | | M3 |
 | Uptime | % | ≥ 99.9 | | | M4 |
 
-## Empty measurement log (append rows after each run)
+**Env for Measured speed/latency:** local loopback `127.0.0.1:3001` (not production SLA).  
+**Artifacts:** `hai-ic/metrics/latency-c1-n200.json`, `hai-ic/metrics/throughput-c10-n200.json`
+
+## Measurement log (append rows after each run)
 
 | Run ID | Date (UTC) | Env | N samples | p50_ms | p95_ms | req_s | cost_red_% | uptime_% | Notes |
 |--------|------------|-----|-----------|--------|--------|-------|------------|----------|-------|
+| local-c1-n200 | 2026-08-11T07:43:53Z | 127.0.0.1:3001 | 200 | 4.685 | 7.210 | 185.111 | | | M2 latency (concurrency=1) |
+| local-c10-n200 | 2026-08-11T07:43:54Z | 127.0.0.1:3001 | 200 | 39.202 | 42.733 | 252.471 | | | M1 throughput (concurrency=10); p50/p95 not used for Latency row |
 | | | | | | | | | | |
 
 ## Measurement steps

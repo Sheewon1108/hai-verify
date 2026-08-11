@@ -1,0 +1,17 @@
+{
+  "product": "HAI-IC",
+  "baseUrl": "http://127.0.0.1:3001",
+  "n": 200,
+  "concurrency": 10,
+  "throughput_rps": 252.471,
+  "latency_p50_ms": 39.202,
+  "latency_p95_ms": 42.733,
+  "cost_reduction_pct": null,
+  "uptime_pct": null,
+  "measuredAt": "2026-08-11T07:43:54.135Z",
+  "health": {
+    "product": "hai-ic",
+    "version": "1.0.0-mvp",
+    "status": "healthy"
+  }
+}
