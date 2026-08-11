@@ -125,17 +125,18 @@ Partner cannot complete bank linking for Owner. Partner prepares checklists, cod
 
 ---
 
-## 8. Git anchors (main @ origin — keep in sync when rebased)
+## 8. Git anchors (main — post-rebase, no stale pre-rebase SHAs)
 
 | Commit | Meaning |
 |--------|---------|
-| `fd7a1c4` | **Tip:** hash cleanup — no stale pre-rebase short SHAs |
+| `fd7a1c4` | Hash cleanup in this doc (removed stale `dd576ce` etc.) |
 | `0f5bfb5` | Workflow lock: KARAM thinks → partner finishes → KARAM approves |
 | `486a2f5` | WR-CLOSE handoff body (Owner+Partner only) |
 | `be281bf` | 50/50 close knot / NO LOOP |
 | `74eda7b` | XGOMA Inc branding (docs + UI) |
 
-Repo: `https://github.com/Sheewon1108/hai-verify` · branch `main` · tip must match `git rev-parse origin/main`
+Repo: `https://github.com/Sheewon1108/hai-verify` · branch `main`  
+**Live tip:** `git rev-parse --short origin/main` (do not freeze tip SHA in this table — avoids self-stale after each push).
 
 ---
 
