@@ -1,0 +1,16 @@
+{
+  "product": "HAI-IC",
+  "measuredAt": "2026-08-11T07:43:25.870Z",
+  "baseUrl": "http://127.0.0.1:3001",
+  "sampleSize": 100,
+  "processing_speed_calls_per_s": 135.8696,
+  "latency_p50_ms": 6,
+  "latency_p95_ms": 11,
+  "cost_reduction_vs_baseline_pct": null,
+  "uptime_pct": null,
+  "uptime_target_pct": 99.9,
+  "notes": {
+    "cost": "Run METRICS-PLAN.md section B; leave null until both costs are real.",
+    "uptime": "Run METRICS-PLAN.md section C; leave null until probe log exists."
+  }
+}

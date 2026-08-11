@@ -11,6 +11,7 @@ const REPORT_DIR = path.join(PROJECT_ROOT, "hai-ic", "reports");
 const QUESTIONS_DIR = path.join(PROJECT_ROOT, "hai-ic", "test-questions");
 const BOOST_TS = path.join(PROJECT_ROOT, "app", "lib", "hai-ic-boost-value.ts");
 const PENALTY_TS = path.join(PROJECT_ROOT, "app", "lib", "hai-ic-dd-penalty-value.ts");
+const CORE_CONSTANTS_TS = path.join(PROJECT_ROOT, "hai-ic", "core", "constants.ts");
 const PORT = 3001;
 const DD_PENALTY_LIVE = 15;
 const BOOST_LIVE = 0;
@@ -43,6 +44,7 @@ function writeState(state) {
 }
 
 function writeLiveValues() {
+  // Compatibility shims (app/lib) — keep literal exports for older importers.
   fs.writeFileSync(
     BOOST_TS,
     `/** Fixed — no artificial boost (진정성) */\nexport const HAI_IC_HOURLY_BOOST = ${BOOST_LIVE};\n`,
@@ -53,6 +55,19 @@ function writeLiveValues() {
     `/** Fixed — no artificial DD penalty tuning */\nexport const HAI_IC_DD_MAX_PENALTY_LIVE = ${DD_PENALTY_LIVE};\n`,
     "utf8",
   );
+  // Canonical core constants — analyzer reads from here.
+  if (fs.existsSync(CORE_CONSTANTS_TS)) {
+    let core = readText(CORE_CONSTANTS_TS);
+    core = core.replace(
+      /export const HAI_IC_HOURLY_BOOST = \d+;/,
+      `export const HAI_IC_HOURLY_BOOST = ${BOOST_LIVE};`,
+    );
+    core = core.replace(
+      /export const HAI_IC_DD_MAX_PENALTY_LIVE = \d+;/,
+      `export const HAI_IC_DD_MAX_PENALTY_LIVE = ${DD_PENALTY_LIVE};`,
+    );
+    fs.writeFileSync(CORE_CONSTANTS_TS, core, "utf8");
+  }
 }
 
 function appendLog(line) {

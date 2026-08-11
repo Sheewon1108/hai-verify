@@ -1,13 +1,15 @@
-# Hai-Ic — Product (Intent Confidence Gate)
+# HAI-IC — Product (Intent Confidence Gate)
 
 **Owner:** KARAM SHIN  
-**Product:** Hai-Ic  
+**Product:** HAI-IC only  
 **Version:** 1.0.0-mvp  
 **Parent:** HAI Verify
 
+**Economic pack:** `IP-PACK.md` · `METRICS-PLAN.md` · `MODULE-BOUNDARIES.md`
+
 ## One line
 
-**모를 때 답 안 하는 AI gate** — Intent Confidence 75% 미만이면 진심 답변을 허용하지 않습니다.
+**Before AI acts, humans measure Intent Confidence (0–100). Sincere Mode only at 75%+. Human keeps the final decision and the responsibility.**
 
 ## Problem
 
@@ -75,6 +77,8 @@ Source: `hai-ic/buyer-deliverables/TRUST-LEDGER.md`
 - **Ask:** 2-week POC → $8.5k–$25k/yr license
 - **Channel:** jay.transtar.inc@gmail.com (KARAM SHIN)
 
-**Productization (병행):** `hai-ic/PRODUCTIZATION.md` · `transla/HAI-IC-LINK.md`
+**Productization (병행):** `hai-ic/PRODUCTIZATION.md` · `transla/HAI-IC-LINK.md`  
+**Security / pipeline:** `SECURITY-SPEC.md` · `AUTOMATION-PIPELINE.md`  
+**Core module:** `hai-ic/core` · public contract: `hai-ic/interfaces/public.ts`
 
 **Human + Heart + AI + Law = Verification**

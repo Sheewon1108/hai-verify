@@ -1,16 +1,19 @@
-# Hai-Ic Productization (병행 트랙)
+# HAI-IC Productization (병행 트랙)
 
 **Owner:** KARAM SHIN  
 **Parallel with:** `transla/` (Woosung LTL)  
 **Version target:** 1.0.0 → 1.1.0-product
 
+**Economic scarcity pack:** `IP-PACK.md` · `METRICS-PLAN.md` · `MODULE-BOUNDARIES.md` · `SECURITY-SPEC.md` · `AUTOMATION-PIPELINE.md`
+
 ## Product definition
 
 | | |
 |---|---|
-| **What** | Pre-LLM Intent Confidence Gate |
+| **What** | Pre-LLM Intent Confidence Gate (**HAI-IC** only) |
 | **Threshold** | 75% — below = no sincere answer |
 | **Proof** | Trust Ledger (live test log, scores not manually raised) |
+| **Cash collected** | Empty until first cleared payment logged (do not invent) |
 | **Price** | POC 2wk → $8.5k–$25k/yr |
 
 ## Phase map

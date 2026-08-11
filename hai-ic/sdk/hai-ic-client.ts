@@ -1,38 +1,25 @@
 /**
- * Hai-Ic drop-in client (productization P2)
- * Usage: gate LLM calls — only proceed when sincereMode === true
+ * HAI-IC drop-in HTTP client (productization P2)
+ * Usage: gate LLM calls — only proceed when sincereMode === true.
+ * Human retains final decision + responsibility.
  */
 
-export const HAI_IC_THRESHOLD = 75;
+import {
+  HAI_IC_THRESHOLD,
+  type HaiIcAnalyzeHttpResponse,
+  type HaiIcBreakdown,
+  type HaiIcGate,
+} from "../interfaces/public";
 
-export interface HaiIcBreakdown {
-  core: string;
-  understood: string;
-  missing: string;
-  risk: string;
-}
-
-export interface HaiIcAnalyzeResponse {
-  ok: boolean;
-  product?: string;
-  version?: string;
-  confidence: number;
-  sincereMode: boolean;
-  mode: string;
-  breakdown: HaiIcBreakdown;
-  questions: string[];
-  response: string;
-  analyzedAt: string;
-  isDueDiligence?: boolean;
-  error?: string;
-}
+export { HAI_IC_THRESHOLD };
+export type { HaiIcBreakdown, HaiIcAnalyzeHttpResponse as HaiIcAnalyzeResponse };
 
 export interface HaiIcClientOptions {
   baseUrl: string;
   fetchImpl?: typeof fetch;
 }
 
-export class HaiIcClient {
+export class HaiIcClient implements HaiIcGate {
   private baseUrl: string;
   private fetchFn: typeof fetch;
 
@@ -46,7 +33,7 @@ export class HaiIcClient {
     return res.json();
   }
 
-  async analyze(input: string): Promise<HaiIcAnalyzeResponse> {
+  async analyze(input: string): Promise<HaiIcAnalyzeHttpResponse> {
     const res = await this.fetchFn(`${this.baseUrl}/api/hai-ic/analyze`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -64,7 +51,7 @@ export class HaiIcClient {
   }> {
     const result = await this.analyze(input);
     if (!result.ok) {
-      throw new Error(result.error ?? "Hai-Ic analyze failed");
+      throw new Error(result.error ?? "HAI-IC analyze failed");
     }
     return {
       allowed: result.sincereMode && result.confidence >= HAI_IC_THRESHOLD,

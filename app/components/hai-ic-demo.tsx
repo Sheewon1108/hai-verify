@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { analyzeIntent, type HaiIcResult } from '@/app/lib/hai-ic-analyze';
+import { analyzeIntent, type HaiIcResult } from "@/hai-ic/core";
 
 const EXAMPLES = [
   'I want to restart business with Woosung Group through Transla Logistics. How should I approach them?',

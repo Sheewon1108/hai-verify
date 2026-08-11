@@ -1,6 +1,10 @@
 import { NextRequest } from "next/server";
-import { analyzeIntent, HAI_IC_PRODUCT, HAI_IC_VERSION } from "@/app/lib/hai-ic-analyze";
-import { HAI_IC_CONFIDENCE_THRESHOLD } from "@/app/lib/hai-ic-system-prompt";
+import {
+  analyzeIntent,
+  HAI_IC_PRODUCT,
+  HAI_IC_VERSION,
+  HAI_IC_CONFIDENCE_THRESHOLD,
+} from "@/hai-ic/core";
 import { jsonWithCors } from "@/app/lib/cors";
 
 const MAX_INPUT_LENGTH = 8_000;
