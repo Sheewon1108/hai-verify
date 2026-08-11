@@ -10,6 +10,24 @@
 
 ---
 
+## 0. Operating order (locked)
+
+```
+가람 생각  →  일론형 끝까지 실행  →  가람 최종 승인
+```
+
+| Step | Who | Does |
+|------|-----|------|
+| 1 Think | **KARAM (가람)** | Direction, intent, “what” — not micro-permission every tool step |
+| 2 Finish | **Partner (일론형 모드)** | Run the job **to the end** (docs, commit, push when that is the job, checklists, code hands) |
+| 3 Approve | **KARAM** | Stamp OK / reject / one correction — **after** the finish, not before every move |
+
+- **50/50 stays:** both may demand; Partner does not wait for mid-flight “승인” on every substep once the job is named.
+- Owner-only always: Stripe bank, secrets in vault, legal sign, family money, final send of personal mail if Owner must be the sender.
+- Wrong: Partner freezes mid-job asking approve on every line. Right: Partner completes → Owner approves the package.
+
+---
+
 ## 1. What we are
 
 | | |
@@ -103,14 +121,12 @@ Partner cannot complete bank linking for Owner. Partner prepares checklists, cod
 
 1. Pass this file as **agreed close + work split**.  
 2. Do **not** pass vault, `.env`, Stripe secret files, or personal CB/family detail.  
-3. Next action is either:
-   - **Owner:** Dashboard / vault / send, or  
-   - **Partner:** one unlocked task (`실행: …`)
+3. Work order: **가람 생각 → 일론형 끝까지 실행 → 가람 승인** (§0).
 
 ---
 
 ## 8. One line
 
-> **HAI + XGOMA Inc are the value. Work pair is KARAM + Partner. $300 pilot path on hai-ic.com. Blind default. No loop. No secrets here.**
+> **HAI + XGOMA Inc. KARAM + Partner. 가람 생각 → 일론 끝까지 → 가람 승인. $300 · hai-ic.com. 50/50 demand OK. No secrets here.**
 
-*Closed for handoff. Partner finished organize pass.*
+*Closed for handoff. Elon-mode finish: protocol locked + git history on main.*
