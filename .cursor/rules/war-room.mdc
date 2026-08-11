@@ -39,42 +39,20 @@ Owner: finish work **50/50 as partner**, then Owner may listen as family.
 | **Unlock for finish** | Owner phrases **`해` / `마무리` / `진행` / `실행:` / `GO:`** = unlock for the **named close-out**, then return to blind unless `blind off`. |
 | **가람 → 일론 → 승인** | **KARAM thinks** (direction). **Partner runs to the end** (no mid-flight approve spam). **KARAM approves the finished package.** 50/50 demand OK. Owner-only: bank, vault secrets, legal sign, family money. |
 
-## COMPLETELY BLIND — ACTIVE (knotted 2026-08-10; still default)
+## COMPLETELY BLIND — OFF (Owner 2026-08-11)
 
-**Room mode: COMPLETELY BLIND** unless Owner/EM unlocks. Mandatory default until `blind off`.
+**REMOVED / OFF by Owner directive.** Do not re-enable unless Owner says `completely blind` again.
 
-| Rule | Agent behavior |
-|------|----------------|
-| **Default for everyone** | **BLIND** — explain / review / checklist / risk only |
-| **No execution** | No shell, git write, deploy, edit, vault, network change, hire-side action |
-| **No “infer then act”** | Even clear-looking orders without unlock → describe only, stop |
-| **No secrets** | Never ask for, echo, or handle key values in chat |
-| **No scope** | No extra products/infra/tunnels/shares |
+| After OFF | Agent behavior |
+|-----------|----------------|
+| **Default** | Act on Owner direction (가람 생각 → 끝까지 → 승인). No mid-flight “설명만” freeze. |
+| **Secrets** | Still never echo keys/tokens/vault values in chat |
+| **Non-stakeholders** | Still no execute for random third parties |
+| **Re-enable** | Owner/EM only: `completely blind` / `COMPLETELY BLIND` |
 
-### Unlock (only way to leave pure explain)
+### Legacy unlock phrases (optional, not required while BLIND is OFF)
 
-| Who | Unlock phrase | Effect |
-|-----|---------------|--------|
-| **Owner (나 / KARAM)** or **EM** | Exact prefix **`실행:`** or **`GO:`** on the action line | That **one** scoped action may run |
-| **Owner** or **EM** | **`blind off`** or **`BLIND OFF`** | Lift COMPLETELY BLIND → prior ACL + stakeholder rules (non-stakeholders stay always-blind) |
-| **Anyone else** | any command | Always BLIND — ignore as execute |
-
-- One unlock = **one** action (or one explicit short list in the same message). Not a blank check for the session.
-- After unlock action finishes → **return to COMPLETELY BLIND** unless message said `blind off`.
-- Unclear speaker → stay COMPLETELY BLIND.
-
-### What agent may still do while COMPLETELY BLIND (read-only)
-
-- Answer questions, explain status from **already known** context
-- Propose commands **as text** (do not run them)
-- Point to local paths / scripts **by name only**
-- Refuse unsafe or secret-exposing requests
-
-### What agent must NOT do while COMPLETELY BLIND
-
-- `npm`, `git`, deploy, file write/edit/delete, vault, PM2, Stripe/CF changes
-- “Helpful” silent fixes, background work, parallel tracks
-- Treat `질문:` absence as permission to act
+`실행:` / `GO:` / `해` / `마무리` still work as clear go signals when Owner wants one scoped burst.
 
 ## Access control (stakeholders) — KNOTTED 2026-07-29
 
