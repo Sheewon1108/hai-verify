@@ -1,6 +1,9 @@
 /**
- * Hai-Ic drop-in client (productization P2)
+ * HAI-IC drop-in client
  * Usage: gate LLM calls — only proceed when sincereMode === true
+ * Human final responsibility always retained by the caller.
+ *
+ * Core types/constants: import from `@/hai-ic/src` when in-repo.
  */
 
 export const HAI_IC_THRESHOLD = 75;
@@ -61,16 +64,18 @@ export class HaiIcClient {
     confidence: number;
     questions: string[];
     response?: string;
+    humanFinalResponsibility: true;
   }> {
     const result = await this.analyze(input);
     if (!result.ok) {
-      throw new Error(result.error ?? "Hai-Ic analyze failed");
+      throw new Error(result.error ?? "HAI-IC analyze failed");
     }
     return {
       allowed: result.sincereMode && result.confidence >= HAI_IC_THRESHOLD,
       confidence: result.confidence,
       questions: result.questions,
       response: result.sincereMode ? result.response : undefined,
+      humanFinalResponsibility: true,
     };
   }
 }
