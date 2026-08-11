@@ -33,6 +33,7 @@
     "user-context:scenarios": "powershell -ExecutionPolicy Bypass -File ./scripts/test-user-context-scenarios.ps1",
     "user-context:test-us-timezones": "powershell -ExecutionPolicy Bypass -File ./scripts/test-us-timezones-assert.ps1",
     "user-context:readme": "powershell -NoProfile -Command \"Get-Content ./products/hai-user-context/README.md\"",
+    "measure:hai-ic": "node ./scripts/measure-hai-ic-metrics.mjs",
     "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
