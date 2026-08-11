@@ -1,9 +1,9 @@
-# Hai-Ic — Product (Intent Confidence Gate)
+# HAI-IC — Product (Intent Confidence Gate)
 
 **Owner:** KARAM SHIN  
-**Product:** Hai-Ic  
+**Product:** HAI-IC only  
 **Version:** 1.0.0-mvp  
-**Parent:** HAI Verify
+**IP pack:** `hai-ic/IP-PACK.md` · **Modules:** `hai-ic/MODULE.md`
 
 ## One line
 

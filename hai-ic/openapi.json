@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Hai-Ic Intent Confidence API",
+    "title": "HAI-IC Intent Confidence API",
     "version": "1.0.0-mvp",
-    "description": "Pre-LLM gate. Sincere answers only when Intent Confidence >= 75%."
+    "description": "HAI-IC pre-action gate. Sincere Mode only when Intent Confidence >= 75%. Human final responsibility retained."
   },
   "servers": [
     { "url": "https://{domain}", "variables": { "domain": { "default": "api.example.com" } } },

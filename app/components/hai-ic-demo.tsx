@@ -6,7 +6,7 @@ import { analyzeIntent, type HaiIcResult } from '@/app/lib/hai-ic-analyze';
 const EXAMPLES = [
   'I want to restart business with Woosung Group through Transla Logistics. How should I approach them?',
   'Finish this project by July 15 with a $50k budget and a four-person team.',
-  'I want to send xAI a proposal to integrate the Hai-ic API.',
+  'I want to send xAI a proposal to integrate the HAI-IC API.',
 ];
 
 export function HaiIcDemo({ compact = false }: { compact?: boolean }) {

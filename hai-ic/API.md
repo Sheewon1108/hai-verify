@@ -1,4 +1,7 @@
-# Hai-ic API
+# HAI-IC API
+
+**Product name:** HAI-IC only  
+**Module map:** `hai-ic/MODULE.md` · **Public types:** `hai-ic/src/public/`
 
 ## POST `/api/hai-ic/analyze`
 

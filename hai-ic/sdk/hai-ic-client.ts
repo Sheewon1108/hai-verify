@@ -1,31 +1,27 @@
 /**
- * Hai-Ic drop-in client (productization P2)
- * Usage: gate LLM calls — only proceed when sincereMode === true
+ * HAI-IC drop-in client — plug-and-play for external engineers.
+ * Usage: gate LLM calls — only proceed when sincereMode === true;
+ * human still retains final responsibility before side effects.
  */
 
-export const HAI_IC_THRESHOLD = 75;
+import {
+  HAI_IC_CONFIDENCE_THRESHOLD,
+  HAI_IC_PRODUCT,
+} from "../src/public/constants";
+import type {
+  HaiIcAnalyzeResponse,
+  HaiIcBreakdown,
+  HaiIcErrorResponse,
+  HaiIcGateDecision,
+  HaiIcHealthResponse,
+} from "../src/public/types";
+import { toGateDecision } from "../src/gate/policy";
 
-export interface HaiIcBreakdown {
-  core: string;
-  understood: string;
-  missing: string;
-  risk: string;
-}
+/** @deprecated Prefer HAI_IC_CONFIDENCE_THRESHOLD */
+export const HAI_IC_THRESHOLD = HAI_IC_CONFIDENCE_THRESHOLD;
+export { HAI_IC_CONFIDENCE_THRESHOLD };
 
-export interface HaiIcAnalyzeResponse {
-  ok: boolean;
-  product?: string;
-  version?: string;
-  confidence: number;
-  sincereMode: boolean;
-  mode: string;
-  breakdown: HaiIcBreakdown;
-  questions: string[];
-  response: string;
-  analyzedAt: string;
-  isDueDiligence?: boolean;
-  error?: string;
-}
+export type { HaiIcBreakdown, HaiIcAnalyzeResponse, HaiIcGateDecision };
 
 export interface HaiIcClientOptions {
   baseUrl: string;
@@ -41,12 +37,12 @@ export class HaiIcClient {
     this.fetchFn = options.fetchImpl ?? fetch;
   }
 
-  async health(): Promise<{ ok: boolean; status?: string }> {
+  async health(): Promise<HaiIcHealthResponse> {
     const res = await this.fetchFn(`${this.baseUrl}/api/hai-ic/health`);
     return res.json();
   }
 
-  async analyze(input: string): Promise<HaiIcAnalyzeResponse> {
+  async analyze(input: string): Promise<HaiIcAnalyzeResponse | HaiIcErrorResponse> {
     const res = await this.fetchFn(`${this.baseUrl}/api/hai-ic/analyze`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -55,22 +51,19 @@ export class HaiIcClient {
     return res.json();
   }
 
-  /** Returns full response if sincere; otherwise questions only (no fake answer). */
-  async gate(input: string): Promise<{
-    allowed: boolean;
-    confidence: number;
-    questions: string[];
-    response?: string;
-  }> {
+  /**
+   * Returns full response if sincere; otherwise questions only (no fake answer).
+   * `humanFinalResponsibility` is always true — do not auto-execute side effects.
+   */
+  async gate(input: string): Promise<HaiIcGateDecision> {
     const result = await this.analyze(input);
     if (!result.ok) {
-      throw new Error(result.error ?? "Hai-Ic analyze failed");
+      throw new Error(result.error ?? `${HAI_IC_PRODUCT} analyze failed`);
     }
-    return {
-      allowed: result.sincereMode && result.confidence >= HAI_IC_THRESHOLD,
-      confidence: result.confidence,
-      questions: result.questions,
-      response: result.sincereMode ? result.response : undefined,
-    };
+    const decision = toGateDecision(result);
+    if (decision.allowed && result.confidence < HAI_IC_CONFIDENCE_THRESHOLD) {
+      return { ...decision, allowed: false, sincereMode: false, response: undefined };
+    }
+    return decision;
   }
 }

@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { HAI_IC_PRODUCT, HAI_IC_VERSION } from "@/app/lib/hai-ic-analyze";
+import { HAI_IC_PRODUCT, HAI_IC_VERSION } from "@/hai-ic/src/public";
 import { jsonWithCors } from "@/app/lib/cors";
 
 export async function GET(request: NextRequest) {

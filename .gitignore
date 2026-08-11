@@ -63,3 +63,7 @@ next-env.d.ts
 secrets/
 .secrets/
 service-account*.json
+
+# HAI-IC measured metrics (fill METRICS-PLAN.md from latest.json locally)
+hai-ic/metrics/latest.json
+hai-ic/metrics/uptime-log.csv

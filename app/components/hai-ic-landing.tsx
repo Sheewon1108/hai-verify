@@ -65,7 +65,7 @@ export function HaiIcLanding() {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <div>
             <p className="text-xs uppercase tracking-[0.3em] text-muted">HAI Verify · Product #1</p>
-            <p className="text-2xl font-bold">Hai-ic</p>
+            <p className="text-2xl font-bold">HAI-IC</p>
           </div>
           <nav className="hidden md:flex gap-6 text-sm text-muted">
             <a href="#demo" className="hover:text-foreground">Demo</a>
@@ -91,7 +91,7 @@ export function HaiIcLanding() {
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
-              Hai-ic measures <span className="text-red-400 font-semibold">Intent Confidence</span> of natural language requests
+              HAI-IC measures <span className="text-red-400 font-semibold">Intent Confidence</span> of natural language requests
               <br />
               in real-time from 0 to 100. Executes only in <span className="text-red-400">Sincere Mode (75%+)</span>.
             </p>
@@ -113,7 +113,7 @@ export function HaiIcLanding() {
             <p className="text-xs uppercase tracking-[0.25em] text-muted mb-3">Pricing</p>
             <h2 className="text-3xl font-semibold mb-4 text-white">Start with a Pilot</h2>
             <p className="text-zinc-400 max-w-2xl mb-10 leading-relaxed">
-              Deploy Hai-ic as a pre-execution Intent Confidence gate for Grok, Gemini, Claude, and internal agent stacks. Licensing from $8.5k–$25k/yr · OEM · Enterprise.
+              Deploy HAI-IC as a pre-execution Intent Confidence gate for Grok, Gemini, Claude, and internal agent stacks. Licensing from $8.5k–$25k/yr · OEM · Enterprise.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
               <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
@@ -127,7 +127,7 @@ export function HaiIcLanding() {
                 <p className="text-red-400 text-sm font-medium mb-2">OEM</p>
                 <p className="text-3xl font-bold text-white mb-3">$8.5k+/yr</p>
                 <p className="text-sm text-zinc-400 leading-relaxed">
-                  Embed Hai-ic into your product. REST API, health checks, and sincere-mode gate at 75%.
+                  Embed HAI-IC into your product. REST API, health checks, and sincere-mode gate at 75%.
                 </p>
               </div>
               <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
@@ -148,7 +148,7 @@ export function HaiIcLanding() {
               <p className="text-xs uppercase tracking-[0.25em] text-muted mb-3">API</p>
               <h3 className="text-3xl md:text-4xl font-semibold mb-4">Drop-in pre-execution check</h3>
               <p className="text-muted text-base md:text-lg leading-relaxed mb-6">
-                One POST returns confidence, breakdown, clarifying questions, and response mode. Route agent traffic through Hai-ic before tools run to cut bad executions.
+                One POST returns confidence, breakdown, clarifying questions, and response mode. Route agent traffic through HAI-IC before tools run to cut bad executions.
               </p>
               <ul className="space-y-2 text-sm md:text-base text-muted">
                 <li>• <code className="text-foreground">POST /api/hai-ic/analyze</code></li>
@@ -161,7 +161,7 @@ export function HaiIcLanding() {
 
           <section id="xai" className="py-16 border-t border-white/10">
             <p className="text-xs uppercase tracking-[0.25em] text-muted mb-3">For xAI</p>
-            <h2 className="text-3xl font-semibold mb-6">Why Hai-ic for Grok & agent stacks</h2>
+            <h2 className="text-3xl font-semibold mb-6">Why HAI-IC for Grok & agent stacks</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="bg-zinc-900 rounded-2xl p-6">
                 <div className="text-emerald-400 font-medium">Before action</div>
@@ -194,7 +194,7 @@ export function HaiIcLanding() {
       </main>
 
       <footer className="border-t border-white/10 py-8 text-center text-sm text-muted">
-        Human + Heart + AI + Law = Verification · Hai-ic by KARAM SHIN
+        Human + Heart + AI + Law = Verification · HAI-IC by KARAM SHIN
       </footer>
     </div>
   );
