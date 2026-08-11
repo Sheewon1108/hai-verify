@@ -9,11 +9,13 @@
 
 | Metric | Target | Measured value | As-of | Source |
 |--------|--------|----------------|-------|--------|
-| Processing speed (analyze calls / sec, single instance) | ___ | ___ | ___ | `scripts/hai-ic-bench-latency.cjs` |
-| Latency p50 (ms) | ___ | ___ | ___ | same |
-| Latency p95 (ms) | ___ | ___ | ___ | same |
-| Cost reduction vs baseline (%) | ___ | ___ | ___ | formula below |
-| Uptime | **≥ 99.9%** | ___ | ___ | health probe log |
+| Processing speed (analyze calls / sec, single instance) | ___ | **135.097** | 2026-08-11 | `npm run hai-ic:bench` · N=100 · `http://127.0.0.1:3001` |
+| Latency p50 (ms) | ___ | **6.09** | 2026-08-11 | same |
+| Latency p95 (ms) | ___ | **12.99** | 2026-08-11 | same |
+| Cost reduction vs baseline (%) | ___ | ___ | ___ | formula below (buyer inputs required) |
+| Uptime | **≥ 99.9%** | ___ | ___ | health probe log (window ≥30d or POC) |
+
+> Loopback bench only — not a public SLA. Re-run against production `BASE_URL` before publishing buyer-facing infra claims.
 
 **Fixed product constants (not SLAs):**
 
