@@ -39,11 +39,23 @@ Payment `pi_3U3EC22eXXOjhg9L1dzLEmDK` · Charge `ch_3U3EC22eXXOjhg9L1cQ46T3v`
 
 ---
 
+## Partner recheck (API, no Dashboard click)
+
+| Item | Status |
+|------|--------|
+| Webhook endpoint | **enabled** → `https://hai-ic.com/api/stripe/webhook` |
+| Event | **checkout.session.completed** present |
+| Custom HAI API key header | **not used** |
+| Balance | available **$0** · pending **$300** (normal after today success) |
+| Payouts | working · recent **paid** $300 / $300 / $600 |
+| Bank | connected (prior report …q1zN) |
+
 ## What Owner still owns
 
-- Stripe Dashboard: bank / tax / receipt send if wanted  
-- Confirm webhook endpoint URL points at **production** (`hai-ic.com` or Workers) + `checkout.session.completed`  
-- After partner **deploy**, optional second $1 test or replay — only if Owner wants  
+- **3** Follow-up emails (courtesy — Owner)  
+- **4** Optional `/order` live smoke (Owner)  
+- Stripe receipt send if wanted  
+- Watch pending $300 → available → bank (schedule automatic)  
 
 ---
 
