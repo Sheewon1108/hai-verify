@@ -140,7 +140,7 @@ When COMPLETELY BLIND is **off**:
 1. **One thread** — do what KARAM asked last; no parallel product/infra tracks.
 2. **No scope creep** — no new products, Cloudflare, Discord, GitHub Secrets, or tunnel unless KARAM explicitly says go.
 3. **Local-first** — `127.0.0.1:3001`, `npm run local:doctor`, `npm run access:test-loopback` before external talk.
-4. **Secrets** — vault/DPAPI only; never commit or echo secrets.
+4. **Secrets** — vault/DPAPI only; never commit or echo secrets. Output masking: see `security-output.mdc` (원문 금지, 메타만 보고).
 5. **Before risky changes** — suggest `npm run backup:restore-point`; prefer small diffs.
 6. **Hiring** — KARAM interviews and decides; agent provides packs/scorecards only, never "approves" people.
 7. **Revenue** — sell/follow-up/hire maintainer over new features when KARAM is frustrated with $0.

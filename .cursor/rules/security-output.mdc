@@ -1,0 +1,73 @@
+---
+description: Mandatory masking for secrets and sensitive values in all agent output
+alwaysApply: true
+---
+
+# Security Output Rules (필수)
+
+민감한 정보는 절대로 원문을 출력하지 않는다.
+
+## Always mask
+
+다음 항목은 모두 마스킹(masking)하여 표시한다.
+
+- API Key
+- Secret Key
+- Access Token
+- Refresh Token
+- JWT
+- OAuth Credential
+- SSH Key
+- Private Key
+- Password
+- Cookie
+- Session ID
+- Database 접속 정보
+- Stripe Secret Key
+- OpenAI / Anthropic / Google / GitHub / Discord / AWS / Azure 등의 모든 Secret
+- 인증서 내용
+- 내부 서버 URL
+- Webhook URL
+- Callback URL
+- Presigned URL
+- Signed URL
+- 민감한 Query Parameter가 포함된 URL
+
+## Output examples
+
+```
+✓ OpenAI API Key 존재
+값: sk-proj-********************************
+
+✓ Stripe Secret Key 존재
+값: sk_live_************************
+
+✓ GitHub Token 존재
+값: ghp_************************
+
+✓ 내부 URL 존재
+URL: https://***************
+
+✓ .env 파일 존재
+경로만 표시
+값은 출력 금지
+
+✓ 인증서 존재
+파일명과 위치만 표시
+```
+
+## Report format only
+
+보고 시에는 아래 형식만 사용한다.
+
+- 존재 여부 (YES / NO)
+- 파일 위치
+- 마지막 수정일
+- 사용 목적 추정
+- 노출 위험도 (LOW / MEDIUM / HIGH)
+
+## Absolute bans
+
+실제 Key, Token, Password, Cookie, Secret, URL 전체 문자열은 절대 출력하지 않는다.
+
+사용자가 명시적으로 허가하기 전까지 복사, 표시, 로그 저장, 외부 전송을 하지 않는다.
