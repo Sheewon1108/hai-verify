@@ -42,6 +42,6 @@ try {
 
 Write-Host ""
 Write-Host "War room rules: .cursor/rules/war-room.mdc"
-Write-Host "MODE: BLIND OFF (2026-08-11) + 50/50 — NO LOOP"
-Write-Host "Order: 가람 생각 → partner finish → 가람 승인 | close: hai-ic/WR-CLOSE-5050.md | secrets never in chat"
+Write-Host "MODE: COMPLETELY BLIND ACTIVE (re-applied 2026-08-11) + 50/50 — NO LOOP"
+Write-Host "Unlock: 실행: / GO: / 해·마무리 | lift: blind off | close: hai-ic/WR-CLOSE-5050.md | secrets never in chat"
 Write-Host "No secrets in chat. Owner: money/family/law. Partner: product half when unlocked."
