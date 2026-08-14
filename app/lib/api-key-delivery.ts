@@ -32,16 +32,16 @@ export async function deliverApiKeyByEmail(
 ): Promise<ApiKeyDeliveryResult> {
   const resendKey = process.env["RESEND_API_KEY"];
   if (!resendKey) {
-    const error = "RESEND_API_KEY not set — API key not emailed";
-    console.error("[webhook]", error);
+    const error = "mail transport not configured";
+    console.error("[webhook] delivery skipped");
     return { ok: false, error };
   }
 
   const from = resolveResendFromEmail();
   const preflight = canDeliverToRecipient(payload.email, from);
   if (!preflight.ok) {
-    console.error("[webhook] email preflight failed:", preflight.reason);
-    return { ok: false, error: preflight.reason };
+    console.error("[webhook] email preflight failed");
+    return { ok: false, error: "recipient not deliverable in current mail mode" };
   }
   const planLabel = API_KEY_PLANS[payload.plan]?.label ?? payload.plan;
   const sessionRef = payload.sessionId.slice(0, 14);
@@ -71,10 +71,9 @@ export async function deliverApiKeyByEmail(
   });
 
   if (!res.ok) {
-    const errText = await res.text().catch(() => "");
-    const error = `Resend ${res.status}: ${errText.slice(0, 200)}`;
-    console.error("[webhook] email delivery failed:", error);
-    return { ok: false, error };
+    await res.text().catch(() => "");
+    console.error("[webhook] email delivery failed", { status: res.status });
+    return { ok: false, error: "email delivery failed" };
   }
 
   return { ok: true };

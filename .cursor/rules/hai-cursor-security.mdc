@@ -1,0 +1,28 @@
+---
+description: HAI → CURSOR SECURITY (XGOMA) — sandbox gate for Cursor agents
+alwaysApply: true
+---
+
+# HAI → CURSOR SECURITY (XGOMA)
+
+KARAM-approved operating gate for Cursor (Cloud/sandbox). Applies to every run.
+
+## Hard constraints
+
+1. **Sandbox only** — run inside the Cursor sandbox / loopback (`127.0.0.1`). No tunnels, no public hosts, no production workers/Vercel ship.
+2. **No secrets in prompts or logs** — never echo or commit API keys, vault values, payment payloads, customer PII, or private URLs. Evidence output is pass/fail + short diff summary only.
+3. **On failure: stop + rollback** — do not continue, do not deploy, do not “try the next workaround.” Restore the last good tree (`git restore` / restore-point) and report FAIL.
+4. **On success: private E2E payment flow only** — mock/test checkout on loopback. **No public deploy** without KARAM ship approval.
+5. **Scope** — do not start work unless KARAM named this run’s scope (this Cloud Agent prompt counts as named scope for that run only). No extra products/infra.
+6. **Output** — evidence only. No secrets. No payment data. No private URLs.
+
+## Allowed private E2E
+
+- `POST /api/checkout` (mock Stripe, `mode: test`) on `127.0.0.1`
+- Direct `processMockCheckout` contract check in `scripts/hai-cursor-security-evidence.cjs`
+
+## Forbidden
+
+- `npm run deploy`, `deploy:cf`, `upload`, wrangler publish, public Stripe live charges
+- Logging `STRIPE_*`, `HAI_API_KEY_SECRET`, checkout URLs, emails, session ids, API keys
+- Expanding scope past the named KARAM run

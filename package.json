@@ -23,6 +23,7 @@
     "vault:migrate": "powershell -ExecutionPolicy Bypass -File ./scripts/vault.ps1 migrate",
     "vault:list": "powershell -ExecutionPolicy Bypass -File ./scripts/vault.ps1 list",
     "backup:restore-point": "powershell -ExecutionPolicy Bypass -File ./scripts/backup-security-restore-point.ps1",
+    "security:cursor": "node ./scripts/hai-cursor-security-evidence.cjs",
     "sell:one": "powershell -ExecutionPolicy Bypass -File ./scripts/send-one-followup.ps1",
     "hire:pack": "powershell -ExecutionPolicy Bypass -File ./scripts/open-hiring-pack.ps1",
     "warroom:status": "powershell -ExecutionPolicy Bypass -File ./scripts/war-room-status.ps1",

@@ -109,10 +109,9 @@ export async function POST(request: NextRequest) {
       },
       { requestOrigin: origin },
     );
-  } catch (err) {
-    const msg = err instanceof Error ? err.message : "Stripe error";
+  } catch {
     return jsonWithCors(
-      { ok: false, error: msg },
+      { ok: false, error: "Payment session failed" },
       { status: 500, requestOrigin: origin },
     );
   }

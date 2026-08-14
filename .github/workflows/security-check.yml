@@ -26,31 +26,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Secret leak scan
-        run: |
-          set -e
-          FOUND=0
-          if grep -rnE 'sk_live_|rk_live_|pk_live_' --include='*.ts' --include='*.tsx' --include='*.js' --include='*.json' --exclude-dir=node_modules --exclude-dir=.next --exclude-dir=.open-next . ; then
-            echo "CRITICAL: Stripe live key prefix in tree"
-            FOUND=1
-          fi
-          if grep -rnE 'sk-proj-|sk-[A-Za-z0-9]{40,}' --include='*.ts' --include='*.tsx' --include='*.js' --exclude-dir=node_modules . ; then
-            echo "CRITICAL: OpenAI-style key prefix in tree"
-            FOUND=1
-          fi
-          if [ "$FOUND" -ne 0 ]; then
-            exit 1
-          fi
-          echo "OK secret scan"
-
-      - name: Env files not tracked
-        run: |
-          set -e
-          if git ls-files --error-unmatch .env.local 2>/dev/null; then
-            echo "CRITICAL: .env.local tracked"
-            exit 1
-          fi
-          echo "OK .env.local not tracked"
+      - name: Cursor security evidence
+        run: npm run security:cursor
 
       - name: Build
         run: npm run build

@@ -28,7 +28,7 @@ function getStripe(): Stripe {
 export async function POST(request: NextRequest) {
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
   if (!webhookSecret) {
-    console.error("[webhook] STRIPE_WEBHOOK_SECRET not set");
+    console.error("[webhook] missing webhook secret");
     return NextResponse.json({ ok: false, error: "Webhook not configured" }, { status: 503 });
   }
 
@@ -43,10 +43,9 @@ export async function POST(request: NextRequest) {
   try {
     const stripe = getStripe();
     event = stripe.webhooks.constructEvent(rawBody, sig, webhookSecret);
-  } catch (err) {
-    const msg = err instanceof Error ? err.message : "Webhook verification failed";
-    console.error("[webhook] verification failed:", msg);
-    return NextResponse.json({ ok: false, error: msg }, { status: 400 });
+  } catch {
+    console.error("[webhook] verification failed");
+    return NextResponse.json({ ok: false, error: "Webhook verification failed" }, { status: 400 });
   }
 
   if (event.type === "checkout.session.completed") {
@@ -56,7 +55,7 @@ export async function POST(request: NextRequest) {
     const plan = (session.metadata?.plan ?? "starter") as ApiKeyPlan;
 
     if (!email) {
-      console.error("[webhook] no email in session", session.id);
+      console.error("[webhook] missing recipient on completed session");
       return NextResponse.json({ ok: false, error: "No email in session" }, { status: 400 });
     }
 
@@ -68,16 +67,12 @@ export async function POST(request: NextRequest) {
         issuedAt: Math.floor(Date.now() / 1000),
         stripeSessionId: session.id,
       });
-    } catch (err) {
-      console.error("[webhook] key generation failed:", err);
+    } catch {
+      console.error("[webhook] key generation failed");
       return NextResponse.json({ ok: false, error: "Key generation failed" }, { status: 500 });
     }
 
-    // Never log or return the raw API key — deliver via email only.
-    console.log(
-      `[webhook] HAI API key issued for ${email} (plan: ${plan}) session=${session.id}`,
-    );
-
+    // Never log or return the raw API key, email, or session id.
     const delivery = await deliverApiKeyByEmail({
       email,
       plan,
@@ -85,15 +80,15 @@ export async function POST(request: NextRequest) {
       sessionId: session.id,
     });
 
+    console.log("[webhook] key_issued", { plan, delivered: delivery.ok });
+
     return NextResponse.json({
       ok: true,
       received: true,
       event: event.type,
       plan,
-      email,
       keyDelivered: delivery.ok,
       delivery: delivery.ok ? "email_sent" : "email_failed",
-      ...(delivery.ok ? {} : { deliveryError: delivery.error ?? "unknown" }),
     });
   }
 
