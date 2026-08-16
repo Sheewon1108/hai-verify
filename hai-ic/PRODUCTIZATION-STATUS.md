@@ -1,8 +1,7 @@
 # Hai-Ic Productization — Status
 
-**Generated:** 2026-07-29  
-**Updated:** 2026-08-08  
-**Owner:** KARAM SHIN  
+**Generated:** 2026-08-16
+**Owner:** KARAM SHIN
 **Legal entity:** XGOMA Inc
 
 ## Parallel tracks
@@ -17,8 +16,8 @@
 
 | Check | Value |
 |-------|-------|
-| Server :3001 | healthy (1.0.0-mvp) |
-| Trust Ledger | 210 q / OFF 124 / ON 86 / avg 75.8% |
+| Server :3001 | offline (start: npm run dev:hai-ic) |
+| Trust Ledger | 200 q / OFF 118 / ON 82 / avg 75.8% |
 | Outreach | outreach sent 2026-07-07 |
 | Follow-up | ~2026-07-14 |
 

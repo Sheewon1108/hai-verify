@@ -4,6 +4,8 @@ const path = require("path");
 const ROOT = path.join(__dirname, "..");
 const HAI_IC = path.join(ROOT, "hai-ic");
 const OUT = path.join(HAI_IC, "PRODUCTIZATION-STATUS.md");
+const OWNER = "KARAM SHIN";
+const LEGAL_ENTITY = "XGOMA Inc";
 
 function readTrustLedger() {
   const p = path.join(HAI_IC, "buyer-deliverables", "TRUST-LEDGER.md");
@@ -48,14 +50,15 @@ async function main() {
 
   const md = `# Hai-Ic Productization — Status
 
-**Generated:** ${today}  
-**Owner:** KARAM SHIN
+**Generated:** ${today}
+**Owner:** ${OWNER}
+**Legal entity:** ${LEGAL_ENTITY}
 
 ## Parallel tracks
 
 | Track | Phase | Next |
 |-------|-------|------|
-| **Hai-Ic** | P2 Package | API key + public deploy |
+| **Hai-Ic** (${LEGAL_ENTITY}) | P2 Package | API key + public deploy |
 | **Transla** | Definition | Woosung LTL proposal |
 | **Link** | Spec | \`transla/HAI-IC-LINK.md\` |
 

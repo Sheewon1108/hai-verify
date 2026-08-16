@@ -25,7 +25,7 @@
     "backup:restore-point": "powershell -ExecutionPolicy Bypass -File ./scripts/backup-security-restore-point.ps1",
     "sell:one": "powershell -ExecutionPolicy Bypass -File ./scripts/send-one-followup.ps1",
     "hire:pack": "powershell -ExecutionPolicy Bypass -File ./scripts/open-hiring-pack.ps1",
-    "warroom:status": "powershell -ExecutionPolicy Bypass -File ./scripts/war-room-status.ps1",
+    "warroom:status": "node ./scripts/war-room-status.cjs",
     "warroom:github-secrets": "powershell -ExecutionPolicy Bypass -File ./scripts/open-github-secrets-steps.ps1",
     "pm2:clear-errors": "powershell -ExecutionPolicy Bypass -File ./scripts/clear-pm2-error-logs.ps1",
     "pm2:register-log-cleanup": "powershell -ExecutionPolicy Bypass -File ./scripts/register-pm2-log-cleanup.ps1",
