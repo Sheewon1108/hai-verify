@@ -5,6 +5,8 @@
 import { NextRequest } from "next/server";
 import { parseRequestLocale, runVerification } from "@/app/lib/verification";
 import { jsonWithCors } from "@/app/lib/cors";
+import { readHaiRequestMeta } from "@/app/lib/hai-request-meta";
+import { HAI_FLOW_STEPS, HAI_RULESET_VERSION } from "@/app/lib/hai-ruleset";
 
 const MAX_CONTENT_LENGTH = 32_000;
 
@@ -17,6 +19,10 @@ export async function GET(request: NextRequest) {
       method: "POST",
       description: "HAI Verify — 75-point Trust Index engine",
       grok: { allowed: true },
+      haiRuleset: {
+        version: HAI_RULESET_VERSION,
+        flowStep: HAI_FLOW_STEPS.HAI_VERIFY,
+      },
       body: {
         content: "string (required)",
         locale: "ko | en (optional, default ko)",
@@ -30,7 +36,8 @@ export async function GET(request: NextRequest) {
   );
 }
 
-export async function POST(request: NextRequest) {  let body: unknown;
+export async function POST(request: NextRequest) {
+  let body: unknown;
 
   try {
     body = await request.json();
@@ -72,6 +79,7 @@ export async function POST(request: NextRequest) {  let body: unknown;
         riskFlags: result.riskFlags,
         summary: result.summary,
         recommendedNextStep: result.recommendedNextStep,
+        haiRuleset: readHaiRequestMeta(request, HAI_FLOW_STEPS.HAI_VERIFY),
       },
       { requestOrigin: request.headers.get("origin") },
     );

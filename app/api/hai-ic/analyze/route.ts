@@ -2,6 +2,8 @@ import { NextRequest } from "next/server";
 import { analyzeIntent, HAI_IC_PRODUCT, HAI_IC_VERSION } from "@/app/lib/hai-ic-analyze";
 import { HAI_IC_CONFIDENCE_THRESHOLD } from "@/app/lib/hai-ic-system-prompt";
 import { jsonWithCors } from "@/app/lib/cors";
+import { readHaiRequestMeta } from "@/app/lib/hai-request-meta";
+import { HAI_FLOW_STEPS, HAI_RULESET_VERSION } from "@/app/lib/hai-ruleset";
 
 const MAX_INPUT_LENGTH = 8_000;
 
@@ -16,6 +18,10 @@ export async function GET(request: NextRequest) {
       method: "POST",
       description: "Hai-ic Intent Confidence Analyzer — pre-execution intent scoring",
       threshold: HAI_IC_CONFIDENCE_THRESHOLD,
+      haiRuleset: {
+        version: HAI_RULESET_VERSION,
+        flowStep: HAI_FLOW_STEPS.HAI_VERIFY,
+      },
       body: { input: "string (required)" },
       example: {
         input: "Restart logistics partnership with Woosung Group via Transla by Q3, budget $50k",
@@ -54,5 +60,12 @@ export async function POST(request: NextRequest) {
   }
 
   const result = analyzeIntent(input);
-  return jsonWithCors({ ok: true, ...result }, { requestOrigin: origin });
+  return jsonWithCors(
+    {
+      ok: true,
+      ...result,
+      haiRuleset: readHaiRequestMeta(request, HAI_FLOW_STEPS.HAI_VERIFY),
+    },
+    { requestOrigin: origin },
+  );
 }

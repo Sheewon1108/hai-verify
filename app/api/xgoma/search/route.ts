@@ -15,11 +15,11 @@
 
 import { NextRequest } from "next/server";
 import { jsonWithCors } from "@/app/lib/cors";
+import { readHaiRequestMeta } from "@/app/lib/hai-request-meta";
 import { analyzeOutput, parseRequestLocale } from "@/app/lib/verification";
 import {
   HAI_THRESHOLDS,
   HAI_FLOW_STEPS,
-  HAI_HEADERS,
   HAI_RULESET_VERSION,
 } from "@/app/lib/hai-ruleset";
 
@@ -134,10 +134,6 @@ export async function POST(request: NextRequest) {
 
   const locale = parseRequestLocale(record.locale, request.headers.get("accept-language"));
 
-  // ── Confirm HAI Ruleset was applied by middleware ─────────────────────────
-  const rulesetActive = request.headers.get(HAI_HEADERS.RULESET_ACTIVE) === "1";
-  const rulesetAppliedAt = request.headers.get(HAI_HEADERS.RULESET_APPLIED_AT) ?? null;
-
   // ── Run HAI Verify on each result ─────────────────────────────────────────
   const verifiedResults: VerifiedSearchResult[] = [];
 
@@ -183,10 +179,7 @@ export async function POST(request: NextRequest) {
       locale,
       verifiedResults,
       orchestratorMeta: {
-        haiRulesetApplied: rulesetActive,
-        rulesetVersion: HAI_RULESET_VERSION,
-        rulesetAppliedAt,
-        flowStep: HAI_FLOW_STEPS.HAI_VERIFY,
+        ...readHaiRequestMeta(request, HAI_FLOW_STEPS.HAI_VERIFY),
         processedAt: new Date().toISOString(),
         totalResults: verifiedResults.length,
         safeResults: safeCount,

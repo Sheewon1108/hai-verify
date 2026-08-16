@@ -3,6 +3,8 @@
 import { NextRequest } from "next/server";
 import { jsonWithCors, corsHeaders } from "@/app/lib/cors";
 import { TRUSTED_PUBLIC_AI_TOOLS } from "@/app/lib/access-control";
+import { readHaiRequestMeta } from "@/app/lib/hai-request-meta";
+import { HAI_FLOW_STEPS } from "@/app/lib/hai-ruleset";
 import {
   PHONE_AREA_POLICY_EN,
   TIMEZONE_MODEL_POLICY_EN,
@@ -25,6 +27,7 @@ export async function GET(request: NextRequest) {
       ok: true,
       service: "HAI Verify",
       mode: process.env.HAI_ACCESS_MODE === "open" ? "open" : "protected",
+      haiRuleset: readHaiRequestMeta(request, HAI_FLOW_STEPS.AI_INPUT),
       access: {
         auth: "Bearer hv_... or X-HAI-API-Key (external); same-origin browser + loopback Host bypass only",
         trustedAiTools: TRUSTED_PUBLIC_AI_TOOLS,
