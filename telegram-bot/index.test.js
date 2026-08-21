@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
+import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import test from "node:test";
@@ -121,6 +122,13 @@ test("pollOnce advances offset and answers each update", async () => {
   assert.deepEqual(sent, [START_MESSAGE, "Verification queued: hello"]);
 });
 
+test("index.js uses fetch only — no telegraf or dotenv", () => {
+  const source = readFileSync(path.join(__dirname, "index.js"), "utf8");
+  assert.match(source, /\bfetch\b/);
+  assert.doesNotMatch(source, /telegraf/i);
+  assert.doesNotMatch(source, /dotenv/i);
+});
+
 test("starting without BOT_TOKEN exits and does not load a .env file", async () => {
   const child = spawn(process.execPath, [path.join(__dirname, "index.js")], {
     cwd: __dirname,
@@ -136,5 +144,5 @@ test("starting without BOT_TOKEN exits and does not load a .env file", async () 
 
   assert.equal(code, 1);
   assert.match(errText, /BOT_TOKEN is required/);
-  assert.doesNotMatch(errText, /\.env/);
+  assert.match(errText, /process\.env\.BOT_TOKEN/);
 });
