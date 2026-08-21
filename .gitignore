@@ -3,6 +3,7 @@
 # dependencies
 /node_modules
 /discord-bot/node_modules
+/telegram-bot/node_modules
 /.pnp
 .pnp.*
 .yarn/*
