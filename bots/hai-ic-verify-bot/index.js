@@ -30,12 +30,14 @@ async function handleUpdate(update) {
   const chatId = message.chat.id;
   const text = message.text.trim();
 
-  if (text === "/start" || text.startsWith("/start ")) {
+  const kind = text === "/start" || text.startsWith("/start ") ? "start" : "queued";
+  if (kind === "start") {
     await sendMessage(chatId, START_MESSAGE);
   } else {
     // TODO: hai-ic verification logic
     await sendMessage(chatId, `Verification queued: ${text}`);
   }
+  console.log(`update ${update.update_id}: replied (${kind})`);
 }
 
 async function poll() {
