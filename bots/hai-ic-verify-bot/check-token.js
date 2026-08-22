@@ -1,7 +1,9 @@
 // Verifies BOT_TOKEN works, without ever printing the token itself.
-const BOT_TOKEN = process.env.BOT_TOKEN;
+const { getToken } = require("./token");
+
+const BOT_TOKEN = getToken();
 if (!BOT_TOKEN) {
-  console.error("NOT READY: BOT_TOKEN environment variable is missing.");
+  console.error("NOT READY: no token. Run `npm run setup` once, or set the BOT_TOKEN environment variable.");
   process.exit(1);
 }
 
