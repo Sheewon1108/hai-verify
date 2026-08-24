@@ -85,11 +85,22 @@ export async function GET(request: NextRequest) {
           path: "/api/xgoma/search",
           body: { query: "string", results: "SearchResult[]", locale: "ko | en (optional)" },
         },
+        approvals: {
+          method: "GET | POST",
+          path: "/api/approvals",
+          body: { id: "string", approved: "boolean (optional, default true)" },
+        },
+        approvalRemind: {
+          method: "GET | POST",
+          path: "/api/approvals/remind",
+          note: "POST sends email when an important watched file is still unapproved and the hour elapsed",
+        },
         health: { method: "GET", path: "/api/health" },
       },
       pages: {
         order: "/order",
         verify: "/verify",
+        approvals: "/approvals",
       },
     },
     { requestOrigin: origin },

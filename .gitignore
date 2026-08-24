@@ -24,6 +24,9 @@
 # local backups (never inside project)
 /scripts/backups/
 
+# local approval-reminder overlay (runtime approvals / last send time)
+/data/open-file-watch.local.json
+
 # misc
 .DS_Store
 *.pem

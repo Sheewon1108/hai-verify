@@ -1,0 +1,19 @@
+{
+  "files": [
+    {
+      "id": "hai-verify-principles",
+      "path": "docs/hai-verify-principles.md",
+      "title": "HAI Verify principles",
+      "important": true,
+      "approvedAt": null
+    },
+    {
+      "id": "hai-verify-one-pager-ko",
+      "path": "docs/hai-verify-one-page-summary-ko.md",
+      "title": "HAI Verify 한 장 요약",
+      "important": false,
+      "approvedAt": null
+    }
+  ],
+  "lastReminderSentAt": null
+}

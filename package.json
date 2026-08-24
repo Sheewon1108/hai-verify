@@ -15,6 +15,7 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
+    "test:approval-reminder": "node --experimental-strip-types --test app/lib/approval-reminder.test.ts",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "deploy:cf": "powershell -ExecutionPolicy Bypass -File ./scripts/deploy-cf.ps1",
