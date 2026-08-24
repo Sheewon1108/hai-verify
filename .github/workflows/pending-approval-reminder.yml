@@ -1,0 +1,40 @@
+name: Pending approval hourly email
+
+on:
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch:
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Send reminder if an open important file is unapproved
+        id: send
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESEND_FROM_EMAIL: ${{ secrets.RESEND_FROM_EMAIL }}
+          RESEND_ACCOUNT_EMAIL: ${{ secrets.RESEND_ACCOUNT_EMAIL }}
+          RESEND_DOMAIN_VERIFIED: ${{ secrets.RESEND_DOMAIN_VERIFIED }}
+          PENDING_APPROVAL_REMINDER_EMAIL: ${{ secrets.PENDING_APPROVAL_REMINDER_EMAIL }}
+        run: |
+          set +e
+          node ./scripts/send-pending-approval-reminder.mjs
+          code=$?
+          if [ "$code" -eq 0 ]; then
+            exit 0
+          fi
+          if [ "$code" -eq 2 ]; then
+            echo "::notice::Reminder needed but Resend is not configured in this workflow. Existing Worker/vault Resend is unchanged."
+            exit 0
+          fi
+          exit "$code"

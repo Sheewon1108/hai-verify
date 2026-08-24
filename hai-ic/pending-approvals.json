@@ -1,0 +1,23 @@
+{
+  "recipientHint": "jay.transtar.inc@gmail.com",
+  "files": [
+    {
+      "id": "wr-close-5050",
+      "path": "hai-ic/WR-CLOSE-5050.md",
+      "title": "50/50 close package",
+      "important": true,
+      "open": true,
+      "approved": false,
+      "note": "Owner stamp still pending. Stripe Inc, production keys, and follow-up sends remain Owner-only."
+    },
+    {
+      "id": "live-300-log",
+      "path": "hai-ic/money-path/LIVE-300-LOG.md",
+      "title": "Live $300 money path",
+      "important": true,
+      "open": true,
+      "approved": false,
+      "note": "Owner still owns follow-up emails and optional /order live smoke. Hourly nag until approved."
+    }
+  ]
+}

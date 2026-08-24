@@ -86,6 +86,11 @@ export async function GET(request: NextRequest) {
           body: { query: "string", results: "SearchResult[]", locale: "ko | en (optional)" },
         },
         health: { method: "GET", path: "/api/health" },
+        pendingApprovals: {
+          method: "GET | POST",
+          path: "/api/reminders/pending-approvals",
+          note: "Hourly email if an open important file is still unapproved. Auth required.",
+        },
       },
       pages: {
         order: "/order",
