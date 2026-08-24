@@ -1,0 +1,20 @@
+{
+  "recipientEmail": "jay.transtar.inc@gmail.com",
+  "note": "Currently watched open files. Hourly email fires only when important=true AND approved=false. To stop a reminder, set approved=true (or important=false).",
+  "openFiles": [
+    {
+      "id": "wr-close-5050",
+      "path": "hai-ic/WR-CLOSE-5050.md",
+      "title": "50/50 close — Owner 최종 승인",
+      "important": true,
+      "approved": false
+    },
+    {
+      "id": "hai-verify-principles",
+      "path": "docs/hai-verify-principles.md",
+      "title": "HAI Verify principles",
+      "important": false,
+      "approved": false
+    }
+  ]
+}
