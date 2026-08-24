@@ -6,11 +6,13 @@
     {
       "path": "hai-ic/WR-CLOSE-5050.md",
       "label": "50/50 close — Owner stamp still open",
+      "sectionMatch": "Owner half",
       "approved": false
     },
     {
       "path": "hai-ic/PRODUCTIZATION-STATUS.md",
       "label": "Hai-ic P2 package — Owner stamp still open",
+      "sectionMatch": "P2 checklist",
       "approved": false
     }
   ]

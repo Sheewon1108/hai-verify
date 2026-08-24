@@ -6,6 +6,7 @@ const path = require("path");
 
 const {
   extractUncheckedItems,
+  sliceSection,
   collectPending,
   resolveRecipient,
   buildEmail,
@@ -27,23 +28,46 @@ test("extractUncheckedItems keeps open boxes and skips family items", () => {
   ]);
 });
 
+test("sliceSection keeps Owner half and stops at the next heading", () => {
+  const section = sliceSection(
+    `
+### Partner half (finish)
+- [ ] Deploy when Owner asks
+
+### Owner half (human only)
+- [ ] Live keys + webhook URL on production
+
+---
+`,
+    "Owner half",
+  );
+  assert.match(section, /Live keys/);
+  assert.doesNotMatch(section, /Deploy when Owner asks/);
+});
+
 test("collectPending reads the two watched files and honors approved/paused", () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "owner-nudge-"));
   fs.mkdirSync(path.join(root, "hai-ic"), { recursive: true });
   fs.writeFileSync(
     path.join(root, "hai-ic", "WR-CLOSE-5050.md"),
-    "- [ ] Live keys + webhook URL on production\n- [ ] Family money / personal schedule — Owner clock only\n",
+    `### Partner half
+- [ ] Deploy when Owner asks
+
+### Owner half (human only)
+- [ ] Live keys + webhook URL on production
+- [ ] Family money / personal schedule — Owner clock only
+`,
   );
   fs.writeFileSync(
     path.join(root, "hai-ic", "PRODUCTIZATION-STATUS.md"),
-    "- [ ] Public deploy (Cloudflare credentials)\n",
+    "## P2 checklist\n- [ ] Public deploy (Cloudflare credentials)\n",
   );
 
   const pending = collectPending(
     {
       files: [
-        { path: "hai-ic/WR-CLOSE-5050.md", label: "close" },
-        { path: "hai-ic/PRODUCTIZATION-STATUS.md", label: "p2" },
+        { path: "hai-ic/WR-CLOSE-5050.md", label: "close", sectionMatch: "Owner half" },
+        { path: "hai-ic/PRODUCTIZATION-STATUS.md", label: "p2", sectionMatch: "P2 checklist" },
       ],
     },
     root,

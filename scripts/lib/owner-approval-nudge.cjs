@@ -11,7 +11,7 @@ const SKIP_ITEM_RE =
   /(family money|personal schedule|owner clock only|가족|개인 일정)/i;
 
 /**
- * @typedef {{ path: string, label?: string, approved?: boolean }} WatchFile
+ * @typedef {{ path: string, label?: string, approved?: boolean, sectionMatch?: string }} WatchFile
  * @typedef {{ version?: number, paused?: boolean, toEmail?: string, files: WatchFile[] }} WatchConfig
  * @typedef {{ file: string, label: string, items: string[] }} PendingFile
  * @typedef {{ ok: boolean, skipped?: string, pending?: PendingFile[], to?: string, subject?: string, text?: string, html?: string, error?: string, sent?: boolean }} NudgeResult
@@ -46,6 +46,30 @@ function extractUncheckedItems(text) {
 }
 
 /**
+ * Keep only the named heading through the next same-or-higher heading / rule line.
+ * @param {string} text
+ * @param {string} [sectionMatch]
+ */
+function sliceSection(text, sectionMatch) {
+  if (!sectionMatch) return text;
+  const needle = sectionMatch.trim().toLowerCase();
+  const lines = text.split(/\r?\n/);
+  const start = lines.findIndex((line) => {
+    const heading = line.match(/^\s*#{1,6}\s+(.+?)\s*$/);
+    return heading ? heading[1].toLowerCase().includes(needle) : false;
+  });
+  if (start < 0) return "";
+  const startDepth = (lines[start].match(/^#{1,6}/) || ["#"])[0].length;
+  const end = lines.findIndex((line, idx) => {
+    if (idx <= start) return false;
+    if (/^\s*---+\s*$/.test(line)) return true;
+    const heading = line.match(/^(#{1,6})\s+/);
+    return heading ? heading[1].length <= startDepth : false;
+  });
+  return lines.slice(start, end < 0 ? undefined : end).join("\n");
+}
+
+/**
  * @param {WatchConfig} config
  * @param {string} root
  */
@@ -68,7 +92,8 @@ function collectPending(config, root) {
       });
       continue;
     }
-    const items = extractUncheckedItems(fs.readFileSync(abs, "utf8"));
+    const body = sliceSection(fs.readFileSync(abs, "utf8"), file.sectionMatch);
+    const items = extractUncheckedItems(body);
     if (items.length === 0) continue;
     pending.push({
       file: rel,
@@ -226,6 +251,7 @@ module.exports = {
   repoRoot,
   readWatchConfig,
   extractUncheckedItems,
+  sliceSection,
   collectPending,
   resolveFromEmail,
   resolveRecipient,
