@@ -24,7 +24,7 @@
 | 1. Outreach | [outreach-message.md](./outreach-message.md) |
 | 2. Intake | [customer-intake.md](./customer-intake.md) |
 | 3. Get paid | Zelle · Wise · PayPal · Venmo · Bank |
-| 4. Deliver | [manual-delivery-flow.md](./manual-delivery-flow.md) |
+| 4. Deliver | [manual-delivery-flow.md](./manual-delivery-flow.md) · 한국어 압축판: [hand-delivery-4step.md](./hand-delivery-4step.md) |
 | 5. Grow revenue | [money-playbook.md](./money-playbook.md) |
 
 ---
