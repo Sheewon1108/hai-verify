@@ -18,6 +18,9 @@ jobs:
         with:
           node-version: "22"
 
+      - name: Verify reminder filter
+        run: node --test ./scripts/test-pending-approval-reminders.mjs
+
       - name: Send reminder if an open important file is unapproved
         id: send
         env:
