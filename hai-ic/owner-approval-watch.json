@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "paused": false,
+  "toEmail": "jay.transtar.inc@gmail.com",
+  "files": [
+    {
+      "path": "hai-ic/WR-CLOSE-5050.md",
+      "label": "50/50 close — Owner stamp still open",
+      "approved": false
+    },
+    {
+      "path": "hai-ic/PRODUCTIZATION-STATUS.md",
+      "label": "Hai-ic P2 package — Owner stamp still open",
+      "approved": false
+    }
+  ]
+}

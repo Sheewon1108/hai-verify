@@ -1,0 +1,27 @@
+name: Owner approval nudge
+
+on:
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch:
+
+jobs:
+  nudge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Email if important items are still unapproved
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESEND_ACCOUNT_EMAIL: ${{ secrets.RESEND_ACCOUNT_EMAIL }}
+          RESEND_FROM_EMAIL: ${{ vars.RESEND_FROM_EMAIL }}
+          RESEND_DOMAIN_VERIFIED: ${{ vars.RESEND_DOMAIN_VERIFIED }}
+        run: node ./scripts/owner-approval-nudge.cjs
