@@ -253,14 +253,14 @@ export function requireFundingWallet(wallet: IsolatedWallet): FundingWallet {
   if (wallet.role !== "funding") {
     throw new WalletIsolationError("Card funding may use the funding wallet only. Bot wallet is blocked.");
   }
-  return toPublicWallet(wallet);
+  return toPublicWallet({ ...wallet, role: "funding" });
 }
 
 export function requireBotWallet(wallet: IsolatedWallet): BotWallet {
   if (wallet.role !== "bot") {
     throw new WalletIsolationError("Bot operations may use the bot wallet only. Funding wallet is blocked.");
   }
-  return toPublicWallet(wallet);
+  return toPublicWallet({ ...wallet, role: "bot" });
 }
 
 function signingSecret(env: EnvReader): string {
