@@ -65,6 +65,9 @@ const PUBLIC_API_ROUTES: ReadonlyArray<{ method: string; path: string }> = [
   { method: "POST", path: "/api/stripe/webhook" },
   { method: "POST", path: "/api/stripe/checkout" },
   { method: "GET", path: "/api/stripe/checkout" },
+  { method: "GET", path: "/api/hai/x/callback" },
+  { method: "GET", path: "/api/hai/fund/approve" },
+  { method: "POST", path: "/api/hai/fund/approve" },
 ];
 
 function isAccessOpen(): boolean {

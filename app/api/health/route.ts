@@ -86,6 +86,21 @@ export async function GET(request: NextRequest) {
           body: { query: "string", results: "SearchResult[]", locale: "ko | en (optional)" },
         },
         health: { method: "GET", path: "/api/health" },
+        haiFund: {
+          method: "POST",
+          path: "/api/hai/fund",
+          body: {
+            amountCents: "number",
+            fundingWalletId: "string",
+            xAccessToken: "string (optional if X session cookie)",
+          },
+          note: "Queues Hai X Money card top-up; Slack/Telegram approval required. Funding wallet only.",
+        },
+        haiXLogin: {
+          method: "GET",
+          path: "/api/hai/x/login",
+          note: "X OAuth 2.0 for @wshin84847 — scopes tweet.read users.read only",
+        },
       },
       pages: {
         order: "/order",

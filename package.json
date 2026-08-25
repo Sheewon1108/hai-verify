@@ -15,6 +15,7 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
+    "test:unit": "tsx --test src/lib/privy.test.ts src/api/hai/fund.test.ts",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "deploy:cf": "powershell -ExecutionPolicy Bypass -File ./scripts/deploy-cf.ps1",
@@ -38,6 +39,7 @@
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.19.11",
+    "@privy-io/node": "^0.6.2",
     "next": "16.2.6",
     "openai": "^6.39.1",
     "react": "19.2.4",
@@ -52,6 +54,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
     "tailwindcss": "^4",
+    "tsx": "^4.23.12",
     "typescript": "^5",
     "wrangler": "^4.95.0"
   }
