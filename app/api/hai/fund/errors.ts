@@ -19,8 +19,14 @@ export function fundErrorResponse(error: unknown, origin: string | null): Respon
     );
   }
   if (error instanceof XOAuthError || error instanceof PrivyConfigError) {
-    const status =
-      error.code.includes("NOT_CONFIGURED") || error.code.includes("MISSING") ? 503 : 401;
+    const configCodes = new Set([
+      "PRIVY_NOT_CONFIGURED",
+      "PRIVY_APP_MISSING",
+      "SIGNING_SECRET_MISSING",
+      "X_OAUTH_NOT_CONFIGURED",
+      "WALLETS_NOT_PROVISIONED",
+    ]);
+    const status = configCodes.has(error.code) ? 503 : 401;
     return jsonWithCors(
       { ok: false, error: error.message, code: error.code },
       { status, requestOrigin: origin },

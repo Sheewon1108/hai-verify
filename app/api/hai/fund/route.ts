@@ -18,6 +18,7 @@ import { fundErrorResponse } from "@/app/api/hai/fund/errors";
 import {
   XOAuthError,
   X_SESSION_COOKIE,
+  assertNoPrivateKeyMaterial,
   fetchVerifiedWorkXUser,
   readXSessionCookieValue,
   resolveWalletPair,
@@ -65,6 +66,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
+    assertNoPrivateKeyMaterial(body);
     const record = body as Record<string, unknown>;
     const xAccount = await resolveFundXAccount(request, record);
     const wallets = resolveWalletPair();
