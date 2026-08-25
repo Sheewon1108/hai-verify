@@ -65,6 +65,11 @@ const PUBLIC_API_ROUTES: ReadonlyArray<{ method: string; path: string }> = [
   { method: "POST", path: "/api/stripe/webhook" },
   { method: "POST", path: "/api/stripe/checkout" },
   { method: "GET", path: "/api/stripe/checkout" },
+  // HMAC approval token is the credential (Slack/Telegram links).
+  { method: "GET", path: "/api/hai/fund/approve" },
+  { method: "POST", path: "/api/hai/fund/approve" },
+  // X redirects here after owner OAuth. PKCE cookie + signed state required.
+  { method: "GET", path: "/api/hai/x/callback" },
 ];
 
 function isAccessOpen(): boolean {
