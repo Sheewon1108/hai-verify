@@ -63,7 +63,7 @@ Do not insert extra names into that seat without a new Owner knot.
 - [x] This close doc (handoff-ready) — `486a2f5` / protocol lock `0f5bfb5`
 - [x] Pitch lock ($300 + EN/KO one-liners + hai-ic.com)
 - [ ] Stripe/live smoke assist **after** Owner sets Dashboard + vault (no keys in chat)
-- [ ] Follow-up **drafts** / logs when Owner asks (`실행:`)
+- [x] Follow-up **drafts** / logs — Owner sent $300 follow-up 2026-08-26 (`hai-ic/outreach/SEND-LOG.md`)
 - [ ] Deploy / `workers:sync-env` when Owner asks
 
 ### Owner half (human only)
@@ -72,7 +72,7 @@ Do not insert extra names into that seat without a new Owner knot.
 - [x] **Live $300 proven** via Payment Link (2026-08-11) — see `hai-ic/money-path/LIVE-300-LOG.md`
 - [ ] Live keys + webhook URL on **production** confirmed after key-email deploy
 - [ ] `/order` still mock — optional later: point UI at live checkout
-- [ ] Follow-up sends (people/list Owner chooses) — Partner drafts, Owner sends or approves send
+- [x] Follow-up sends — Owner sent 2026-08-26 to Growth Loops / Closeloop / instinctools
 - [ ] Family money / personal schedule — Owner clock only
 
 ---

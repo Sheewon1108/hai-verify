@@ -34,7 +34,7 @@ Payment `pi_3U3EC22eXXOjhg9L1dzLEmDK` · Charge `ch_3U3EC22eXXOjhg9L1cQ46T3v`
 | Note: prior webhook generated key but **did not email** (TODO) | Fixed |
 | `/order` → try **live** `/api/stripe/checkout` first (payment mode), mock fallback | **Code** |
 | Checkout mode | **payment** (one-time), not subscription |
-| Follow-up body | `hai-ic/outreach/FOLLOWUP-300-READY.txt` |
+| Follow-up body | `hai-ic/outreach/FOLLOWUP-300-READY.txt` — **Owner sent 2026-08-26** |
 | Receipt email from Stripe | Owner can send from Dashboard if needed |
 
 ---
@@ -52,7 +52,7 @@ Payment `pi_3U3EC22eXXOjhg9L1dzLEmDK` · Charge `ch_3U3EC22eXXOjhg9L1cQ46T3v`
 
 ## What Owner still owns
 
-- **3** Follow-up emails (courtesy — Owner)  
+- **3** Follow-up emails — **sent 2026-08-26** (Growth Loops, Closeloop, instinctools; Owner Gmail, separate sends)  
 - **4** Optional `/order` live smoke (Owner)  
 - Stripe receipt send if wanted  
 - Watch pending $300 → available → bank (schedule automatic)  
