@@ -36,7 +36,10 @@
     "remind:pending-approvals": "node ./scripts/send-pending-approval-reminder.mjs",
     "test:pending-approvals": "node --test ./scripts/test-pending-approval-reminders.mjs",
     "outreach:reply-notify": "node ./scripts/notify-outreach-reply.mjs",
+    "outreach:gmail-readonly-login": "node ./scripts/gmail-readonly-login.mjs",
+    "outreach:gmail-readonly-poll": "node ./scripts/poll-gmail-outreach-replies.mjs",
     "test:outreach-reply": "node --test ./scripts/test-outreach-reply-notify.mjs",
+    "test:gmail-readonly": "node --test ./scripts/test-gmail-readonly.mjs",
     "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },

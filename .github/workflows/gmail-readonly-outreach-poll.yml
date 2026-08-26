@@ -1,0 +1,50 @@
+name: Gmail readonly outreach poll
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Verify readonly helpers
+        run: node --test ./scripts/test-gmail-readonly.mjs ./scripts/test-outreach-reply-notify.mjs
+
+      - name: Restore seen message ids
+        uses: actions/cache@v4
+        with:
+          path: .local/gmail-reply-seen.json
+          key: gmail-readonly-seen
+
+      - name: Poll watched inboxes (read-only)
+        id: poll
+        env:
+          GMAIL_OAUTH_CLIENT_ID: ${{ secrets.GMAIL_OAUTH_CLIENT_ID }}
+          GMAIL_OAUTH_CLIENT_SECRET: ${{ secrets.GMAIL_OAUTH_CLIENT_SECRET }}
+          GMAIL_REFRESH_TOKEN: ${{ secrets.GMAIL_REFRESH_TOKEN }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
+          OUTREACH_REPLY_NOTIFY_EMAIL: ${{ secrets.OUTREACH_REPLY_NOTIFY_EMAIL }}
+        run: |
+          set +e
+          node ./scripts/poll-gmail-outreach-replies.mjs
+          code=$?
+          if [ "$code" -eq 0 ]; then
+            exit 0
+          fi
+          if [ "$code" -eq 2 ]; then
+            echo "::notice::gmail_readonly_grant_missing — this is a system error, not an empty inbox. Vault names: GMAIL_OAUTH_CLIENT_ID GMAIL_OAUTH_CLIENT_SECRET GMAIL_REFRESH_TOKEN"
+            exit 0
+          fi
+          exit "$code"

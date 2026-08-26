@@ -97,6 +97,11 @@ export async function GET(request: NextRequest) {
           body: { from: "string", subject: "string?", text: "string?" },
           note: "Watched outreach reply → Grok Korean alert. Auth required.",
         },
+        gmailReadonlyPoll: {
+          method: "GET | POST",
+          path: "/api/outreach/gmail-readonly-poll",
+          note: "Gmail read-only poll of the 3 follow-up inboxes. Never sends Gmail. Missing grant is a system error. Auth required.",
+        },
       },
       pages: {
         order: "/order",

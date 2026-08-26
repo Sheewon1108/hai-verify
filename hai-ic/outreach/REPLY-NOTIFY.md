@@ -1,7 +1,8 @@
-# 회신 오면 알려주는 방법 (Grok)
+# 회신 읽기 (읽기 전용)
 
-가람이 메일 내용을 다 읽을 필요 없음.  
-**감시하는 3곳에서 회신이 오면** Grok이 한국어 3~4줄로 풀어서 가람 메일로 알림.
+이 방은 Gmail을 **보내지 않는다**.  
+가람이 팔로업을 보낸 뒤, 이 방은 **회신이 왔는지 읽기만** 한다.  
+읽기가 안 되면 빈 메일함이 아니다. **시스템 오류**다.
 
 감시 주소 (2026-08-26 팔로업과 같음):
 
@@ -9,30 +10,45 @@
 - Closeloop — sales@closeloop.com
 - instinctools — contact@instinctools.com
 
-## 가람이 할 일 (한 번)
+그다음: 회신 옴 → Grok 짧은 한국어 알림 → `DEMO-30-READY.md` 보고 30분.
 
-Gmail에서 위 3주소 **자동 전달**을 켠다.
+## 가람이 한 번만 (읽기 허용)
 
-1. Gmail → 설정 → 필터  
-2. From: 위 주소 하나 (필터 3개)  
-3. 동작: 전달 또는, 회신 오면 이 방에 `--from` 한 줄 붙여 넣기
+비밀번호 / 토큰 값을 채팅에 넣지 말 것.
 
-비밀번호는 채팅에 넣지 말 것. vault의 `XAI_API_KEY` / `RESEND_API_KEY`만 쓰면 됨.
+1. Google Cloud에서 OAuth 클라이언트 (웹, redirect `http://127.0.0.1:8765/oauth2callback`)
+2. vault 이름만 넣기: `GMAIL_OAUTH_CLIENT_ID`, `GMAIL_OAUTH_CLIENT_SECRET`
+3. 가람 PC에서:
 
-## 회신 왔을 때 (이 방)
+```
+실행: npm run outreach:gmail-readonly-login
+```
+
+4. 브라우저가 열리면 **읽기만** 허용 (`gmail.readonly`). 보내기 권한 없음.
+5. 끝나면 `.local/gmail-readonly.json`에 refresh가 생긴다. vault 이름 `GMAIL_REFRESH_TOKEN`에만 넣고, 값은 채팅에 붙이지 말 것.
+
+허용이 없으면 Google이 메일함을 안 연다. 그건 보내기 거절이 아니라 **읽기 허용이 없는 상태**다.
+
+## 회신 확인
+
+```
+실행: npm run outreach:gmail-readonly-poll
+```
+
+- 허용 없음 → `gmail_readonly_grant_missing` (exit 2). 빈 수신함으로 말하지 말 것.
+- 회신 있음 → 기존 알림: Grok 한국어 + 가능하면 `[HAI] 회신 옴 — 회사명`
+- 본문은 snippet만. 보내기 / 삭제 / 수정 API 없음.
+
+수동 한 줄(필터 전달이 있을 때):
 
 ```
 실행: node ./scripts/notify-outreach-reply.mjs --from "sales@closeloop.com" --subject "Re: HAI-IC" --body "붙여넣은 본문"
 ```
 
-Grok이 짧은 한국어로 바꾸고, 가능하면 `jay.transtar.inc@gmail.com`으로 `[HAI] 회신 옴 — 회사명` 메일을 보냄.
+## 자동 경로
 
-키가 없으면 Grok 없이 같은 4줄 안내만 출력함. 메일은 안 감.
+- 30분마다: `.github/workflows/gmail-readonly-outreach-poll.yml`
+- 허용 시크릿이 없으면 notice로 끝나고 실패로 위장하지 않음
+- `GET|POST /api/outreach/gmail-readonly-poll` — Auth 필요. POST는 허용 없으면 503.
 
-## 자동 경로 (배포 후)
-
-`POST /api/outreach/reply-notify`  
-Body: `{ "from", "subject", "text" }`  
-Auth: 기존 HAI API 키.
-
-Gmail이 이 URL로 직접 못 감. 전달이나 스크립트가 중간이다.
+키 이름만: `GMAIL_OAUTH_CLIENT_ID`, `GMAIL_OAUTH_CLIENT_SECRET`, `GMAIL_REFRESH_TOKEN`, `XAI_API_KEY`, `RESEND_API_KEY`.
