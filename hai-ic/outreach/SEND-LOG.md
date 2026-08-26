@@ -37,6 +37,7 @@
 - [x] KARAM sent batch 2 follow-up (2026-08-26)
 - [ ] Reply received
 - [ ] 30-min demo scheduled
+- [x] 30-min demo desk card ready — `hai-ic/outreach/DEMO-30-READY.md`
 
 ## Notes
 
