@@ -91,6 +91,12 @@ export async function GET(request: NextRequest) {
           path: "/api/reminders/pending-approvals",
           note: "Hourly email if an open important file is still unapproved. Auth required.",
         },
+        outreachReplyNotify: {
+          method: "POST",
+          path: "/api/outreach/reply-notify",
+          body: { from: "string", subject: "string?", text: "string?" },
+          note: "Watched outreach reply → Grok Korean alert. Auth required.",
+        },
       },
       pages: {
         order: "/order",

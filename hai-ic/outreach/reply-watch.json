@@ -1,0 +1,20 @@
+{
+  "notifyHint": "jay.transtar.inc@gmail.com",
+  "contacts": [
+    {
+      "id": "growth-loops",
+      "company": "Growth Loops",
+      "email": "gunendu@growthloopstechnology.com"
+    },
+    {
+      "id": "closeloop",
+      "company": "Closeloop",
+      "email": "sales@closeloop.com"
+    },
+    {
+      "id": "instinctools",
+      "company": "instinctools",
+      "email": "contact@instinctools.com"
+    }
+  ]
+}
