@@ -28,6 +28,12 @@ export async function middleware(request: NextRequest) {
     [HAI_HEADERS.FLOW_STEP]: HAI_FLOW_STEPS.AI_INPUT,
   };
 
+  if (pathname === "/room" || pathname.startsWith("/room/") || pathname.startsWith("/api/room")) {
+    haiHeaders["X-Robots-Tag"] = "noindex, nofollow, noarchive";
+    haiHeaders["Referrer-Policy"] = "no-referrer";
+    haiHeaders["Cache-Control"] = "no-store";
+  }
+
   if (!pathname.startsWith("/api/")) {
     const response = NextResponse.next();
     for (const [key, value] of Object.entries(haiHeaders)) {
