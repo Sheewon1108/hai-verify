@@ -3,7 +3,7 @@
 // Copyright 2026 KARAM. All Rights Reserved.
 // Private & Confidential. Unauthorized copying or distribution of this file is strictly prohibited.
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { decryptText, encryptText } from "@/app/lib/private-rooms/crypto";
 import { drawOne, parseDrawLines } from "@/app/lib/private-rooms/draw";
 import {
@@ -63,6 +63,7 @@ export function RoomView({ room }: { room: PrivateRoomId }) {
   const [drawInput, setDrawInput] = useState("");
   const [drawResult, setDrawResult] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const composingRef = useRef(false);
 
   const active = useMemo(
     () => notes.find((note) => note.id === activeId) ?? null,
@@ -279,9 +280,19 @@ export function RoomView({ room }: { room: PrivateRoomId }) {
           <>
             <textarea
               value={draft}
-              onChange={(event) => setDraft(event.target.value)}
+              onCompositionStart={() => {
+                composingRef.current = true;
+              }}
+              onCompositionEnd={(event) => {
+                composingRef.current = false;
+                setDraft(event.currentTarget.value);
+              }}
+              onChange={(event) => {
+                if (composingRef.current) return;
+                setDraft(event.currentTarget.value);
+              }}
               placeholder={room === "nakseo" ? "여기." : "뽑아낸 것, 남겨둘 말."}
-              className="min-h-72 flex-1 resize-none rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-4 text-base leading-7 text-white caret-white outline-none placeholder:text-white/30"
+              className="min-h-72 flex-1 resize-none rounded-2xl border border-white/10 bg-[#16162b] px-4 py-4 text-base leading-7 text-[#f4f4f8] caret-[#f4f4f8] outline-none placeholder:text-white/30"
             />
             <div className="mt-3 flex items-center justify-between text-[11px] text-white/35">
               <span>
