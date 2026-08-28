@@ -25,7 +25,7 @@ export function corsHeaders(requestOrigin: string | null): HeadersInit {
     "Access-Control-Allow-Origin": allowOrigin,
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
     "Access-Control-Allow-Headers":
-      "Content-Type, Accept, Accept-Language, Authorization, X-Requested-With",
+      "Content-Type, Accept, Accept-Language, Authorization, X-Requested-With, X-HAI-API-Key",
     "Access-Control-Max-Age": "86400",
   };
 }

@@ -63,7 +63,8 @@ const PUBLIC_API_ROUTES: ReadonlyArray<{ method: string; path: string }> = [
   { method: "GET", path: "/api/health" },
   { method: "GET", path: "/api/hai-ic/health" },
   { method: "POST", path: "/api/stripe/webhook" },
-  { method: "POST", path: "/api/stripe/checkout" },
+  // POST /api/stripe/checkout is protected: unauthenticated callers get 401.
+  // /order still works via same-origin (sec-fetch-site or matching Origin).
   { method: "GET", path: "/api/stripe/checkout" },
 ];
 
@@ -153,7 +154,15 @@ function isLoopbackClient(request: Request): boolean {
 }
 
 function isSameOriginBrowserRequest(request: Request): boolean {
-  return request.headers.get("sec-fetch-site") === "same-origin";
+  if (request.headers.get("sec-fetch-site") === "same-origin") return true;
+
+  const origin = request.headers.get("origin");
+  if (!origin) return false;
+  try {
+    return new URL(origin).hostname.toLowerCase() === requestHost(request);
+  } catch {
+    return false;
+  }
 }
 
 function extractApiKey(request: Request): string | null {

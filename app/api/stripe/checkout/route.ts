@@ -7,6 +7,9 @@
  * Creates a Stripe Checkout Session for HAI Verify API key purchase.
  * On payment success, Stripe calls /api/stripe/webhook which issues the API key.
  *
+ * Auth: same-origin /order, loopback, or Bearer / X-HAI-API-Key.
+ * Unauthenticated external POST → 401.
+ *
  * Body: { plan: "starter" | "pro", email: string }
  */
 
@@ -26,7 +29,11 @@ const PRICE_IDS: Partial<Record<ApiKeyPlan, string>> = {
 function getStripe(): Stripe {
   const key = process.env.STRIPE_SECRET_KEY;
   if (!key) throw new Error("STRIPE_SECRET_KEY is not set");
-  return new Stripe(key, { apiVersion: "2026-06-24.dahlia" });
+  return new Stripe(key, {
+    apiVersion: "2026-06-24.dahlia",
+    timeout: 10_000,
+    maxNetworkRetries: 0,
+  });
 }
 
 function getBaseUrl(request: NextRequest): string {
@@ -111,9 +118,10 @@ export async function POST(request: NextRequest) {
     );
   } catch (err) {
     const msg = err instanceof Error ? err.message : "Stripe error";
+    const timedOut = /timeout|timed out|ETIMEDOUT|abort/i.test(msg);
     return jsonWithCors(
-      { ok: false, error: msg },
-      { status: 500, requestOrigin: origin },
+      { ok: false, error: timedOut ? "Payment system timed out. Try again." : msg },
+      { status: timedOut ? 503 : 500, requestOrigin: origin },
     );
   }
 }
