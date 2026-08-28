@@ -144,11 +144,20 @@ async function postCheckout(input: {
 > {
   // Prefer live Stripe Checkout; fall back to mock only if live is unavailable.
   const plan = input.planId === "trust_pilot" ? "pro" : "starter";
-  const liveRes = await fetch("/api/stripe/checkout", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ plan, email: input.email }),
-  });
+  let liveRes: Response;
+  try {
+    liveRes = await fetch("/api/stripe/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ plan, email: input.email }),
+      signal: AbortSignal.timeout(15_000),
+    });
+  } catch {
+    liveRes = new Response(JSON.stringify({ ok: false }), {
+      status: 503,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
   const liveData = (await liveRes.json()) as {
     ok?: boolean;
     checkoutUrl?: string | null;

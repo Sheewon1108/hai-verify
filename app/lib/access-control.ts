@@ -63,7 +63,9 @@ const PUBLIC_API_ROUTES: ReadonlyArray<{ method: string; path: string }> = [
   { method: "GET", path: "/api/health" },
   { method: "GET", path: "/api/hai-ic/health" },
   { method: "POST", path: "/api/stripe/webhook" },
-  { method: "POST", path: "/api/stripe/checkout" },
+  // GET documents the endpoint. POST creates a paid session — not public.
+  // Unauthenticated external POST /api/stripe/checkout → 401.
+  // Same-origin /order and loopback Host still pass the checks below.
   { method: "GET", path: "/api/stripe/checkout" },
 ];
 
@@ -153,7 +155,17 @@ function isLoopbackClient(request: Request): boolean {
 }
 
 function isSameOriginBrowserRequest(request: Request): boolean {
-  return request.headers.get("sec-fetch-site") === "same-origin";
+  const fetchSite = request.headers.get("sec-fetch-site");
+  if (fetchSite === "same-origin") return true;
+  if (fetchSite === "cross-site" || fetchSite === "none") return false;
+
+  const origin = request.headers.get("origin");
+  if (!origin) return false;
+  try {
+    return new URL(origin).hostname.toLowerCase() === requestHost(request);
+  } catch {
+    return false;
+  }
 }
 
 function extractApiKey(request: Request): string | null {

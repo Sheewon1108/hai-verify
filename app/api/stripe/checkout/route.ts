@@ -26,7 +26,11 @@ const PRICE_IDS: Partial<Record<ApiKeyPlan, string>> = {
 function getStripe(): Stripe {
   const key = process.env.STRIPE_SECRET_KEY;
   if (!key) throw new Error("STRIPE_SECRET_KEY is not set");
-  return new Stripe(key, { apiVersion: "2026-06-24.dahlia" });
+  return new Stripe(key, {
+    apiVersion: "2026-06-24.dahlia",
+    timeout: 12_000,
+    maxNetworkRetries: 0,
+  });
 }
 
 function getBaseUrl(request: NextRequest): string {
