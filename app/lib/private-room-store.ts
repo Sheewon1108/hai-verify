@@ -6,7 +6,7 @@ import {
   isSafeLookupId,
   parseEncryptedRoomBlob,
   type EncryptedRoomBlob,
-} from "./private-room.ts";
+} from "./private-room";
 
 const memoryStore = new Map<string, string>();
 const CACHE_NAME = "hai-pair-room-v1";

@@ -103,15 +103,39 @@ async function putServerBlob(lookupId: string, blob: EncryptedRoomBlob): Promise
   }
 }
 
+const liveRoom: {
+  unlocked: UnlockedRoom | null;
+  seat: PrivateRoomSeat;
+  payload: DiaryPayload;
+} = {
+  unlocked: null,
+  seat: "owner",
+  payload: emptyDiaryPayload(),
+};
+
 export function PrivateRoomApp({ view }: { view: PrivateRoomView }) {
-  const [unlocked, setUnlocked] = useState<UnlockedRoom | null>(null);
-  const [seat, setSeat] = useState<PrivateRoomSeat>("owner");
-  const [payload, setPayload] = useState<DiaryPayload>(emptyDiaryPayload);
+  const [unlocked, setUnlockedState] = useState<UnlockedRoom | null>(liveRoom.unlocked);
+  const [seat, setSeatState] = useState<PrivateRoomSeat>(liveRoom.seat);
+  const [payload, setPayloadState] = useState<DiaryPayload>(liveRoom.payload);
   const [passphrase, setPassphrase] = useState("");
   const [draft, setDraft] = useState("");
   const [status, setStatus] = useState("");
   const [busy, setBusy] = useState(false);
   const [showTraces, setShowTraces] = useState(view === "hub");
+  const draftRef = useRef<HTMLTextAreaElement>(null);
+
+  const setUnlocked = (value: UnlockedRoom | null) => {
+    liveRoom.unlocked = value;
+    setUnlockedState(value);
+  };
+  const setSeat = (value: PrivateRoomSeat) => {
+    liveRoom.seat = value;
+    setSeatState(value);
+  };
+  const setPayload = (value: DiaryPayload) => {
+    liveRoom.payload = value;
+    setPayloadState(value);
+  };
 
   const persist = useCallback(
     async (next: DiaryPayload, room: UnlockedRoom) => {
@@ -178,7 +202,7 @@ export function PrivateRoomApp({ view }: { view: PrivateRoomView }) {
 
   const saveDraft = useCallback(async () => {
     if (!unlocked) return;
-    const body = draft.trim();
+    const body = (draftRef.current?.value ?? draft).trim();
     if (!body) {
       setStatus("빈 글은 안 남깁니다.");
       return;
@@ -322,6 +346,7 @@ export function PrivateRoomApp({ view }: { view: PrivateRoomView }) {
                 막 쓰기. 복불복 전용. 내가 채우지 않습니다.
               </label>
               <textarea
+                ref={draftRef}
                 id="bok-draft"
                 value={draft}
                 onChange={(event) => setDraft(event.target.value)}
@@ -474,18 +499,19 @@ function LockForm({
     onOpen(live);
   };
 
+  useEffect(() => {
+    document.documentElement.dataset.roomHydrated = "1";
+  }, []);
+
   return (
-    <section className="rounded-2xl border border-white/8 bg-surface p-5 sm:p-6">
+    <section
+      data-room-lock="1"
+      className="rounded-2xl border border-white/8 bg-surface p-5 sm:p-6"
+    >
       <p className="text-sm leading-6 text-white/75">
         방 열쇠는 채팅·메일·문자에 적지 마세요. 두 사람만 아는 문장으로 정하면, 어느
         기기에서 이 경로로 들어와도 같은 낙서가 열립니다.
       </p>
-      <form
-        onSubmit={(event) => {
-          event.preventDefault();
-          submit();
-        }}
-      >
       <fieldset className="mt-5">
         <legend className="text-xs text-white/45">자리</legend>
         <div className="mt-2 flex gap-2">
@@ -507,6 +533,12 @@ function LockForm({
         type="password"
         defaultValue={passphrase}
         onChange={(event) => onPassphrase(event.target.value)}
+        onKeyDown={(event) => {
+          if (event.key === "Enter") {
+            event.preventDefault();
+            submit();
+          }
+        }}
         autoComplete="off"
         autoCorrect="off"
         autoCapitalize="off"
@@ -519,13 +551,13 @@ function LockForm({
         {PRIVATE_ROOM_MIN_KEY_LENGTH}자 이상. 브라우저 비밀번호 저장은 끄고 쓰는 편이 맞습니다.
       </p>
       <button
-        type="submit"
+        type="button"
         disabled={busy}
+        onClick={submit}
         className="mt-5 rounded-lg bg-accent px-4 py-2.5 text-sm text-white disabled:opacity-50"
       >
         {busy ? "여는 중" : "열기"}
       </button>
-      </form>
       {status ? (
         <p className="mt-4 rounded-lg bg-white/6 px-3 py-2 text-sm text-white/80">{status}</p>
       ) : null}

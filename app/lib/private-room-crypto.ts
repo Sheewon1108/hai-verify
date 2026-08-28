@@ -9,7 +9,7 @@ import {
   parseEncryptedRoomBlob,
   type DiaryPayload,
   type EncryptedRoomBlob,
-} from "./private-room.ts";
+} from "./private-room";
 
 const TEXT = new TextEncoder();
 const TEXT_DECODER = new TextDecoder();

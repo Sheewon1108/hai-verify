@@ -8,12 +8,12 @@ import {
   parseEncryptedRoomBlob,
   PRIVATE_ROOM_PROTOCOL,
   type DiaryPayload,
-} from "./private-room.ts";
+} from "./private-room";
 import {
   decryptDiaryPayload,
   encryptDiaryPayload,
   unlockRoomKey,
-} from "./private-room-crypto.ts";
+} from "./private-room-crypto";
 
 function entry(
   id: string,

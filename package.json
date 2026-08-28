@@ -15,7 +15,7 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
-    "test:private-room": "node --experimental-strip-types --test app/lib/private-room.test.ts",
+    "test:private-room": "node --experimental-strip-types --import ./scripts/bare-ts-register.mjs --test app/lib/private-room.test.ts",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "deploy:cf": "powershell -ExecutionPolicy Bypass -File ./scripts/deploy-cf.ps1",

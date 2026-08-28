@@ -77,6 +77,6 @@ export const config = {
   // Keep static public assets (incl. mp4) out of Edge middleware so
   // Cloudflare Workers ASSETS / OpenNext can serve them directly.
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:mp4|webm|mov|avi|mkv|png|jpg|jpeg|gif|svg|ico|webp|txt|xml|json|js|css|map|woff2?)$).*)",
+    "/((?!_next/|favicon.ico|.*\\.(?:mp4|webm|mov|avi|mkv|png|jpg|jpeg|gif|svg|ico|webp|txt|xml|json|js|css|map|woff2?)$).*)",
   ],
 };
