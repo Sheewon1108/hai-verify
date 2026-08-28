@@ -213,10 +213,16 @@ function PrivateNav({
             );
           })}
         </nav>
-        <div className="flex items-center gap-3 text-[11px] text-white/40">
-          <span>{seat === "owner" ? "나" : "그양반"}</span>
-          {persistMode === "memory" ? <span>이 프로세스가 꺼지면 글이 사라질 수 있음</span> : null}
-          <button type="button" onClick={onLeave} className="text-white/55 hover:text-white">
+        <div className="flex items-center gap-2 text-[11px] text-white/55">
+          <span className="rounded-md border border-white/15 px-2 py-1 text-white/80">
+            {seat === "owner" ? "나" : "그양반"}
+          </span>
+          {persistMode === "memory" ? <span className="hidden sm:inline">저장이 약함</span> : null}
+          <button
+            type="button"
+            onClick={onLeave}
+            className="rounded-lg border border-white/25 bg-white/10 px-3 py-1.5 text-xs text-white hover:bg-white/20"
+          >
             나가기
           </button>
         </div>

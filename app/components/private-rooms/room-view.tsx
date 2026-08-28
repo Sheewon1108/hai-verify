@@ -108,9 +108,16 @@ export function RoomView({ room }: { room: PrivateRoomId }) {
   }, [load]);
 
   useEffect(() => {
-    if (!active || active.locked) return;
-    setDraft(active.text);
-  }, [active]);
+    if (!activeId) {
+      setDraft("");
+      return;
+    }
+    const current = notes.find((note) => note.id === activeId);
+    if (!current || current.locked) return;
+    setDraft(current.text);
+    // Switching notes only — do not reset while the same note autosaves.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeId]);
 
   const persist = useCallback(
     async (id: string | null, text: string, kind: NoteKind = "note") => {
@@ -274,7 +281,7 @@ export function RoomView({ room }: { room: PrivateRoomId }) {
               value={draft}
               onChange={(event) => setDraft(event.target.value)}
               placeholder={room === "nakseo" ? "여기." : "뽑아낸 것, 남겨둘 말."}
-              className="min-h-72 flex-1 resize-none bg-transparent text-base leading-7 text-white/90 outline-none"
+              className="min-h-72 flex-1 resize-none rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-4 text-base leading-7 text-white caret-white outline-none placeholder:text-white/30"
             />
             <div className="mt-3 flex items-center justify-between text-[11px] text-white/35">
               <span>
