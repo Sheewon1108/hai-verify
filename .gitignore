@@ -63,3 +63,6 @@ next-env.d.ts
 secrets/
 .secrets/
 service-account*.json
+
+# private rooms vault (ciphertext only, still never commit)
+/data/private-rooms/

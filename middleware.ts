@@ -20,6 +20,20 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const origin = request.headers.get("origin");
   const now = new Date().toISOString();
+  const isPrivateSurface =
+    pathname === "/private"
+    || pathname.startsWith("/private/")
+    || pathname.startsWith("/api/private-rooms");
+
+  if (isPrivateSurface) {
+    const response = request.method === "OPTIONS" && pathname.startsWith("/api/private-rooms")
+      ? new NextResponse(null, { status: 204 })
+      : NextResponse.next();
+    response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive, nosnippet, noimageindex");
+    response.headers.set("Cache-Control", "no-store, no-cache, must-revalidate, private");
+    response.headers.set("Referrer-Policy", "no-referrer");
+    return response;
+  }
 
   const haiHeaders: Record<string, string> = {
     [HAI_HEADERS.RULESET_ACTIVE]: "1",
