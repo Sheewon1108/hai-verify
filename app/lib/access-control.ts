@@ -63,7 +63,9 @@ const PUBLIC_API_ROUTES: ReadonlyArray<{ method: string; path: string }> = [
   { method: "GET", path: "/api/health" },
   { method: "GET", path: "/api/hai-ic/health" },
   { method: "POST", path: "/api/stripe/webhook" },
-  { method: "POST", path: "/api/stripe/checkout" },
+  // POST /api/stripe/checkout is intentionally NOT public: unauthenticated
+  // POST must return 401. The /order page still works because same-origin
+  // browser requests pass the sec-fetch-site check in checkRequestHeaders.
   { method: "GET", path: "/api/stripe/checkout" },
 ];
 
