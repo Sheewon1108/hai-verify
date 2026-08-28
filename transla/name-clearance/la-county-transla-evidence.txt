@@ -1,0 +1,30 @@
+LA Vote official FBN search page states:
+- Open data portal covers February 2024 to present.
+- Online name search covers April 2011 to present.
+
+LA Vote online name search exact checks:
+- TRANSLA: total_rows=113 exact_matches=0 prefix_matches=10
+  prefix_example: {'filingNumber': 2024139835, 'filedTS': '2024-07-01T08:51:40.117', 'name': 'TRANSLANGO'}
+  prefix_example: {'filingNumber': 2021258626, 'filedTS': '2021-11-29T13:02:57.287', 'name': 'Translantic Enterprises'}
+  prefix_example: {'filingNumber': 2022198772, 'filedTS': '2022-09-08T14:52:06.93', 'name': 'TRANSLATE AND HELP '}
+  prefix_example: {'filingNumber': 2023264285, 'filedTS': '2023-12-11T08:00:00', 'name': 'TRANSLATE CULTURE'}
+  prefix_example: {'filingNumber': 2025055472, 'filedTS': '2025-03-18T14:12:01.733', 'name': 'TRANSLATE MI'}
+  prefix_example: {'filingNumber': 2023079856, 'filedTS': '2023-04-11T09:59:57.217', 'name': 'TRANSLATE YOUR SKILLS'}
+  prefix_example: {'filingNumber': 2025034564, 'filedTS': '2025-02-19T15:40:53.197', 'name': 'TRANSLATING SOLUTIONS'}
+  prefix_example: {'filingNumber': 2024212629, 'filedTS': '2024-10-15T08:00:00', 'name': 'TRANSLATION IN CONTEXT'}
+  prefix_example: {'filingNumber': 2022013752, 'filedTS': '2022-01-20T14:23:04.913', 'name': 'TRANSLATION, INTERPRETING, AND VIDEOGRAPHY SERVICES'}
+  prefix_example: {'filingNumber': 2022112193, 'filedTS': '2022-05-24T08:41:09.513', 'name': 'TRANSLATOR NEEDED'}
+- TRANSLA INC: total_rows=0 exact_matches=0 prefix_matches=0
+- TRANSLA LLC: total_rows=0 exact_matches=0 prefix_matches=0
+- TRANSLA TRANSPORTATION: total_rows=0 exact_matches=0 prefix_matches=0
+
+LA County open data exact/prefix checks:
+- TRANSLA: count=0
+- TRANSLA INC: count=0
+- TRANSLA LLC: count=0
+- TRANSLA TRANSPORTATION: count=0
+- TRANSLA_PREFIX: count=4
+  {'FilingNumber': '2024139835', 'FiledTS': 1719817200000, 'BusinessName': 'TRANSLANGO', 'BusinessType': 'Individual', 'BusinessCity': 'LOS ANGELES'}
+  {'FilingNumber': '2025055472', 'FiledTS': 1742281200000, 'BusinessName': 'TRANSLATE MI', 'BusinessType': 'Individual', 'BusinessCity': 'VAN NUYS'}
+  {'FilingNumber': '2024212629', 'FiledTS': 1728975600000, 'BusinessName': 'TRANSLATION IN CONTEXT', 'BusinessType': 'Individual', 'BusinessCity': 'TUJUNGA'}
+  {'FilingNumber': '2025034564', 'FiledTS': 1739952000000, 'BusinessName': 'TRANSLATING SOLUTIONS', 'BusinessType': 'Corporation', 'BusinessCity': 'SANTA MONICA'}
