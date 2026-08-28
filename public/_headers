@@ -10,3 +10,10 @@
 /*.webm
   Content-Type: video/webm
   Cache-Control: public,max-age=86400,must-revalidate
+
+# WR PWA — correct MIME + always-fresh service worker
+/wr-app.webmanifest
+  Content-Type: application/manifest+json; charset=utf-8
+/wr-sw.js
+  Content-Type: application/javascript; charset=utf-8
+  Cache-Control: no-cache, no-store, must-revalidate

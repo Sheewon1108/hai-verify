@@ -35,6 +35,75 @@ function formatDate(iso: string): string {
   return `${d.getFullYear()}.${pad(d.getMonth() + 1)}.${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
 
+interface BeforeInstallPromptEvent extends Event {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
+}
+
+/** Home-screen install helper: native prompt on Android/Chrome, hint on iOS. */
+function InstallHint() {
+  const [deferred, setDeferred] = useState<BeforeInstallPromptEvent | null>(null);
+  const [isIOS, setIsIOS] = useState(false);
+  const [standalone, setStandalone] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsIOS(
+        /ipad|iphone|ipod/.test(navigator.userAgent.toLowerCase()) &&
+          !("MSStream" in window),
+      );
+      setStandalone(
+        window.matchMedia("(display-mode: standalone)").matches ||
+          (navigator as { standalone?: boolean }).standalone === true,
+      );
+    }, 0);
+    const onPrompt = (e: Event) => {
+      e.preventDefault();
+      setDeferred(e as BeforeInstallPromptEvent);
+    };
+    window.addEventListener("beforeinstallprompt", onPrompt);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("beforeinstallprompt", onPrompt);
+    };
+  }, []);
+
+  if (standalone || dismissed) return null;
+  if (!deferred && !isIOS) return null;
+
+  return (
+    <div className="rounded-lg border border-zinc-800 bg-zinc-900 px-4 py-3 text-sm text-zinc-300 flex items-center justify-between gap-3">
+      {deferred ? (
+        <>
+          <span>폰에 앱으로 설치할 수 있어요.</span>
+          <button
+            onClick={async () => {
+              await deferred.prompt();
+              await deferred.userChoice;
+              setDeferred(null);
+            }}
+            className="shrink-0 rounded-md bg-zinc-100 text-zinc-900 px-3 py-1.5 font-semibold hover:bg-white"
+          >
+            홈 화면에 추가
+          </button>
+        </>
+      ) : (
+        <span className="leading-relaxed">
+          홈 화면에 추가: 하단 <b>공유</b> 버튼 → <b>홈 화면에 추가</b>
+        </span>
+      )}
+      <button
+        onClick={() => setDismissed(true)}
+        aria-label="닫기"
+        className="shrink-0 text-zinc-500 hover:text-zinc-300"
+      >
+        ✕
+      </button>
+    </div>
+  );
+}
+
 export function WrRoomApp() {
   const [key, setKey] = useState<string | null>(null);
   const [keyInput, setKeyInput] = useState("");
@@ -90,6 +159,16 @@ export function WrRoomApp() {
     },
     [loadEntries],
   );
+
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("/wr-sw.js", { scope: "/wr" })
+        .catch(() => {
+          // Installability is best-effort; the app works without the SW.
+        });
+    }
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -216,6 +295,7 @@ export function WrRoomApp() {
             입장
           </button>
           {status && <p className="text-sm text-red-400 text-center">{status}</p>}
+          <InstallHint />
         </form>
       </main>
     );
@@ -247,6 +327,8 @@ export function WrRoomApp() {
             </button>
           </div>
         </header>
+
+        <InstallHint />
 
         <section className="space-y-2">
           <textarea
