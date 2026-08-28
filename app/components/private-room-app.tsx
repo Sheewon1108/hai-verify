@@ -4,7 +4,7 @@
 // Private & Confidential. Unauthorized copying or distribution of this file is strictly prohibited.
 
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   PRIVATE_ROOM_MIN_KEY_LENGTH,
   emptyDiaryPayload,
@@ -285,7 +285,7 @@ export function PrivateRoomApp({ view }: { view: PrivateRoomView }) {
           status={status}
           onPassphrase={setPassphrase}
           onSeat={setSeat}
-          onOpen={() => void openWithKey(passphrase, seat)}
+          onOpen={(keyText) => void openWithKey(keyText, seat)}
         />
       ) : (
         <>
@@ -464,14 +464,28 @@ function LockForm({
   status: string;
   onPassphrase: (value: string) => void;
   onSeat: (value: PrivateRoomSeat) => void;
-  onOpen: () => void;
+  onOpen: (keyText: string) => void;
 }) {
+  const keyRef = useRef<HTMLInputElement>(null);
+
+  const submit = () => {
+    const live = keyRef.current?.value ?? passphrase;
+    onPassphrase(live);
+    onOpen(live);
+  };
+
   return (
     <section className="rounded-2xl border border-white/8 bg-surface p-5 sm:p-6">
       <p className="text-sm leading-6 text-white/75">
         방 열쇠는 채팅·메일·문자에 적지 마세요. 두 사람만 아는 문장으로 정하면, 어느
         기기에서 이 경로로 들어와도 같은 낙서가 열립니다.
       </p>
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          submit();
+        }}
+      >
       <fieldset className="mt-5">
         <legend className="text-xs text-white/45">자리</legend>
         <div className="mt-2 flex gap-2">
@@ -487,13 +501,12 @@ function LockForm({
         방 열쇠
       </label>
       <input
+        ref={keyRef}
         id="room-key"
+        name="room-key"
         type="password"
-        value={passphrase}
+        defaultValue={passphrase}
         onChange={(event) => onPassphrase(event.target.value)}
-        onKeyDown={(event) => {
-          if (event.key === "Enter") onOpen();
-        }}
         autoComplete="off"
         autoCorrect="off"
         autoCapitalize="off"
@@ -506,13 +519,13 @@ function LockForm({
         {PRIVATE_ROOM_MIN_KEY_LENGTH}자 이상. 브라우저 비밀번호 저장은 끄고 쓰는 편이 맞습니다.
       </p>
       <button
-        type="button"
+        type="submit"
         disabled={busy}
-        onClick={onOpen}
         className="mt-5 rounded-lg bg-accent px-4 py-2.5 text-sm text-white disabled:opacity-50"
       >
         {busy ? "여는 중" : "열기"}
       </button>
+      </form>
       {status ? (
         <p className="mt-4 rounded-lg bg-white/6 px-3 py-2 text-sm text-white/80">{status}</p>
       ) : null}
