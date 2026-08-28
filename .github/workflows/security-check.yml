@@ -26,6 +26,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Checkout protection tests
+        run: npm run test:access
+
       - name: Secret leak scan
         run: |
           set -e

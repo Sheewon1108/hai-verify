@@ -59,12 +59,16 @@ const BLOCKED_REFERER_PATTERNS = [
   "plaync.com",
 ] as const;
 
-const PUBLIC_API_ROUTES: ReadonlyArray<{ method: string; path: string }> = [
+/**
+ * Routes that skip API-key / same-origin checks.
+ * `/api/stripe/checkout` is intentionally NOT public: unauthenticated
+ * external POST/GET must return 401. `/order` still works via same-origin
+ * (or loopback Host in local dev). Stripe webhooks stay public.
+ */
+export const PUBLIC_API_ROUTES: ReadonlyArray<{ method: string; path: string }> = [
   { method: "GET", path: "/api/health" },
   { method: "GET", path: "/api/hai-ic/health" },
   { method: "POST", path: "/api/stripe/webhook" },
-  { method: "POST", path: "/api/stripe/checkout" },
-  { method: "GET", path: "/api/stripe/checkout" },
 ];
 
 function isAccessOpen(): boolean {
@@ -153,7 +157,19 @@ function isLoopbackClient(request: Request): boolean {
 }
 
 function isSameOriginBrowserRequest(request: Request): boolean {
-  return request.headers.get("sec-fetch-site") === "same-origin";
+  if (request.headers.get("sec-fetch-site") === "same-origin") return true;
+
+  const origin = request.headers.get("origin");
+  if (!origin) return false;
+  try {
+    const originUrl = new URL(origin);
+    if (originUrl.protocol !== "http:" && originUrl.protocol !== "https:") {
+      return false;
+    }
+    return originUrl.hostname.toLowerCase() === requestHost(request);
+  } catch {
+    return false;
+  }
 }
 
 function extractApiKey(request: Request): string | null {
