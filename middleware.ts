@@ -54,7 +54,9 @@ export async function middleware(request: NextRequest) {
       { ok: false, error: access.reason ?? "Access denied" },
       {
         status: access.status ?? 403,
-        headers: corsHeaders(origin),
+        headers: pathname.startsWith("/api/private-rooms")
+          ? haiHeaders
+          : corsHeaders(origin),
       },
     );
   }
@@ -62,7 +64,9 @@ export async function middleware(request: NextRequest) {
   if (request.method === "OPTIONS") {
     return new NextResponse(null, {
       status: 204,
-      headers: corsHeaders(origin),
+      headers: pathname.startsWith("/api/private-rooms")
+        ? haiHeaders
+        : corsHeaders(origin),
     });
   }
 
