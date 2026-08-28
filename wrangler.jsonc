@@ -16,6 +16,15 @@
     "not_found_handling": "404-page",
     "run_worker_first": false
   },
+  // WR private rooms (낙서방 · 복불복) storage — agent-blind data.
+  // Before first deploy, create once and paste the real id:
+  //   npx wrangler kv namespace create WR_KV
+  "kv_namespaces": [
+    {
+      "binding": "WR_KV",
+      "id": "REPLACE_WITH_WR_KV_NAMESPACE_ID"
+    }
+  ],
   "services": [
     {
       "binding": "WORKER_SELF_REFERENCE",

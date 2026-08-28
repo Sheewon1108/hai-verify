@@ -163,6 +163,13 @@ When COMPLETELY BLIND is **off**:
 3. Rotate exposed keys (vault set)
 4. Report what was exposed — no blame spiral
 
+## WR private rooms (`/wr`) — AGENT-BLIND (2026-08-28)
+
+- `/wr` = 낙서방 (Owner only) + 복불복 (Owner + EM, 50/50). Data lives in Cloudflare KV (`WR_KV`) only — never in git, never in chat.
+- **Agent MUST NOT read, quote, summarize, or process room entry contents.** Agent maintains the infrastructure (`app/wr`, `app/api/wr`, `app/lib/wr-room.ts`) only.
+- Access keys: `WR_KEY_OWNER` (가람 — both rooms), `WR_KEY_EM` (EM — 복불복 only). Vault/secret storage only; never echo in chat or commit.
+- Room is noindex + robots-disallowed; access key in localStorage per device.
+
 ## Quick status
 
 `npm run warroom:status`
