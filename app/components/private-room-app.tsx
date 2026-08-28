@@ -66,13 +66,24 @@ function writeLocalBlob(blob: EncryptedRoomBlob, lookupId: string): void {
   localStorage.setItem(LOCAL_LOOKUP_KEY, lookupId);
 }
 
+async function roomFetch(url: string, init: RequestInit): Promise<Response> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 8000);
+  try {
+    return await fetch(url, {
+      ...init,
+      signal: controller.signal,
+      credentials: "same-origin",
+      cache: "no-store",
+      referrerPolicy: "no-referrer",
+    });
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 async function fetchServerBlob(lookupId: string): Promise<EncryptedRoomBlob | null> {
-  const response = await fetch(`/api/room/sync?id=${lookupId}`, {
-    method: "GET",
-    credentials: "same-origin",
-    cache: "no-store",
-    referrerPolicy: "no-referrer",
-  });
+  const response = await roomFetch(`/api/room/sync?id=${lookupId}`, { method: "GET" });
   const data = (await response.json()) as { ok?: boolean; blob?: unknown };
   if (!response.ok || !data.ok) {
     throw new Error("ROOM_SYNC_READ_FAILED");
@@ -81,11 +92,8 @@ async function fetchServerBlob(lookupId: string): Promise<EncryptedRoomBlob | nu
 }
 
 async function putServerBlob(lookupId: string, blob: EncryptedRoomBlob): Promise<void> {
-  const response = await fetch(`/api/room/sync?id=${lookupId}`, {
+  const response = await roomFetch(`/api/room/sync?id=${lookupId}`, {
     method: "PUT",
-    credentials: "same-origin",
-    cache: "no-store",
-    referrerPolicy: "no-referrer",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ blob }),
   });
@@ -109,14 +117,18 @@ export function PrivateRoomApp({ view }: { view: PrivateRoomView }) {
     async (next: DiaryPayload, room: UnlockedRoom) => {
       const blob = await encryptDiaryPayload(room.key, next);
       writeLocalBlob(blob, room.lookupId);
-      await putServerBlob(room.lookupId, blob);
+      try {
+        await putServerBlob(room.lookupId, blob);
+      } catch {
+        // Device copy is already written. Other devices pick it up on the next successful sync.
+      }
     },
     [],
   );
 
   const openWithKey = useCallback(async (keyText: string, nextSeat: PrivateRoomSeat) => {
     setBusy(true);
-    setStatus("");
+    setStatus("열쇠를 만드는 중.");
     try {
       const room = await unlockRoomKey(keyText);
       const local = readLocalBlob();
@@ -126,22 +138,24 @@ export function PrivateRoomApp({ view }: { view: PrivateRoomView }) {
           ? await decryptDiaryPayload(room.key, local)
           : emptyDiaryPayload();
 
-      let remotePayload = emptyDiaryPayload();
-      let note = "열림. 같은 열쇠면 다른 기기에서도 이 방이 열립니다.";
-      try {
-        const remote = await fetchServerBlob(room.lookupId);
-        remotePayload = await decryptDiaryPayloadOrEmpty(room.key, remote);
-      } catch {
-        note = "서버 동기화는 못 열었고, 이 기기 저장만 읽었습니다.";
-      }
-
-      const merged = mergeDiaryPayloads(localPayload, remotePayload);
       setUnlocked(room);
       setSeat(nextSeat);
-      setPayload(merged);
+      setPayload(localPayload);
       setPassphrase("");
-      await persist(merged, room);
-      setStatus(note);
+      setStatus("열림. 다른 기기 글을 맞추는 중.");
+      setBusy(false);
+
+      try {
+        const remote = await fetchServerBlob(room.lookupId);
+        const remotePayload = await decryptDiaryPayloadOrEmpty(room.key, remote);
+        const merged = mergeDiaryPayloads(localPayload, remotePayload);
+        setPayload(merged);
+        setStatus("열림. 같은 열쇠면 다른 기기에서도 이 방이 열립니다.");
+        void persist(merged, room);
+      } catch {
+        setStatus("서버 동기화는 못 열었고, 이 기기 저장만 읽었습니다.");
+        void persist(localPayload, room);
+      }
     } catch (error) {
       const message = error instanceof Error ? error.message : "ROOM_UNLOCK_FAILED";
       if (message === "ROOM_KEY_TOO_SHORT") {
@@ -499,7 +513,9 @@ function LockForm({
       >
         {busy ? "여는 중" : "열기"}
       </button>
-      {status ? <p className="mt-4 text-sm text-white/55">{status}</p> : null}
+      {status ? (
+        <p className="mt-4 rounded-lg bg-white/6 px-3 py-2 text-sm text-white/80">{status}</p>
+      ) : null}
       <TracePanel />
     </section>
   );

@@ -68,7 +68,7 @@ export async function unlockRoomKey(passphrase: string): Promise<UnlockedRoom> {
       {
         name: "PBKDF2",
         salt: APP_SALT,
-        iterations: 210_000,
+        iterations: 80_000,
         hash: "SHA-256",
       },
       material,
