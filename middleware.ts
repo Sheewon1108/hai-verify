@@ -28,6 +28,17 @@ export async function middleware(request: NextRequest) {
     [HAI_HEADERS.FLOW_STEP]: HAI_FLOW_STEPS.AI_INPUT,
   };
 
+  const closedRooms =
+    pathname === "/rooms" ||
+    pathname.startsWith("/rooms/") ||
+    pathname.startsWith("/api/private-rooms");
+
+  if (closedRooms) {
+    haiHeaders["X-Robots-Tag"] = "noindex, nofollow, noarchive, nosnippet";
+    haiHeaders["Referrer-Policy"] = "no-referrer";
+    haiHeaders["Cache-Control"] = "no-store, no-cache, must-revalidate, private";
+  }
+
   if (!pathname.startsWith("/api/")) {
     const response = NextResponse.next();
     for (const [key, value] of Object.entries(haiHeaders)) {
@@ -57,8 +68,10 @@ export async function middleware(request: NextRequest) {
 
   const response = NextResponse.next();
 
-  for (const [key, value] of Object.entries(corsHeaders(origin))) {
-    response.headers.set(key, value);
+  if (!pathname.startsWith("/api/private-rooms")) {
+    for (const [key, value] of Object.entries(corsHeaders(origin))) {
+      response.headers.set(key, value);
+    }
   }
   for (const [key, value] of Object.entries(haiHeaders)) {
     response.headers.set(key, value);

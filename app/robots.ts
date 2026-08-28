@@ -7,6 +7,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
+      disallow: ["/rooms", "/rooms/", "/api/private-rooms"],
     },
     sitemap: undefined,
   };

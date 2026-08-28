@@ -1,0 +1,12 @@
+---
+description: Closed diary and bokbulbok rooms — Owner + EM only
+globs: app/rooms/**,app/api/private-rooms/**,app/lib/private-rooms/**,app/components/private-rooms/**
+---
+
+# Private rooms (blind)
+
+- Seats: **owner (나)** and **em (그양반)** only. 50/50 visibility.
+- Agents do not write diary or bokbulbok bodies, and do not quote those bodies in chat, commits, logs, or PRs.
+- No Gmail, SMS, Google login, public nav, or sitemap for these routes.
+- Prefer `127.0.0.1` file store. Do not add Cloudflare KV/D1 unless Owner unlocks that infra.
+- "No traces" is effort, not a guarantee. Keep the limits list honest.
