@@ -7,6 +7,9 @@
  * Creates a Stripe Checkout Session for HAI Verify API key purchase.
  * On payment success, Stripe calls /api/stripe/webhook which issues the API key.
  *
+ * Auth (middleware): unauthenticated external POST → 401.
+ * Same-origin /order and loopback Host still pass. Webhook stays public.
+ *
  * Body: { plan: "starter" | "pro", email: string }
  */
 

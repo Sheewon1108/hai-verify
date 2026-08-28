@@ -62,8 +62,9 @@ const BLOCKED_REFERER_PATTERNS = [
 const PUBLIC_API_ROUTES: ReadonlyArray<{ method: string; path: string }> = [
   { method: "GET", path: "/api/health" },
   { method: "GET", path: "/api/hai-ic/health" },
+  // Stripe signs webhooks; they cannot send a HAI API key.
   { method: "POST", path: "/api/stripe/webhook" },
-  { method: "POST", path: "/api/stripe/checkout" },
+  // Schema/discovery only. POST checkout is protected (401 without auth).
   { method: "GET", path: "/api/stripe/checkout" },
 ];
 
