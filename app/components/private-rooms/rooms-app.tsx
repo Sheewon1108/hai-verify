@@ -766,7 +766,7 @@ function LimitsPanel({ limits }: { limits: TraceLimit[] }) {
       <button
         type="button"
         onClick={() => setOpen((value) => !value)}
-        className="text-xs tracking-[0.14em] text-white/35"
+        className="rounded-lg border border-white/12 px-3 py-2 text-xs tracking-[0.14em] text-white/70"
       >
         흔적 — 되는 것 / 안 되는 것 {open ? "닫기" : "열기"}
       </button>
