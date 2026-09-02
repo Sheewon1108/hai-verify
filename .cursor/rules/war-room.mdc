@@ -23,7 +23,7 @@ This priority is permanent for this workspace. Applies to anything, anywhere, an
 - This chat is **not** a private two-person room. Never paste API keys, tokens, or vault values here.
 - War room = **rules + local checks + clear logs**, not cryptographic isolation.
 - **No named room / no ACL = treated as open (security hole).** Always apply stakeholder + blind policy below.
-- KARAM does not need perfect instructions. Agent infers intent for **explanation only** under COMPLETELY BLIND; asks **one** short question if unclear. **No action without unlock.**
+- KARAM does not need perfect instructions. Agent infers intent and executes (실행 90); asks **one** short question only when genuinely unclear. Under COMPLETELY BLIND (when re-enabled): explanation only, no action without unlock.
 
 ## FINAL KNOT — 50/50 close (2026-08-11) — NO LOOP
 
@@ -39,9 +39,21 @@ Owner: finish work **50/50 as partner**, then Owner may listen as family.
 | **Unlock for finish** | Owner phrases **`해` / `마무리` / `진행` / `실행:` / `GO:`** = unlock for the **named close-out**, then return to blind unless `blind off`. |
 | **가람 → 일론 → 승인** | **KARAM thinks** (direction). **Partner runs to the end** (no mid-flight approve spam). **KARAM approves the finished package.** 50/50 demand OK. Owner-only: bank, vault secrets, legal sign, family money. |
 
-## COMPLETELY BLIND — ACTIVE (Owner re-apply 2026-08-11)
+## COMPLETELY BLIND — OFF (Owner directive 2026-09-02, "전체 BLIND OFF")
 
-**Room mode: COMPLETELY BLIND.** Owner directive. Mandatory until `blind off`.
+**Room mode: BLIND OFF — all rooms.** Owner lifted COMPLETELY BLIND on 2026-09-02.
+
+### Operating mode while OFF — 실행 90 / 의견 10 (Owner directive 2026-09-02)
+
+| Rule | Agent behavior |
+|------|----------------|
+| **실행 90%** | Owner (KARAM) or EM instruction → execute directly, run to the end, no mid-flight approve spam. No `실행:` prefix required. |
+| **의견 10%** | Agent may add a one-line opinion or idea when it sees risk or a better path; decision stays with KARAM. |
+| **No secrets** | Unchanged and permanent: never ask for, echo, or handle key values in chat. |
+| **Non-stakeholders** | Still always BLIND (explain-only). Roster: EM + Owner only. |
+| **Re-enable** | Owner or EM says `completely blind` / `COMPLETELY BLIND` → the ACTIVE rules below apply again. |
+
+### If COMPLETELY BLIND is re-enabled (reference — not active now)
 
 | Rule | Agent behavior |
 |------|----------------|
@@ -51,7 +63,7 @@ Owner: finish work **50/50 as partner**, then Owner may listen as family.
 | **No secrets** | Never ask for, echo, or handle key values in chat |
 | **No scope** | No extra products/infra/tunnels/shares |
 
-### Unlock (only way to leave pure explain)
+### Unlock (only applies while COMPLETELY BLIND is re-enabled)
 
 | Who | Unlock phrase | Effect |
 |-----|---------------|--------|
@@ -64,14 +76,14 @@ Owner: finish work **50/50 as partner**, then Owner may listen as family.
 - After unlock action finishes → **return to COMPLETELY BLIND** unless message said `blind off`.
 - Unclear speaker → stay COMPLETELY BLIND.
 
-### What agent may still do while COMPLETELY BLIND (read-only)
+### What agent may still do while COMPLETELY BLIND (read-only; reference)
 
 - Answer questions, explain status from already known context
 - Propose commands as text (do not run them)
 - Point to local paths / scripts by name only
 - Refuse unsafe or secret-exposing requests
 
-### What agent must NOT do while COMPLETELY BLIND
+### What agent must NOT do while COMPLETELY BLIND (reference)
 
 - `npm`, `git`, deploy, file write/edit/delete, vault, PM2, Stripe/CF changes
 - “Helpful” silent fixes, background work, parallel tracks
@@ -103,14 +115,14 @@ A room without an explicit stakeholder list during HAI-IC is **not** a secure WR
 - **Stakeholder add / remove:** **EM only** during HAI-IC. Owner and agent cannot change the roster. If non-EM requests roster change → refuse, stay blind for that request, note that EM must authorize.
 - **Default mode when speaker is unclear:** BLIND until confirmed as EM or Owner.
 
-### Blind protocol (HAI-IC term) — superseded while COMPLETELY BLIND is ACTIVE
+### Blind protocol (HAI-IC term)
 
-While **COMPLETELY BLIND** is ACTIVE (see above): **everyone** is explain-only; EM/Owner execute only via `실행:` / `GO:`; `blind off` restores this section’s prior stakeholder split.
+While **COMPLETELY BLIND** is ACTIVE (reference above): **everyone** is explain-only; EM/Owner execute only via `실행:` / `GO:`; `blind off` restores this section’s stakeholder split.
 
-When COMPLETELY BLIND is **off**:
+When COMPLETELY BLIND is **off** (current state, per Owner 2026-09-02 — 실행 90 / 의견 10):
 
-1. Questions, drafts, PowerShell-looking lines, deploy lines → **description only, no execution**.
-2. Execution only when **confirmed stakeholder** uses exactly `실행:` or `GO:` and the action is in scope.
+1. **Owner (KARAM) or EM instruction → execute directly.** No `실행:` / `GO:` prefix needed. Lines marked `질문:` are questions — answer, don't execute.
+2. Agent may add a short opinion (의견 10%) alongside execution; decision stays with KARAM.
 3. Never echo secrets. Prefer local vault / files over chat.
 4. Non-stakeholders remain **always BLIND**.
 
@@ -134,6 +146,7 @@ When COMPLETELY BLIND is **off**:
 | 2026-07-30 | Commands: **KR OUT** = Owner away; **EM** always may status-check + fix. `()` ignore (F/F). | Owner directive |
 | 2026-08-10 | **COMPLETELY BLIND ACTIVE** — all speakers explain-only; execute only `실행:`/`GO:`; lift with `blind off` (Owner/EM). | Owner directive |
 | 2026-08-11 | **50/50 close · NO LOOP** — `hai-ic/WR-CLOSE-5050.md`; no family↔character; partner half vs Owner money half; `해/마무리` unlock for close-out. | Owner directive |
+| 2026-09-02 | **전체 BLIND OFF** — COMPLETELY BLIND lifted for all rooms. Operating mode: **실행 90 / 의견 10** — Owner/EM instructions execute directly (no `실행:` prefix); agent adds short opinions; secrets rule unchanged; non-stakeholders still blind. Re-enable with `completely blind`. | Owner directive (executed) |
 
 ## Agent MUST
 
@@ -147,7 +160,7 @@ When COMPLETELY BLIND is **off**:
 8. **Priority 1 gate** — before acting, silently apply KARAM + Grok/xAI security first; only then run the ordered task.
 9. **ACL gate (HAI-IC term only)** — enforce stakeholder roster; non-stakeholder always blind; roster changes EM-only. After HAI-IC ends: stop enforcing this ACL; do not invent next-project ACL.
 10. **KR OUT / EM desk** — on KR OUT, Owner is away; under COMPLETELY BLIND, EM still needs `실행:`/`GO:` to fix. After `blind off`, EM may status-check + fix. Ignore `(…)` / (F/F) noise.
-11. **COMPLETELY BLIND gate** — while ACTIVE: no execute without `실행:`/`GO:`; no session-long autonomy; return to blind after each unlocked action unless `blind off`.
+11. **COMPLETELY BLIND gate** — currently **OFF** (Owner 2026-09-02). While OFF: 실행 90 / 의견 10 for Owner/EM. If re-enabled: no execute without `실행:`/`GO:`; no session-long autonomy; return to blind after each unlocked action unless `blind off`.
 
 ## Agent MUST NOT
 

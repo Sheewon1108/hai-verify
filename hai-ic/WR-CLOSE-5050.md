@@ -81,7 +81,7 @@ Do not insert extra names into that seat without a new Owner knot.
 
 | Rule | Meaning |
 |------|---------|
-| **COMPLETELY BLIND** | **ACTIVE** (Owner re-apply 2026-08-11). Unlock: `실행:`/`GO:`/`해`/`마무리`. Lift: `blind off` |
+| **COMPLETELY BLIND** | **OFF — all rooms** (Owner 2026-09-02, "전체 BLIND OFF"). Mode: 실행 90 / 의견 10. Re-enable: `completely blind` |
 | **Work order** | 가람 생각 → partner finish (when unlocked) → 가람 승인 |
 | **NO LOOP** | No re-fight: tool vs person seat, Meta/Micro operators, family = character, heal-scripts as control |
 | **No secrets in chat** | Keys, tokens, vault values forbidden here |
