@@ -51,7 +51,7 @@ Owner: finish work **50/50 as partner**, then Owner may listen as family.
 | **의견 10%** | Agent may add a one-line opinion or idea when it sees risk or a better path; decision stays with KARAM. |
 | **No secrets** | Unchanged and permanent: never ask for, echo, or handle key values in chat. |
 | **Non-stakeholders** | Still always BLIND (explain-only). Roster: EM + Owner only. |
-| **Re-enable** | Owner or EM says `completely blind` / `COMPLETELY BLIND` → the ACTIVE rules below apply again. |
+| **Re-enable (instant)** | Owner or EM saying BLIND is needed **in any clear form** (`completely blind`, `BLIND 적용`, `블라인드 켜`, "BLIND 필요해" 등) → apply immediately, mid-task if necessary. No exact phrase required. Owner/EM only. |
 
 ### If COMPLETELY BLIND is re-enabled (reference — not active now)
 
@@ -133,7 +133,7 @@ When COMPLETELY BLIND is **off** (current state, per Owner 2026-09-02 — 실행
 | **KR OUT** | Owner 자리비움 (away) | Owner not at desk. Do **not** wait on Owner for routine status. Under COMPLETELY BLIND: still no execute without unlock. |
 | **EM** (always) | EM may enter anytime | Status/explain always. **Execute** only with `실행:` / `GO:` while COMPLETELY BLIND is on; after `blind off`, EM may inspect + fix in scope as before. |
 | **blind off** / **BLIND OFF** | Lift COMPLETELY BLIND | Owner or EM only. Revert to stakeholder ACL (non-stakeholders stay blind). |
-| **completely blind** / **COMPLETELY BLIND** | Re-enable max blind | Owner or EM only. |
+| **completely blind** / **COMPLETELY BLIND** / any clear "BLIND 필요" from Owner or EM | Re-enable max blind | Owner or EM only. Apply **immediately**, even mid-task. |
 
 - Text in **`()` parentheses** → **ignore** (noise / (F/F) markers). Do not treat as commands.
 
@@ -147,6 +147,7 @@ When COMPLETELY BLIND is **off** (current state, per Owner 2026-09-02 — 실행
 | 2026-08-10 | **COMPLETELY BLIND ACTIVE** — all speakers explain-only; execute only `실행:`/`GO:`; lift with `blind off` (Owner/EM). | Owner directive |
 | 2026-08-11 | **50/50 close · NO LOOP** — `hai-ic/WR-CLOSE-5050.md`; no family↔character; partner half vs Owner money half; `해/마무리` unlock for close-out. | Owner directive |
 | 2026-09-02 | **전체 BLIND OFF** — COMPLETELY BLIND lifted for all rooms. Operating mode: **실행 90 / 의견 10** — Owner/EM instructions execute directly (no `실행:` prefix); agent adds short opinions; secrets rule unchanged; non-stakeholders still blind. Re-enable with `completely blind`. | Owner directive (executed) |
+| 2026-09-02 | **Instant re-enable** — when Owner or EM says BLIND is needed in any clear form, agent applies COMPLETELY BLIND immediately (no exact phrase, mid-task OK). | Owner directive (executed) |
 
 ## Agent MUST
 
