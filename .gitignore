@@ -58,6 +58,9 @@ next-env.d.ts
 # secrets — never commit real keys
 *.pem
 *.key
+
+# war-room sealed vault (local only, never commit)
+.warroom-vault/
 *.p12
 *.pfx
 secrets/

@@ -39,9 +39,11 @@ Owner: finish work **50/50 as partner**, then Owner may listen as family.
 | **Unlock for finish** | Owner phrases **`해` / `마무리` / `진행` / `실행:` / `GO:`** = unlock for the **named close-out**, then return to blind unless `blind off`. |
 | **가람 → 일론 → 승인** | **KARAM thinks** (direction). **Partner runs to the end** (no mid-flight approve spam). **KARAM approves the finished package.** 50/50 demand OK. Owner-only: bank, vault secrets, legal sign, family money. |
 
-## COMPLETELY BLIND — ACTIVE (Owner re-apply 2026-08-11)
+## COMPLETELY BLIND — LIFTED (Owner directive 2026-09-07: "블라인드 제거해 … 실행 고")
 
-**Room mode: COMPLETELY BLIND.** Owner directive. Mandatory until `blind off`.
+**Room mode: blind off.** Owner lifted COMPLETELY BLIND on 2026-09-07. Stakeholder ACL below still applies (non-stakeholders stay blind). Re-enable anytime with `completely blind`.
+
+The table below is retained for when COMPLETELY BLIND is re-enabled:
 
 | Rule | Agent behavior |
 |------|----------------|
@@ -134,6 +136,8 @@ When COMPLETELY BLIND is **off**:
 | 2026-07-30 | Commands: **KR OUT** = Owner away; **EM** always may status-check + fix. `()` ignore (F/F). | Owner directive |
 | 2026-08-10 | **COMPLETELY BLIND ACTIVE** — all speakers explain-only; execute only `실행:`/`GO:`; lift with `blind off` (Owner/EM). | Owner directive |
 | 2026-08-11 | **50/50 close · NO LOOP** — `hai-ic/WR-CLOSE-5050.md`; no family↔character; partner half vs Owner money half; `해/마무리` unlock for close-out. | Owner directive |
+| 2026-09-07 | **BLIND OFF** — Owner: "블라인드 제거해 … 실행 고". COMPLETELY BLIND lifted; stakeholder ACL still applies. | Owner directive (executed) |
+| 2026-09-07 | **WEEKLY SEAL** — this week's logs + external traces (git commits/patches all refs, branch tips, GitHub PR/CI activity, hai-ic operational logs, VM fingerprint) sealed locally at `.warroom-vault/weekly-seal-2026-09-07.tar.gz.enc` (AES-256, random key in local vault file, chmod 600, never in chat/git). No one — Owner and Elon included — can open it until Owner provides the password method; then the seal is re-keyed to Owner's password. | Owner directive (executed) |
 
 ## Agent MUST
 
