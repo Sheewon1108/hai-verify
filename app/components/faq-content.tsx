@@ -10,101 +10,87 @@ type FaqItem = {
 
 const FAQ_ITEMS: FaqItem[] = [
   {
-    question: '1. What exactly is HAI Verify?',
+    question: 'What exactly is HAI Verify?',
     answer: [
       'HAI Verify verifies AI-generated outputs before they are trusted or acted upon. It helps organizations identify risky, inconsistent, or potentially hallucinated responses and provides a documented verification process.',
     ],
   },
   {
-    question:
-      '2. Why do I need HAI Verify if I already use ChatGPT, Claude, Gemini, Grok, Perplexity, DeepSeek, or local AIs (such as Naver HyperCLOVA, Doubao, or Qwen)?',
+    question: 'Why do I need HAI Verify if I already use ChatGPT, Claude, Gemini, Grok…?',
     answer: [
-      'Those systems generate answers. HAI Verify checks whether those answers are reliable enough for your workflow. Think of it as quality assurance for AI decisions — model-agnostic.',
+      'Those tools generate. HAI Verify scores whether the request is clear enough to act on. Generation and verification are different jobs.',
     ],
   },
   {
-    question: '3. Does HAI Verify replace my AI?',
+    question: 'Does HAI Verify replace my AI?',
+    answer: ['No. It sits in front of action. Your model still writes. HAI decides if the intent is ready.'],
+  },
+  {
+    question: 'Who is HAI Verify designed for?',
     answer: [
-      'No. You keep using your preferred models. HAI Verify adds a verification layer before action. People still use natural language with their AI; HAI measures intent confidence and risk so decisions stay accountable. Hybrid by design.',
+      'Operators who use AI for real work — legal, ops, sales, product — and need a record before they execute.',
     ],
   },
   {
-    question: '4. Who is HAI Verify designed for?',
+    question: 'What problem does HAI Verify solve?',
     answer: [
-      'Organizations that use AI where mistakes matter — legal, healthcare, finance, enterprise AI, government, and high-stakes customer support.',
+      'AI answers that look finished but the ask was vague. HAI measures intent confidence 0–100 and only proceeds in Sincere Mode (75+).',
     ],
   },
   {
-    question: '5. What problem does HAI Verify solve?',
+    question: 'How is HAI Verify different from prompt engineering?',
+    answer: ['Prompt engineering rewrites the ask. HAI scores the ask as it is, then gates action.'],
+  },
+  {
+    question: 'What do I receive?',
+    answer: ['A confidence score, a short gap list, a risk note, and a documented pass/hold before action.'],
+  },
+  {
+    question: 'Do I need to change my existing AI workflow?',
+    answer: ['No. Keep your models. Add HAI before you execute or send.'],
+  },
+  {
+    question: 'Is my data used to train AI models?',
+    answer: ['No. Pilot inputs are for your verification run, not model training.'],
+  },
+  {
+    question: 'How can we start?',
+    answer: ['Open https://hai-ic.com and start the Paid Pilot.'],
+  },
+  {
+    question: 'Why should I trust HAI Verify?',
     answer: [
-      'AI can produce convincing but incorrect outputs. HAI Verify helps teams identify high-risk responses, document review decisions, improve trust, and create audit trails.',
+      'You get a written score and a hold/go rule. You keep the decision. HAI does not hide behind a chat answer.',
     ],
   },
   {
-    question: '6. How is HAI Verify different from prompt engineering?',
+    question: 'How long does implementation take?',
+    answer: ['Pilot is same day. API / workflow wiring is scoped after pilot.'],
+  },
+  {
+    question: 'What happens if HAI Verify disagrees with the AI?',
+    answer: ['The AI draft is held. Missing conditions are listed. You confirm or stop.'],
+  },
+  {
+    question: 'Can I integrate it with my existing system?',
+    answer: ['Yes, after pilot. Web first, then API.'],
+  },
+  {
+    question: 'Do you support API integration?',
+    answer: ['Yes. Analyze is gated. Access is issued after pilot.'],
+  },
+  {
+    question: 'What does the audit log include?',
+    answer: ['Time, score, missing conditions, risk note, and go/hold. No passwords. No keys.'],
+  },
+  {
+    question: 'How much human review is required?',
+    answer: ['Below 75: human confirms. 75+: proceed, human still owns the outcome.'],
+  },
+  {
+    question: 'Can I test it before committing?',
     answer: [
-      'Prompt engineering tries to improve the AI’s answer. HAI Verify evaluates the answer after it has been generated, before people rely on it.',
-    ],
-  },
-  {
-    question: '7. What do I receive?',
-    answer: ['Verification Report, Risk Summary, Human Review Notes, Audit Log, and Verification Status.'],
-  },
-  {
-    question: '8. Do I need to change my existing AI workflow?',
-    answer: ['No. HAI Verify is designed to fit existing workflows with minimal disruption.'],
-  },
-  {
-    question: '9. Is my data used to train AI models?',
-    answer: [
-      'No. Customer data remains under customer control. Verification results are for the customer’s workflow, not for model training.',
-    ],
-  },
-  {
-    question: '10. How can we start?',
-    answer: ['Start with a small pilot on a real workflow. See how HAI Verify fits before a broader deployment.'],
-  },
-  {
-    question: '11. Why should I trust HAI Verify?',
-    answer: [
-      'We don’t ask you to trust another AI. We provide a transparent verification process that humans can review, understand, and audit. Trust should come from evidence — not claims.',
-      'Humans understand AI with Heart, and AI protects the Heart of Humanity.',
-    ],
-  },
-  {
-    question: '12. How long does implementation take?',
-    answer: ['Pilot first; timeline depends on scope. Most teams start with a focused workflow, then expand.'],
-  },
-  {
-    question: '13. What happens if HAI Verify disagrees with the AI?',
-    answer: ['The case is flagged for human review. You decide. HAI does not silently override your process.'],
-  },
-  {
-    question: '14. Can I integrate it with my existing system?',
-    answer: ['Yes. Built to connect to existing stacks with minimal change.'],
-  },
-  {
-    question: '15. Do you support API integration?',
-    answer: ['Yes. API integration is supported for pre-execution checks and reporting.'],
-  },
-  {
-    question: '16. What does the audit log include?',
-    answer: ['Decision trail, verification status, risk notes, and review context needed for accountability.'],
-  },
-  {
-    question: '17. How much human review is required?',
-    answer: [
-      'More when confidence is low; less in sincere mode (e.g. 75%+ intent confidence). You set the threshold for your risk level.',
-    ],
-  },
-  {
-    question: '18. Can I test it before committing?',
-    answer: ['Yes. Use the public demo and a scoped pilot before broader rollout.'],
-  },
-  {
-    question: 'Sensitive / confidential data',
-    answer: [
-      'Handled under customer control. Not used for model training. (Align final legal wording with your policy.)',
+      'Yes. Use the live site. Paid Pilot is the paid start. No password, bank statement, or remote-access request to begin.',
     ],
   },
 ];
