@@ -10,15 +10,18 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.join(process.env.USERPROFILE ?? "", "secrets", "discord-bot.env") });
 dotenv.config({ path: path.join(__dirname, ".env") });
 import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
   Client,
   EmbedBuilder,
   GatewayIntentBits,
   InteractionType,
 } from "discord.js";
-import { formatFlagsKo } from "./risk-labels.mjs";
 
 const token = process.env.DISCORD_TOKEN;
 const apiUrl = (process.env.HAI_VERIFY_API_URL ?? "http://localhost:3001").replace(/\/$/, "");
+const siteUrl = (process.env.HAI_SITE_URL ?? apiUrl).replace(/\/$/, "");
 const apiKey = process.env.HAI_INTERNAL_API_KEY ?? process.env.HAI_VERIFY_API_KEY ?? "";
 
 if (!token) {
@@ -49,27 +52,25 @@ function trustColor(trustIndex) {
   return 0xfb923c;
 }
 
-function buildVerifyEmbed(result, preview) {
+function buildScoreReply(result) {
   const embed = new EmbedBuilder()
     .setColor(trustColor(result.trustIndex))
-    .setTitle("HAI Verify · Karam Trust Report")
-    .setDescription(preview.length > 200 ? `${preview.slice(0, 200)}…` : preview)
+    .setTitle("HAI Verify · Trust Score")
     .addFields(
       { name: "Trust Index", value: `**${result.trustIndex}** / 100`, inline: true },
-      { name: "Hallucination risk", value: `**${result.hallucinationRisk}** / 100`, inline: true },
-      {
-        name: "Human review",
-        value: result.humanReviewRequired ? "권장" : "불필요",
-        inline: true,
-      },
-      { name: "Risk flags", value: formatFlagsKo(result.riskFlags) },
-      { name: "Summary", value: result.summary.slice(0, 900) || "—" },
-      { name: "Next step", value: result.recommendedNextStep.slice(0, 900) || "—" },
+      { name: "Hallucination Risk", value: `**${result.hallucinationRisk}** / 100`, inline: true },
     )
-    .setFooter({ text: "75-point baseline · POST /api/verify · Mock phase" })
+    .setFooter({ text: "Score only · Full report available on the website" })
     .setTimestamp();
 
-  return embed;
+  const row = new ActionRowBuilder().addComponents(
+    new ButtonBuilder()
+      .setLabel("Full Report →")
+      .setStyle(ButtonStyle.Link)
+      .setURL(`${siteUrl}/order`),
+  );
+
+  return { embeds: [embed], components: [row] };
 }
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -86,15 +87,16 @@ client.on("interactionCreate", async (interaction) => {
     await interaction.reply({
       ephemeral: true,
       content: [
-        "**HAI Verify Discord (step 2+)**",
+        "**HAI Verify Discord**",
         "",
-        "`/hai-verify text:<AI 출력>` — Trust Index 검증",
+        "`/hai-verify text:<AI 출력>` — Trust Index · Hallucination Risk 점수 반환",
         "",
+        "• 점수는 무료 · 전체 리포트는 Full Report 버튼으로 구매",
         "• Next.js가 켜져 있어야 해요: `npm run dev` (루트)",
         "• 봇: `cd discord-bot && npm start`",
         "• 명령 등록: `npm run register`",
         "",
-        "웹: /verify (무료) · /order (Mock Money Entrance)",
+        `전체 리포트: ${siteUrl}/order`,
       ].join("\n"),
     });
     return;
@@ -112,7 +114,7 @@ client.on("interactionCreate", async (interaction) => {
 
   try {
     const result = await runVerification(text);
-    await interaction.editReply({ embeds: [buildVerifyEmbed(result, text)] });
+    await interaction.editReply(buildScoreReply(result));
   } catch (err) {
     const msg = err instanceof Error ? err.message : "Verification failed";
     await interaction.editReply({
