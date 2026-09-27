@@ -49,11 +49,10 @@ function trustColor(trustIndex) {
   return 0xfb923c;
 }
 
-function buildVerifyEmbed(result, preview) {
+function buildVerifyEmbed(result) {
   const embed = new EmbedBuilder()
     .setColor(trustColor(result.trustIndex))
-    .setTitle("HAI Verify · Karam Trust Report")
-    .setDescription(preview.length > 200 ? `${preview.slice(0, 200)}…` : preview)
+    .setTitle("HAI Verify · Score Report")
     .addFields(
       { name: "Trust Index", value: `**${result.trustIndex}** / 100`, inline: true },
       { name: "Hallucination risk", value: `**${result.hallucinationRisk}** / 100`, inline: true },
@@ -63,10 +62,8 @@ function buildVerifyEmbed(result, preview) {
         inline: true,
       },
       { name: "Risk flags", value: formatFlagsKo(result.riskFlags) },
-      { name: "Summary", value: result.summary.slice(0, 900) || "—" },
-      { name: "Next step", value: result.recommendedNextStep.slice(0, 900) || "—" },
     )
-    .setFooter({ text: "75-point baseline · POST /api/verify · Mock phase" })
+    .setFooter({ text: "Score-only reply · POST /api/verify" })
     .setTimestamp();
 
   return embed;
@@ -93,8 +90,7 @@ client.on("interactionCreate", async (interaction) => {
         "• Next.js가 켜져 있어야 해요: `npm run dev` (루트)",
         "• 봇: `cd discord-bot && npm start`",
         "• 명령 등록: `npm run register`",
-        "",
-        "웹: /verify (무료) · /order (Mock Money Entrance)",
+        "• 결제 없음 (No payment)",
       ].join("\n"),
     });
     return;
@@ -112,7 +108,7 @@ client.on("interactionCreate", async (interaction) => {
 
   try {
     const result = await runVerification(text);
-    await interaction.editReply({ embeds: [buildVerifyEmbed(result, text)] });
+    await interaction.editReply({ embeds: [buildVerifyEmbed(result)] });
   } catch (err) {
     const msg = err instanceof Error ? err.message : "Verification failed";
     await interaction.editReply({

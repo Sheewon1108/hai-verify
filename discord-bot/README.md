@@ -6,7 +6,7 @@ Discord Developer Portal 설정(Step 1)이 끝났다면, 여기서 **슬래시 �
 
 | Command | 설명 |
 |---------|------|
-| `/hai-verify text:...` | AI 텍스트 검증 → Trust Index embed |
+| `/hai-verify text:...` | AI 텍스트 검증 → score-only embed |
 | `/hai-verify-help` | 사용법 (본인만 보임) |
 
 ## Setup
@@ -47,11 +47,11 @@ npm start          # 봇 실행
 Discord /hai-verify
     → discord-bot/bot.mjs
     → POST {HAI_VERIFY_API_URL}/api/verify
-    → Embed (Trust Index, flags, summary)
+    → Embed (Trust Index, Hallucination risk, review flag, risk flags)
 ```
 
 - 엔진 코드는 **루트 `app/lib/verification.ts`** — 봇은 API만 호출
-- `/verify`, `/order` 웹 페이지는 변경 없음
+- 결제 링크/결제 안내는 Discord 답변에서 제외
 
 ## Production
 
