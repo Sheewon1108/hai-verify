@@ -11,14 +11,14 @@ dotenv.config({ path: path.join(process.env.USERPROFILE ?? "", "secrets", "disco
 dotenv.config({ path: path.join(__dirname, ".env") });
 import {
   Client,
-  EmbedBuilder,
   GatewayIntentBits,
   InteractionType,
 } from "discord.js";
-import { formatFlagsKo } from "./risk-labels.mjs";
+import { buildScoreOnlyReply } from "./score-reply.mjs";
 
 const token = process.env.DISCORD_TOKEN;
 const apiUrl = (process.env.HAI_VERIFY_API_URL ?? "http://localhost:3001").replace(/\/$/, "");
+const webUrl = (process.env.HAI_VERIFY_WEB_URL ?? apiUrl).replace(/\/$/, "");
 const apiKey = process.env.HAI_INTERNAL_API_KEY ?? process.env.HAI_VERIFY_API_KEY ?? "";
 
 if (!token) {
@@ -43,35 +43,6 @@ async function runVerification(text) {
   return data;
 }
 
-function trustColor(trustIndex) {
-  if (trustIndex >= 70) return 0x34d399;
-  if (trustIndex >= 45) return 0xfbbf24;
-  return 0xfb923c;
-}
-
-function buildVerifyEmbed(result, preview) {
-  const embed = new EmbedBuilder()
-    .setColor(trustColor(result.trustIndex))
-    .setTitle("HAI Verify · Karam Trust Report")
-    .setDescription(preview.length > 200 ? `${preview.slice(0, 200)}…` : preview)
-    .addFields(
-      { name: "Trust Index", value: `**${result.trustIndex}** / 100`, inline: true },
-      { name: "Hallucination risk", value: `**${result.hallucinationRisk}** / 100`, inline: true },
-      {
-        name: "Human review",
-        value: result.humanReviewRequired ? "권장" : "불필요",
-        inline: true,
-      },
-      { name: "Risk flags", value: formatFlagsKo(result.riskFlags) },
-      { name: "Summary", value: result.summary.slice(0, 900) || "—" },
-      { name: "Next step", value: result.recommendedNextStep.slice(0, 900) || "—" },
-    )
-    .setFooter({ text: "75-point baseline · POST /api/verify · Mock phase" })
-    .setTimestamp();
-
-  return embed;
-}
-
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.once("ready", () => {
@@ -88,13 +59,14 @@ client.on("interactionCreate", async (interaction) => {
       content: [
         "**HAI Verify Discord (step 2+)**",
         "",
-        "`/hai-verify text:<AI 출력>` — Trust Index 검증",
+        "`/hai-verify text:<AI 출력>` — Trust Index 점수만 답장",
         "",
         "• Next.js가 켜져 있어야 해요: `npm run dev` (루트)",
         "• 봇: `cd discord-bot && npm start`",
         "• 명령 등록: `npm run register`",
         "",
-        "웹: /verify (무료) · /order (Mock Money Entrance)",
+        `웹: ${webUrl}/verify (무료)`,
+        "No payment or Stripe checkout link is sent by this bot.",
       ].join("\n"),
     });
     return;
@@ -112,7 +84,7 @@ client.on("interactionCreate", async (interaction) => {
 
   try {
     const result = await runVerification(text);
-    await interaction.editReply({ embeds: [buildVerifyEmbed(result, text)] });
+    await interaction.editReply({ content: buildScoreOnlyReply(result) });
   } catch (err) {
     const msg = err instanceof Error ? err.message : "Verification failed";
     await interaction.editReply({

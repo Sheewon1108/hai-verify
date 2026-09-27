@@ -6,8 +6,10 @@ Discord Developer Portal 설정(Step 1)이 끝났다면, 여기서 **슬래시 �
 
 | Command | 설명 |
 |---------|------|
-| `/hai-verify text:...` | AI 텍스트 검증 → Trust Index embed |
+| `/hai-verify text:...` | AI 텍스트 검증 → Trust Index 점수만 답장 |
 | `/hai-verify-help` | 사용법 (본인만 보임) |
+
+봇은 결제 링크를 보내지 않습니다. Stripe Checkout 또는 `/order` 결제 흐름과 연결하지 않습니다.
 
 ## Setup
 
@@ -34,6 +36,7 @@ npm start          # 봇 실행
 | `DISCORD_CLIENT_ID` | Application → General → Application ID |
 | `DISCORD_GUILD_ID` | 테스트 서버 ID (있으면 명령 즉시 반영) |
 | `HAI_VERIFY_API_URL` | default `http://localhost:3001` |
+| `HAI_VERIFY_WEB_URL` | optional help link base URL, default same as API URL |
 
 ## Discord Portal 체크 (Step 1 recap)
 
@@ -47,11 +50,12 @@ npm start          # 봇 실행
 Discord /hai-verify
     → discord-bot/bot.mjs
     → POST {HAI_VERIFY_API_URL}/api/verify
-    → Embed (Trust Index, flags, summary)
+    → score-only reply (Trust Index)
 ```
 
 - 엔진 코드는 **루트 `app/lib/verification.ts`** — 봇은 API만 호출
-- `/verify`, `/order` 웹 페이지는 변경 없음
+- `/verify` 웹 페이지는 도움말 링크로만 사용
+- `/order`, Stripe Checkout, payment links are intentionally not used by the bot
 
 ## Production
 
