@@ -3,28 +3,49 @@
 import { useState } from 'react';
 import { HaiIcDemo } from './hai-ic-demo';
 
-/** Live Stripe Payment Link — public by design (no secrets). */
-const PILOT_ORDER_URL = 'https://buy.stripe.com/14A8wI6sV3CffST2UT4AU00';
+/** Live Stripe Payment Links — public by design (no secrets). */
+const STARTER_ORDER_URL = 'https://buy.stripe.com/14A8wI6sV3CffST2UT4AU00';
+const EVAL_ORDER_URL = 'https://buy.stripe.com/7sY4gs18BfkXfSTgLJ4AU02';
 
 const PILOT_CTA_CLASS =
   'inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-red-600 to-rose-600 px-8 py-4 text-lg font-bold text-white shadow-xl shadow-red-600/40 transition hover:brightness-110';
+
+const STARTER_CTA_CLASS =
+  'inline-flex items-center justify-center rounded-2xl border border-zinc-600 bg-zinc-900 px-8 py-4 text-lg font-bold text-zinc-100 transition hover:bg-zinc-800';
 
 const INTEGRATION = `curl -X POST https://hai-verify.workers.dev/api/hai-ic/analyze \\
   -H "Content-Type: application/json" \\
   -H "Authorization: Bearer hv_dev_..." \\
   -d '{"input":"Ship 200 units to Seoul by July 15, budget $50k"}'`;
 
-function RequestPilotLink({ className = '' }: { className?: string }) {
+function RequestPilotLink({
+  href,
+  label,
+  className = '',
+}: {
+  href: string;
+  label: string;
+  className?: string;
+}) {
   return (
     <a
-      href={PILOT_ORDER_URL}
+      href={href}
       target="_blank"
       rel="noopener noreferrer"
       data-cta="stripe-pilot"
       className={className || PILOT_CTA_CLASS}
     >
-      Start Paid Pilot
+      {label}
     </a>
+  );
+}
+
+function PilotOrderLinks({ className }: { className: string }) {
+  return (
+    <div className={className}>
+      <RequestPilotLink href={EVAL_ORDER_URL} label="Start $1,500 Evaluation" />
+      <RequestPilotLink href={STARTER_ORDER_URL} label="$300 Starter" className={STARTER_CTA_CLASS} />
+    </div>
   );
 }
 
@@ -95,9 +116,7 @@ export function HaiIcLanding() {
               <br />
               in real-time from 0 to 100. Executes only in <span className="text-red-400">Sincere Mode (75%+)</span>.
             </p>
-            <div className="mt-10 flex justify-center">
-              <RequestPilotLink />
-            </div>
+            <PilotOrderLinks className="mt-10 flex flex-col sm:flex-row justify-center gap-4" />
             <p className="mt-10 mx-auto max-w-3xl text-center text-lg md:text-xl font-medium text-zinc-100 leading-relaxed tracking-[0.01em]">
               Humans understand AI with Heart, and AI protects the Heart of Humanity.
             </p>
@@ -138,9 +157,7 @@ export function HaiIcLanding() {
                 </p>
               </div>
             </div>
-            <div className="flex justify-center md:justify-start">
-              <RequestPilotLink />
-            </div>
+            <PilotOrderLinks className="flex flex-col sm:flex-row justify-center md:justify-start gap-4" />
           </section>
 
           <section id="api" className="py-16 border-t border-white/10">
