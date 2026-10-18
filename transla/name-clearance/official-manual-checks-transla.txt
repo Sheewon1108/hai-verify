@@ -1,0 +1,6 @@
+Manual official-site checks performed in browser:
+- California Secretary of State business search at https://bizfileonline.sos.ca.gov/search/business with query TRANSLA showed 500 results.
+- Visible results were longer names such as LOGOS TRANSLATION SYSTEMS, RELIABLE TRANSLATORS, 1BL TRANSLATIONS LLC, 1-STOP TRANSLATION USA, LLC, 2500 TRANSLATIONS, 3RD FLOOR TRANSLATIONS INC, A C TRANSLATION & SERVICES, LLC, A TRANSLA SHEN SERVICE CORPORATION, AAA TRANSPORTATION & TRANSLATION INC.
+- Separate searches for TRANSLA INC, TRANSLA LLC, and TRANSLA TRANSPORTATION showed no exact-match entity under those names; the interface behaved as a broad keyword search.
+- USPTO trademark search at https://tmsearch.uspto.gov/ for TRANSLA showed 1 result: TRANSLA WONDER, serial 97453826, registration 7112882, LIVE/REGISTERED, filed 2022-06-10, registered 2023-07-18.
+- No standalone TRANSLA mark was observed in the official USPTO search results.

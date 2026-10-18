@@ -1,0 +1,9 @@
+LA County checks for TRANSLA TRANSPORT:
+- LA Vote online name search: total_rows=0, exact_matches=0, prefix_matches=0.
+- LA County open data exact: 0.
+- LA County open data prefix TRANSLA TRANSPORT%: 0.
+
+Manual California Secretary of State browser check for TRANSLA TRANSPORT:
+- visible result count: 13.
+- no exact or near-exact standalone entity named TRANSLA TRANSPORT observed.
+- results were longer names such as AAA TRANSPORTATION & TRANSLATION INC and BONITA TRANSLATION AND TRANSPORTATION INC.
