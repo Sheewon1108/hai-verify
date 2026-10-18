@@ -1,4 +1,9 @@
 # Deploy to Cloudflare using API token from .env.local (no wrangler login / no OAuth popup)
+# Order: deploy first, then sync Workers secrets (unless -SkipSecrets).
+param(
+  [switch]$SkipSecrets
+)
+
 $ErrorActionPreference = "Stop"
 $root = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
 . (Join-Path $root "scripts\lib\with-user-context.ps1")
@@ -53,9 +58,15 @@ Then run: npm run deploy:cf
   exit 1
 }
 
+Write-Host "Deploying with API token (no browser login)..."
+npm run deploy
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+if ($SkipSecrets) {
+  Write-Host "Skipping Workers secrets sync (-SkipSecrets)."
+  exit 0
+}
+
 Write-Host "Syncing Workers secrets from secrets/hai-verify.env..."
 powershell -ExecutionPolicy Bypass -File ./scripts/sync-workers-env.ps1
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-Write-Host "Deploying with API token (no browser login)..."
-npm run deploy
