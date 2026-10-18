@@ -8,6 +8,8 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: projectRoot,
   },
+  // Local-first checks use 127.0.0.1; allow HMR/hydration from that origin in dev.
+  allowedDevOrigins: ["127.0.0.1"],
   async redirects() {
     return [
       {
